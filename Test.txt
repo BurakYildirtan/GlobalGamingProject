@@ -1,2 +1,0 @@
-Hallo.txt 
-Das ist ein Test für das Git Repo
