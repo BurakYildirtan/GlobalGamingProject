@@ -1,0 +1,50 @@
+*
+{
+  color: white;
+  font-size: 28px;
+  font-weight: 300;
+  box-sizing: border-box;
+  font-family: Garamond, serif; font-weight: 400;
+  margin: 0;
+}
+
+header{
+  background-color: darkblue;
+  float: top;
+  text-align:left;
+  display: block;
+}
+
+.nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: aqua;
+}
+
+.NavList {
+  float: left;
+  padding-left: 200px;
+}
+
+
+li a {
+  display: block;
+  color: green;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+div{
+  display: inline-block;
+  background-color: black;
+  text-align: center;
+}
+
+p {
+  text-align: center;
+  font-size: 15px;
+  color: white;
+}
