@@ -53,7 +53,56 @@ p {
 }
 
 footer{
+ 
   width: 100%;
   height: 200px;
   background-color: lightblue;
 }
+footer p, footer h1, footer div{
+
+  background-color: lightblue;
+}footer p{
+  font-size: 17px;
+
+}
+footer div{
+width: 33%;
+}
+
+#footerLink, #footerLink p {
+  background-color: lightblue;
+  text-decoration: none;
+}
+.fa{
+  margin: 0;
+  padding: 20px;
+  font-size: 30px;
+  width: 65px;
+  text-align: center;
+  text-decoration: none;
+  background-color: red;
+  border-radius: 100%;
+  color: white;
+
+}
+.fa:hover{
+  opacity: 0.5;
+}
+.fa-facebook{
+  background-color:#3b5998  ;
+}
+.fa-twitter{
+  background-color: #00acee;
+}
+.fa-instagram{
+  background-color: #125688;
+}
+#newsletter{
+  width: 325px;
+  border: none;
+  color: white;
+}
+#newsletter::placeholder{
+  color: rgb(184, 184, 184);
+}
+
