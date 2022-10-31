@@ -147,6 +147,7 @@ width: 33%;
 input[name="radioButtonSlideShow1"]{
   position: absolute;
   visibility: hidden;
+  
 }
 .slideshow{
   width: 500%;
