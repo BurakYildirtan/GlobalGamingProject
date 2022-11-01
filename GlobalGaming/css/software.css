@@ -16,3 +16,15 @@
     font-size: 15px;
     list-style: square;
   }
+  
+  div{
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+  }
+  
+  p {
+    text-align: center;
+    font-size: 15px;
+    color: black;
+  }
