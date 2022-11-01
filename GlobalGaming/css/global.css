@@ -2,17 +2,20 @@
 {
   color:black;
   font-size: 28px;
-  font-weight: 300;
   box-sizing: border-box;
   font-family: Garamond, serif; font-weight: 400;
   margin: 0;
-  background-color: #4e7793;
 }
 
 header{
   float: top;
   text-align:left;
   display: block;
+  background-color: #4e7793;
+}
+
+body{
+  background-color: #4e7793;
 }
 
 .nav {
@@ -32,9 +35,9 @@ header{
 
 li a {
   display: block;
-  color: white;
+  color: black;
   text-align: center;
-  font-size: 40px;
+  font-size: 30px;
   padding-left: 100px;
   padding-right: 100px;
   text-decoration: underline black;
@@ -51,6 +54,7 @@ p {
   font-size: 15px;
   color: black;
 }
+
 
 footer{
  
