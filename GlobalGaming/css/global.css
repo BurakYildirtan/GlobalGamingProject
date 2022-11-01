@@ -2,17 +2,20 @@
 {
   color:black;
   font-size: 28px;
-  font-weight: 300;
   box-sizing: border-box;
   font-family: Garamond, serif; font-weight: 400;
   margin: 0;
-  background-color: #4e7793;
 }
 
 header{
   float: top;
   text-align:left;
   display: block;
+  background-color: #4e7793;
+}
+
+body{
+  background-color: #4e7793;
 }
 
 .nav {
@@ -51,6 +54,7 @@ p {
   font-size: 15px;
   color: black;
 }
+
 
 footer{
  
@@ -105,99 +109,3 @@ width: 33%;
 #newsletter::placeholder{
   color: rgb(184, 184, 184);
 }
-
-
-/* SlideShow */
-
-.slideshowGesamt{
-  width: 700px;
-  height: 400px;
-  overflow: hidden;
-  
-}
-.middle{
-  position: relative;
-  left: 50%;
-  margin-top: 250px;
-  transform: translate(-50%, -50%) ;
-  
-}
-.slideshowNavigation{
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-25%);
-  display: flex;
-  background: none;
-}
-.slideshowBar{
-  
-  width: 50px;
-  height: 10px;
-  border: 2px solid black;
-  margin: 6px;
-  cursor: pointer;
-  background: none;
-}
-.slideshowBar:hover{
-  background-color: lightblue;
-  transition: 0.4s;
-
-}
-input[name="radioButtonSlideShow1"]{
-  position: absolute;
-  visibility: hidden;
-  
-}
-.slideshow{
-  width: 500%;
-  height: 100%;
-  display: flex;
-}
-.slider{
-  width: 20%;
-  transition: 0.6s;
-}
-.slider img{
-  width: 100%;
-  height: 100%;
-}
-
-#r1:checked ~ .img1{
-  margin-left: 0;
-
-}
-#r2:checked ~ .img1{
-  margin-left: -20%;
-}
-
-#r3:checked ~ .img1{
-  margin-left: -40%;
-}
-#r4:checked ~ .img1{
-  margin-left: -60%;
-}
-#r5:checked ~ .img1{
-  margin-left: -80%;
-}
-
-.SlideshowNext{
-  margin-top: 250px;
-  position: absolute;
-  background: none;
-  transform: translateX( -50%) ;
-  left: 72%;
-}
-.SlideshowPrevious{
-  margin-top: 250px;
-  position: absolute;
-  background: none;
-  transform: translateX( -50%) ;
-  left: 28%;
-
-}
-#SlideNextButton, #SlidePreviousButton{
-  border: none;
-}
-
-
