@@ -1,0 +1,17 @@
+.salesContainer{
+    background-color: rgba(65, 136, 242, 0.615);
+    padding-top: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 17px;
+  }
+  .salesContainer p{
+    font-size: 24px;
+    margin-bottom: 6px;
+  }
+  Button{
+    border: none;
+    background: none;
+    }
