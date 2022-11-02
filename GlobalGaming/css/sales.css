@@ -1,0 +1,80 @@
+/* Sales */
+
+.dealsContainer{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 17px;
+    background-color: silver;
+    width: 90%;
+    margin-left: 5%;
+  }
+
+  .dealsContainer .containerTitle{
+    text-align: left;
+    margin: 2% 0 2% 15%;
+    
+  }
+  .dealsContainer p{
+    font-size: 24px;
+    margin-bottom: 6px;
+  }
+  Button{
+  border: none;
+  background: none;
+  }
+  
+  .salesBuyButton{
+    background-color: lightblue;
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 0.7em 1.7em;
+    text-align: center;
+    font-size: 24px;
+    margin: 4px 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .salesBuyButton:hover{
+    opacity: 1;
+  }
+
+  
+.dealsContainer li {
+    display: inline-block;
+    font-size: 20px;
+    list-style-type: none;
+    padding: 1em;
+    text-transform: uppercase;
+  }
+  
+ .dealsContainer li span {
+    display: block;
+    font-size: 35px;
+  }
+  .gameTitleContainer{
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    
+  }
+
+  .gameTitle h1{
+    font-size: 45px;
+  }
+
+  .salesContainer{
+    background-color: silver;
+    padding-top: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 17px;
+  }
+  .salesContainer p{
+    font-size: 24px;
+    margin-bottom: 6px;
+  }
