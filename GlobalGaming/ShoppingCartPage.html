@@ -3,29 +3,28 @@
     <head>
         <meta name="viewport" content="width=device-width", inital-scale="1.0">
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/global.css">
         <link rel="stylesheet" href="css/shoppingCart.css">
         <link rel="icon" type="image/x-icon" href="pics/favicon.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Shopping-Cart</title>
-    </head>
 
+    </head>
     <body>
-        <!--
         <header>
             <div style="width: 100%; margin-top: 50px;">
                 <div style="width: 20%; height:200px;">
                     <h1 style="font-size: 50px;">GLOBAL</h1>
                 </div>
-                <div style="width: 5%;">
-                    <button style="border:none;">
-                        <img src="pics/Lupe.png" alt="Lupe" width="50px" height="50px">
+                <div class="headerSection"style="width: 5%;">
+                    <button class="headerSection" style="border:none;">
+                        <img src="pics/Lupe.png" alt="Lupe" class="imgTop" width="50px" height="50px">
                     </button>
                 </div>
                 <div style="width: 442px; vertical-align: bottom; margin-bottom: 20px;">
                     <a class="NavBottons" href="Home.html"><img src="pics/GlobalGamingLogo.png" alt="Logo" width="315px" height="250px"></a>
                 </div>
-                <div style="width: 5%;">
-                    <button style="border:none;">
+                <div class="headerSection" style="width: 5%;">
+                    <button class="headerSection" style="border:none;">
                         <img src="pics/wk.png" alt="Warenkorb" width="50px" height="50px">
                     </button>
                 </div>
@@ -34,7 +33,6 @@
                 </div>
             </div>
         </header>
-
         <nav class="menu">
             <ul class="nav">
                 <li class="NavList"><a class="NavBottons" href="Sales.html">Sales%</a>
@@ -43,8 +41,117 @@
                 <li class="NavList"><a class="NavBottons" href="Aboutus.html">About us</a>                        
             </ul>
         </nav>
-    -->
+<!-- Content -->
+        <section class="cContent">
 
+            <div class="cTitle">
+                <h2>Warenkorb</h2>
+                <img src="pics/Lupe.png" alt="Lupe" width="30px" height="30px">
+            </div>
+
+            <!-- ein Artikel -->
+            <div class="cArticle">
+
+                <div class="cPicture">
+                    <img src="pics/GlobalGamingLogo.png" alt="articlePicture" width="220px" height="200px"/>
+                </div>
+                <!-- Beschreibung -->
+                <div class="cDescription">
+                    <h4 class="productTitle articleText">SpielTitel</h4>
+                    <p class="articleText">59,99€</p>
+                    <!-- Anzahl -->
+                    <div class="cQuantity">
+                        <p class="articleText">Anzahl : </p>
+                        <p class="articleText">1</p>
+                        <button class="articleButton">mehr/weniger</button>
+                    </div>
+                </div>
+            </div>
+
+                 <!-- ein Artikel -->
+                <div class="cArticle">
+
+                    <div class="cPicture">
+                        <img src="pics/GlobalGamingLogo.png" alt="articlePicture" width="220px" height="200px"/>
+                    </div>
+                    <!-- Beschreibung -->
+                    <div class="cDescription">
+                        <h4 class="productTitle articleText">SpielTitel</h4>
+                        <p class="articleText">59,99€</p>
+                        <!-- Anzahl -->
+                        <div class="cQuantity">
+                            <p class="articleText">Anzahl : </p>
+                            <p class="articleText">1</p>
+                            <button class="articleButton">mehr/weniger</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ein Artikel -->
+                <div class="cArticle">
+
+                    <div class="cPicture">
+                        <img src="pics/GlobalGamingLogo.png" alt="articlePicture" width="220px" height="200px"/>
+                    </div>
+                    <!-- Beschreibung -->
+                    <div class="cDescription">
+                        <h4 class="productTitle articleText">SpielTitel</h4>
+                        <p class="articleText">59,99€</p>
+                        <!-- Anzahl -->
+                        <div class="cQuantity">
+                            <p class="articleText">Anzahl : </p>
+                            <p class="articleText">1</p>
+                            <button class="articleButton">mehr/weniger</button>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Zahlungsprozess -->
+            <div class="cPaymentProcess">
+                <div class="cSum">
+                    <p class="articleText sumText">Summe : </p>
+                    <p class="articleText sumText">1234 €</p>
+                </div>
+                <div class="cPay">
+                    <button class="articleButton">Jetzt Kaufen</button>
+                </div>
+            </div>
+        </section>
+        
+      
+
+<!-- Footer -->
+        <footer>
+            <div style="width: 100%">
+                <div>
+                    <h1>Service und Hilfe</h1>
+                    <br>
+                    <a href="./AGB.html" id="footerLink"><p>Terms and Condition</p></a>
+                    <a href="./Datenschutz.html" id="footerLink"><p>Datenschutz</p></a>
+                    <a href="./Impressum.html" id="footerLink"><p>Impressum</p></a>
+                </div>
+                <div>
+                    <h1>Follow Us</h1>
+                    <br>
+                    <a href="https://www.facebook.com" class="fa fa-facebook"></a>
+                    <a href="https://www.twitter.com" class="fa fa-twitter"></a>
+                    <a href="https://www.instagram.com" class="fa fa-instagram"></a>
+                </div>
+                <div>
+                    <h1 >Newsletter</h1>
+                    <br>
+                    <br>
+                    <div style="width: max-content; display: inline-flex;">
+                        <input class="footerSection" type="email" name="newsletter" id="newsletter" placeholder="email@example.com">
+                        <button class="footerSection" style="width: 33px; height: 33px; border: none; "><img src="./paper-plane.svg"></button>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
+
+<!-- 
         <body>
             <nav class="navbar">
                 <div class="container">
@@ -101,38 +208,4 @@
                     </div>
                 </div>
             </section>
-        </body>
-
-
-
-        <!--
-        <footer>
-            <div style="width: 100%">
-                <div>
-                    <h1>Service und Hilfe</h1>
-                    <br>
-                    <a href="./AGB.html" id="footerLink"><p>Terms and Condition</p></a>
-                    <a href="./Datenschutz.html" id="footerLink"><p>Datenschutz</p></a>
-                    <a href="./Impressum.html" id="footerLink"><p>Impressum</p></a>
-                </div>
-                <div>
-                    <h1>Follow Us</h1>
-                    <br>
-                    <a href="https://www.facebook.com" class="fa fa-facebook"></a>
-                    <a href="https://www.twitter.com" class="fa fa-twitter"></a>
-                    <a href="https://www.instagram.com" class="fa fa-instagram"></a>
-                </div>
-                <div>
-                    <h1 >Newsletter</h1>
-                    <br>
-                    <br>
-                    <div style="width: max-content; display: inline-flex;">
-                        <input type="email" name="newsletter" id="newsletter" placeholder="email@example.com">
-                        <button style="width: 33px; height: 33px; border: none; "><img src="./paper-plane.svg"></button>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        -->
-    </body>
-</html>
+        </body> -->

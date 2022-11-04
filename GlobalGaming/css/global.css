@@ -2,9 +2,12 @@
 {
   color:black;
   font-size: 28px;
+  font-weight: 300;
+  margin: 0;
   box-sizing: border-box;
   font-family: Garamond, serif; font-weight: 400;
-  margin: 0;
+
+  
 }
 
 header{
@@ -14,7 +17,7 @@ header{
   background-color: #4e7793;
 }
 
-body{
+body {
   background-color: #4e7793;
 }
 
@@ -32,6 +35,9 @@ body{
   display: inline-block;
 }
 
+.headerSection, .footerSection {
+  background-color: #4e7793;
+}
 
 li a {
   display: block;
@@ -69,6 +75,7 @@ footer p, footer h1, footer div{
   font-size: 17px;
 
 }
+
 footer div{
 width: 33%;
 }

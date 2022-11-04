@@ -4,6 +4,146 @@
     padding: 0;
 }
 
+.articleText {
+    font-weight: bold;
+}
+
+.sumText {
+    font-size: 29px;
+}
+
+
+/* Container */
+
+.cContent {
+    display: flex;
+    height: auto;
+    background-color: #444;
+    flex-direction: column; 
+    
+
+}
+
+.cTitle {
+    display: flex;
+    height: auto;
+    background-color: aliceblue;
+    flex-direction: row;
+    margin-bottom: 53px;
+}
+
+.cAllArticle {
+    display: flex;
+    height: auto;
+    background-color: aliceblue;
+    flex-direction: column;
+}
+
+.cArticle {
+    display: flex;
+    height: auto;
+    background-color: red;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 53px;
+    flex-wrap: wrap;
+}
+
+.cPicture {
+    display: flex;
+    flex-basis:250px;
+    height:250px;
+    background-color: yellow;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+.cDescription {
+    display: flex;
+    flex-basis:300px;
+    height: auto;
+    background-color: yellowgreen;
+    flex-direction: column;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.cQuantity {
+    display: flex;
+    height: auto;
+    background-color: #444;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+/* müsste auto sein ? */
+
+.cPaymentProcess {
+    display: flex;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: brown;
+}
+
+.cSum {
+    display: flex;
+    height: auto;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center; 
+    background-color: aquamarine;
+    padding-left: 10px;
+    text-decoration: overline;
+    border-top: 1px solid black;
+}
+
+.cPay {
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    background-color: blue;
+    padding-right: 10px;
+    text-decoration: overline;
+    border-top: 1px solid black;
+    
+}
+
+@media (max-width: 700px) {
+    .cArticle {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: center;
+    }
+
+    .cDescription {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: center;
+    }
+
+    .cPicture {
+        margin-right: 0;
+    }
+}
+
+/*
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body{
     font-family: 'Times New Roman', Times, serif;
     font-size: 16px;
@@ -22,7 +162,7 @@ h1 h2 {
 }
 
 .container {
-    /* top right down left */
+    /* top right down left 
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 0 0 0;
@@ -117,3 +257,4 @@ ul {
         text-align: center;
     }
 }
+*/
