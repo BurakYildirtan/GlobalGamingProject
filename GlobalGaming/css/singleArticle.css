@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.cContent, .cArticleLayout {
+    border-radius: 8px;
+}
+
+.cContent {
+    flex-basis: auto;
+    display: flex;
+    height: auto;
+    flex-direction: column; 
+    margin: 5% 10% 5% 10%;
+    box-shadow: 0 3px 5px rgba(0,0, 0, .6);
+    padding: 20px;
+}
+
+.cArticleLayout{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start ;
+    background-color: rgb(65, 65, 65);
+
+}
+
+.cArticleAndDescription {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.cPictureArticle {
+    height: 300px;
+    width: 300px;
+    flex: 0 0 auto;
+    margin-right: 2%;
+}
+
+.imgArticle {
+    height: 300px;
+    width: 300px;
+    border-top-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.cDescriptionArticle {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    justify-content: flex-start;
+    background-color: aliceblue;
+}
+
+.cAdd {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 20px 20px 20px 0;
+}
+
+.addButton {
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(204, 204, 204);
+    border: 1px solid rgb(176, 176, 176);
+    color: #1f1f1f;  
+    padding: 5px 10px 5px 10px;
+    font-size: 25px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    
+}
+
+.addButton:active {
+    background-color: rgb(183, 183, 183);
+    border: 1px solid rgb(150, 150, 150);
+}
+
+.buttonIcon {
+    font-size: 0em;
+    padding-left: 10px;
+}
+
+.descTh, .descTd {
+    text-align: start;
+    padding: 10px;
+    font-size: 22px;
+
+} 
+.descTh {
+    font-weight: bold;
+    border-right: 1px solid #444;
+}
+
+.cRequirements {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+
+.cMinRequiremnts {
+
+}
+
+.cMaxRequiremnts {
+    
+}
+/* Text */
+
+.articleText {
+    text-align: start;
+    padding: 0 2% 0 2%;
+}
+
+.articleTitleText {
+    font-size: 33px;
+    font-weight: bolder;
+    margin-bottom: 50px;
+}
+
+.descTable {
+    display: flex;
+    background-color: aqua;
+    padding: 0;
+    
+    
+}
+
+.priceText {
+    font-size: 30px;
+    font-weight: bolder;
+    width: 400px;
+}
