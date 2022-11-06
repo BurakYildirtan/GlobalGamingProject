@@ -4,6 +4,19 @@
     padding: 0;
 }
 
+/* zweite Ebene */
+.cContent {
+    background-color: #6195b8;
+}
+
+/* dritte Ebene */
+
+.cArticleLayout, .descTable{
+    background-color: #6ba5cc;
+    border-radius: 8px;
+    box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.6);
+}
+
 .cContent, .cArticleLayout {
     border-radius: 8px;
 }
@@ -23,7 +36,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start ;
-    background-color: rgb(65, 65, 65);
+    margin-bottom: 30px;
 
 }
 
@@ -54,7 +67,8 @@
     flex-direction: column;
     height: 300px;
     justify-content: flex-start;
-    background-color: aliceblue;
+    padding: 10px;
+
 }
 
 .cAdd {
@@ -104,16 +118,32 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    padding: 10px;
+    background-color: #1f1f1f;
 
 }
 
-.cMinRequiremnts {
-
-}
 
 .cMaxRequiremnts {
     
 }
+
+.descTitle {
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Text */
 
 .articleText {
@@ -125,14 +155,6 @@
     font-size: 33px;
     font-weight: bolder;
     margin-bottom: 50px;
-}
-
-.descTable {
-    display: flex;
-    background-color: aqua;
-    padding: 0;
-    
-    
 }
 
 .priceText {
