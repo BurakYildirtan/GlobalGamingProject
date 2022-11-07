@@ -11,7 +11,7 @@
 
 /* dritte Ebene */
 
-.cArticleLayout, .descTableReq, .cSimilarArticleList {
+.cArticleLayout, .descTableReq, .cSimilarArticleAll {
     background-color: #6ba5cc;
     border-radius: 8px;
     box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.6);
@@ -144,15 +144,17 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-
-
+    justify-content: space-evenly;
 }
 
+.cRecRequirement {
+    margin-left: 20px;
+}
 
 .cRecRequirement,.cMinRequirement {
-    flex: 1;
+    flex: 0 0 content;
     flex-basis: content;
-    margin: 0 0 20px 0;
+    margin-bottom:  20px;
 }
 
 .descTitle {
@@ -163,7 +165,7 @@
 }
 
 .descTableReq {
-    padding: 10px 15px 10px 15px;
+    padding: 10px 35px 10px 35px;
 }
 
 .cSimilarArticleList {
@@ -193,14 +195,23 @@
     border: 1px solid #444;
 }
 
+.imgArrow {
+    width: 40px;
+    height: 40px;
+    
+}
+
+.noBorderButton {
+    border: 0;
+    background-color: transparent;
+}
 
 
+.cSimilarArticleAll {
+    display: flex;
+    flex-direction: column;
 
-
-
-
-
-
+}
 
 
 /* Text */
@@ -219,10 +230,11 @@
 .priceText {
     font-size: 30px;
     font-weight: bolder;
+    border-top: 1px solid #444;
     width: 300px;
 }
 
-.spanSimilarTitleText {
+.spanSimilarTitleText, .similarArticleListTitle {
     font-weight: bold;
 }
 
@@ -233,4 +245,72 @@
 .spanSimilarTitleText, .spanSimilarPriceBefore, .spanSimilarPriceAfter {
     font-size: 20px;
 }
+
+.similarArticleListTitle {
+    margin: 15px 0 5px 15px;
+    text-align: left;
+    font-size: 22px;
+}
+
+.spanArticleListTitle {
+    border-bottom:1px solid #444;
+}
+
+@media (max-width: 980px) {
+
+    .cContent {
+        flex-basis: auto;
+        display: flex;
+        height: auto;
+        flex-direction: column; 
+        margin: 40px 0 40px 0;
+        box-shadow: 0 3px 5px rgba(0,0, 0, .6);
+        padding: 20px;
+
+    }
+
+    .cArticleAndDescription {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .imgArticle {
+        height: 300px;
+        width: 300px;
+        border-top-left-radius: 0%;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    .cDescriptionArticle {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .articleTitleText {
+        border-bottom: 1px solid #444;
+    }
+
+    .priceText {
+        margin-bottom: 18px;
+    }
+
+
+    .cRecRequirement {
+        margin-left: 0px;
+    }
+
+    .cAdd {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+}
+
 
