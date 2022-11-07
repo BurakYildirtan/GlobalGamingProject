@@ -11,7 +11,7 @@
 
 /* dritte Ebene */
 
-.cArticleLayout, .descTable{
+.cArticleLayout, .descTableReq {
     background-color: #6ba5cc;
     border-radius: 8px;
     box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.6);
@@ -46,6 +46,7 @@
     height: auto;
     justify-content: flex-start;
     align-items: flex-start;
+    flex-wrap: wrap;
 }
 
 .cPictureArticle {
@@ -68,7 +69,7 @@
     height: 300px;
     justify-content: flex-start;
     padding: 10px;
-
+    flex-basis: content;
 }
 
 .cAdd {
@@ -93,6 +94,26 @@
     
 }
 
+.addButtonReq {
+    display: flex;
+    width: 25px;
+    height: 25px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(204, 204, 204);
+    border: 1px solid rgb(176, 176, 176);
+    color: #1f1f1f;  
+    padding: 0%;
+    border-radius: 100%;
+    flex-shrink: 0;
+    overflow:hidden;
+    
+}
+
+.buttonIconReq {
+    font-size: 0em;
+}
+
 .addButton:active {
     background-color: rgb(183, 183, 183);
     border: 1px solid rgb(150, 150, 150);
@@ -105,43 +126,45 @@
 
 .descTh, .descTd {
     text-align: start;
-    padding: 10px;
-    font-size: 22px;
+    padding: 10px 0 10px 0;
+    font-size: 20px;
 
 } 
+
 .descTh {
+    padding-right: 10px;
     font-weight: bold;
-    border-right: 1px solid #444;
+}
+
+.descTd {
+    padding-right: 10px;
 }
 
 .cRequirements {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-around;
-    padding: 10px;
-    background-color: #1f1f1f;
+
 
 }
 
 
-.cMaxRequiremnts {
-    
+.cRecRequirement,.cMinRequirement {
+    flex: 1;
+    flex-basis: content;
+    margin: 0 0 20px 0;
 }
 
 .descTitle {
     font-weight: bold;
+    font-size: 22px;
+    text-align: start;
+    border-bottom:1px solid #444;
 }
 
-
-
-
-
-
-
-
-
-
-
+.descTableReq {
+    padding: 10px 15px 10px 15px;
+}
 
 
 /* Text */
@@ -160,5 +183,5 @@
 .priceText {
     font-size: 30px;
     font-weight: bolder;
-    width: 400px;
+    width: 300px;
 }
