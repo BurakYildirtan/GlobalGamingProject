@@ -11,7 +11,7 @@
 
 /* dritte Ebene */
 
-.cArticleLayout, .descTableReq {
+.cArticleLayout, .descTableReq, .cSimilarArticleList {
     background-color: #6ba5cc;
     border-radius: 8px;
     box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.6);
@@ -166,6 +166,43 @@
     padding: 10px 15px 10px 15px;
 }
 
+.cSimilarArticleList {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.cSimilarArticle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cSimilarArticlePic {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #444;
+}
+
+.similarArticlePic {
+    width: 100px;
+    height: 100px;
+    border-radius: 1px solid #444;
+
+}
+
+
+
+
+
+
+
+
+
+
 
 /* Text */
 
@@ -185,3 +222,8 @@
     font-weight: bolder;
     width: 300px;
 }
+
+.spanSimilarTitleText, .spanSimilarPriceBefore, .spanSimilarPriceAfter {
+    font-size: 20px;
+}
+
