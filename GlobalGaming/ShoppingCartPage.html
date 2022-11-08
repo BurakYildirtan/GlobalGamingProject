@@ -45,75 +45,94 @@
         <section class="cContent">
 
             <div class="cTitle">
-                <h2>Warenkorb</h2>
-                <img src="pics/Lupe.png" alt="Lupe" width="30px" height="30px">
+                <h2 class="articleTitle articleText">Warenkorb</h2>
+                <img src="pics/icShoppingCart.svg" alt="Lupe" width="30px" height="30px">
             </div>
 
             <!-- ein Artikel -->
             <div class="cArticle">
-
+                <div class="cCancel">
+                    <button class=" articleButton cancelButton">X</button>
+                </div>
                 <div class="cPicture">
-                    <img src="pics/GlobalGamingLogo.png" alt="articlePicture" width="220px" height="200px"/>
+                    <img class="imgArticle" src="pics/fortnite.jpeg" alt="articlePicture" width="220px" height="200px"/>
                 </div>
                 <!-- Beschreibung -->
                 <div class="cDescription">
-                    <h4 class="productTitle articleText">SpielTitel</h4>
-                    <p class="articleText">59,99€</p>
+                    <div class="cDescriptionTitle">
+                        <h4 class="productTitle articleText">Fortnite </h4>
+                    </div>
+                    <p class="articleText articlePriceText">0.25€</p>
                     <!-- Anzahl -->
                     <div class="cQuantity">
-                        <p class="articleText">Anzahl : </p>
-                        <p class="articleText">1</p>
-                        <button class="articleButton">mehr/weniger</button>
+                        <div class="cQuantityText">
+                            <p class="articleText quantityText">Anzahl : </p>
+                            <p class="articleText quantityText">1</p>
+                        </div>
+                        <button class="articleButton moreButton">+</button>
+                        <button class="articleButton lessButton">-</button>
                     </div>
                 </div>
             </div>
-
-                 <!-- ein Artikel -->
-                <div class="cArticle">
-
-                    <div class="cPicture">
-                        <img src="pics/GlobalGamingLogo.png" alt="articlePicture" width="220px" height="200px"/>
+            <!-- ein Artikel -->
+            <div class="cArticle">
+                <div class="cCancel">
+                    <button class=" articleButton cancelButton">X</button>
+                </div>
+                <div class="cPicture">
+                    <img  class="imgArticle" src="pics/pubg.jpeg" alt="articlePicture" width="220px" height="200px"/>
+                </div>
+                <!-- Beschreibung -->
+                <div class="cDescription">
+                    <div class="cDescriptionTitle">
+                        <h4 class="productTitle articleText">Pubg - Playerunkowns Battlegrounds</h4>    
                     </div>
-                    <!-- Beschreibung -->
-                    <div class="cDescription">
-                        <h4 class="productTitle articleText">SpielTitel</h4>
-                        <p class="articleText">59,99€</p>
-                        <!-- Anzahl -->
-                        <div class="cQuantity">
-                            <p class="articleText">Anzahl : </p>
-                            <p class="articleText">1</p>
-                            <button class="articleButton">mehr/weniger</button>
+                    <p class="articleText articlePriceText">25.99€</p>
+                    <!-- Anzahl -->
+                    <div class="cQuantity">
+                        <div class="cQuantityText">
+                            <p class="articleText quantityText">Anzahl : </p>
+                            <p class="articleText quantityText">1</p>
                         </div>
+                        <button class="articleButton moreButton">+</button>
+                        <button class="articleButton lessButton">-</button>
                     </div>
                 </div>
-
-                <!-- ein Artikel -->
-                <div class="cArticle">
-
-                    <div class="cPicture">
-                        <img src="pics/GlobalGamingLogo.png" alt="articlePicture" width="220px" height="200px"/>
+            </div>
+            <!-- ein Artikel -->
+            <div class="cArticle">
+                <div class="cCancel">
+                    <button class=" articleButton cancelButton">X</button>
+                </div>
+                <div class="cPicture">
+                    <img class="imgArticle" src="pics/halo.jpeg" alt="articlePicture" width="220px" height="200px"/>
+                </div>
+                <!-- Beschreibung -->
+                <div class="cDescription">
+                    <div class="cDescriptionTitle">
+                        <h4 class="productTitle articleText">Halo Combat Ecolved</h4>
                     </div>
-                    <!-- Beschreibung -->
-                    <div class="cDescription">
-                        <h4 class="productTitle articleText">SpielTitel</h4>
-                        <p class="articleText">59,99€</p>
-                        <!-- Anzahl -->
-                        <div class="cQuantity">
-                            <p class="articleText">Anzahl : </p>
-                            <p class="articleText">1</p>
-                            <button class="articleButton">mehr/weniger</button>
+                    <p class="articleText articlePriceText">17.99€</p>
+                    <!-- Anzahl -->
+                    <div class="cQuantity">
+                        <div class="cQuantityText">
+                            <p class="articleText quantityText">Anzahl : </p>
+                            <p class="articleText quantityText">1</p>
                         </div>
+                        <button class="articleButton moreButton">+</button>
+                        <button class="articleButton lessButton">-</button>
                     </div>
                 </div>
+            </div>
 
             <!-- Zahlungsprozess -->
             <div class="cPaymentProcess">
                 <div class="cSum">
                     <p class="articleText sumText">Summe : </p>
-                    <p class="articleText sumText">1234 €</p>
+                    <p class="articleText sumText sumValue">1234 €</p>
                 </div>
                 <div class="cPay">
-                    <button class="articleButton">Jetzt Kaufen</button>
+                    <button class=" buyNowButton articleButton">Jetzt Kaufen</button>
                 </div>
             </div>
         </section>
