@@ -220,6 +220,14 @@
     
 }
 
+.iconImage {
+    border: none;
+}
+
+.iconImage:hover {
+    box-shadow: 0 0 0 #000;
+}
+
 @media (max-width: 980px) {
     .cContent {
         margin: 5% 0 5% 0;
