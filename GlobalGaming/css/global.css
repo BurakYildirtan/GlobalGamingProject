@@ -116,3 +116,22 @@ width: 33%;
 #newsletter::placeholder{
   color: rgb(184, 184, 184);
 }
+header button, footer button{
+  background: none;
+  border: none;
+}
+
+img{
+  border: 1.2px solid rgba(10, 10, 10, 0.4);
+}
+img:hover{
+  box-shadow: 10px 10px 8px #888888;
+  transition: 0.1s;
+
+}
+header img{
+  border: none;
+}
+header img:hover{
+  box-shadow: none;
+}

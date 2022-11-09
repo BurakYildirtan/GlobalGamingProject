@@ -1,16 +1,8 @@
-*{
-    padding: 0;
-    margin: 0;
-    font-family: 'Josefin Sans', sans-serif;
-    box-sizing: border-box;
-   
-}
-
 .about{
     width: 80%;
     margin: 10%;
     padding: 100px;
-    background-color: rgb(94, 122, 175);
+    background-color: silver;
     align-items: center;
    
 }
@@ -55,3 +47,11 @@ span{
     font-size: 18px;
     margin-bottom: 45px;
 }
+
+img{
+    border: none;
+  }
+img:hover{
+    box-shadow: none;
+  }
+  
