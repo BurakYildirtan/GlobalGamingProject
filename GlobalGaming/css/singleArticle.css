@@ -63,6 +63,10 @@
     border-bottom-right-radius: 8px;
 }
 
+.imgArticle:hover {
+    box-shadow: 0 0 0 #000;
+}
+
 .cDescriptionArticle {
     display: flex;
     flex-direction: column;
@@ -255,6 +259,8 @@
 .spanArticleListTitle {
     border-bottom:1px solid #444;
 }
+
+
 
 @media (max-width: 980px) {
 
