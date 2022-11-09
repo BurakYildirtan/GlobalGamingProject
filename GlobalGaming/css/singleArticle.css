@@ -12,7 +12,7 @@
 /* dritte Ebene */
 
 .cArticleLayout, .descTableReq, .cSimilarArticleAll {
-    background-color: #6ba5cc;
+    background-color: silver;
     border-radius: 8px;
     box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.6);
 }
