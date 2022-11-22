@@ -1,8 +1,6 @@
 const helper = require('../helper.js');
-const ProduktkategorieDao = require('./produktkategorieDao.js.js');
-const MehrwertsteuerDao = require('./mehrwertsteuerDao.js.js');
-const DownloadDao = require('./downloadDao.js.js');
-const ProduktbildDao = require('./produktbildDao.js.js');
+// const ProduktkategorieDao = require('./produktkategorieDao.js');
+// const ProduktbildDao = require('./produktbildDao.js');
 
 class ProduktDao {
 
@@ -15,46 +13,32 @@ class ProduktDao {
     }
 
     loadById(id) {
-        const produktkategorieDao = new ProduktkategorieDao(this._conn);
-        const mehrwertsteuerDao = new MehrwertsteuerDao(this._conn);
-        const downloadDao = new DownloadDao(this._conn);
-        const produktbildDao = new ProduktbildDao(this._conn);
+        // const produktkategorieDao = new ProduktkategorieDao(this._conn);
+        // const produktbildDao = new ProduktbildDao(this._conn);
+
+       
+
+        // if (helper.isUndefined(result)) 
+        //     throw new Error('No Record found by id=' + id);
+
+        // result.kategorie = produktkategorieDao.loadById(result.kategorieId);
+        // delete result.kategorieId;
+
+        // result.bilder = produktbildDao.loadByParent(result.id);
+
 
         var sql = 'SELECT * FROM Produkt WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
-
-        if (helper.isUndefined(result)) 
-            throw new Error('No Record found by id=' + id);
-
-        result.kategorie = produktkategorieDao.loadById(result.kategorieId);
-        delete result.kategorieId;
-        result.mehrwertsteuer = mehrwertsteuerDao.loadById(result.mehrwertsteuerId);
-        delete result.mehrwertsteuerId;
-        if (helper.isNull(result.datenblattId)) {
-            result.datenblatt = null;
-        } else {
-            result.datenblatt = downloadDao.loadById(result.datenblattId);
-        }
-        delete result.datenblattId;
-        result.bilder = produktbildDao.loadByParent(result.id);
-
-        result.mehrwertsteueranteil = helper.round((result.nettopreis / 100) * result.mehrwertsteuer.steuerSatz);
-
-        result.bruttopreis = helper.round(result.nettopreis + result.mehrwertsteueranteil);
-
         return result;
     }
-/*
-    loadAll() {
-        const produktkategorieDao = new ProduktkategorieDao(this._conn);
-        const mehrwertsteuerDao = new MehrwertsteuerDao(this._conn);
-        const produktbildDao = new ProduktbildDao(this._conn);
-        const downloadDao = new DownloadDao(this._conn);
 
-        var sql = 'SELECT * FROM Produkt';
-        var statement = this._conn.prepare(sql);
-        var result = statement.all();
+    loadAll() {
+        /*
+        const produktkategorieDao = new ProduktkategorieDao(this._conn);
+        const produktbildDao = new ProduktbildDao(this._conn);
+
+       
 
         if (helper.isArrayEmpty(result)) 
             return [];
@@ -63,23 +47,15 @@ class ProduktDao {
             result[i].kategorie = produktkategorieDao.loadById(result[i].kategorieId);
             delete result[i].kategorieid;
 
-            result[i].mehrwertsteuer = mehrwertsteuerDao.loadById(result[i].mehrwertsteuerId);
-            delete result[i].mehrwertsteuerid;
-
-            if (helper.isNull(result[i].datenblattId)) {
-                result[i].datenblatt = null;
-            } else {
-                result[i].datenblatt = downloadDao.loadById(result[i].datenblattId);
-            }
-            delete result[i].datenblattId;
 
             result[i].bilder = produktbildDao.loadByParent(result[i].id);
 
-            result[i].mehrwertsteueranteil = helper.round((result[i].nettopreis / 100) * result[i].mehrwertsteuer.steuerSatz);
 
-            result[i].bruttopreis = helper.round(result[i].nettopreis + result[i].mehrwertsteueranteil);
         }
-
+        */
+        var sql = 'SELECT * FROM Produkt';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all();
         return result;
     }
 
@@ -94,65 +70,65 @@ class ProduktDao {
         return false;
     }
 
-    create(kategorieId = 1, bezeichnung = '', beschreibung = '', mehrwertsteuerId = 1, details = null, nettopreis = 0.0, datenblattId = null, bilder = []) {
-        const produktbildDao = new ProduktbildDao(this._conn);
 
-        var sql = 'INSERT INTO Produkt (kategorieId,bezeichnung,beschreibung,mehrwertsteuerId,details,nettopreis,datenblattId) VALUES (?,?,?,?,?,?,?)';
-        var statement = this._conn.prepare(sql);
-        var params = [kategorieId, bezeichnung, beschreibung, mehrwertsteuerId, details, nettopreis, datenblattId];
-        var result = statement.run(params);
+    // create(kategorieId = 1, bezeichnung = '', beschreibung = '',  details = null, nettopreis = 0.0,  bilder = []) {
+    //     const produktbildDao = new ProduktbildDao(this._conn);
 
-        if (result.changes != 1) 
-            throw new Error('Could not insert new Record. Data: ' + params);
+    //     var sql = 'INSERT INTO Produkt (kategorieId,bezeichnung,beschreibung,details,nettopreis) VALUES (?,?,?,?,?,?,?)';
+    //     var statement = this._conn.prepare(sql);
+    //     var params = [kategorieId, bezeichnung, beschreibung, details, nettopreis];
+    //     var result = statement.run(params);
 
-        if (bilder.length > 0) {
-            for (var element of bilder) {
-                produktbildDao.create(element.bildpfad, result.lastInsertRowid);
-            }
-        }
+    //     if (result.changes != 1) 
+    //         throw new Error('Could not insert new Record. Data: ' + params);
 
-        return this.loadById(result.lastInsertRowid);
-    }
+    //     if (bilder.length > 0) {
+    //         for (var element of bilder) {
+    //             produktbildDao.create(element.bildpfad, result.lastInsertRowid);
+    //         }
+    //     }
 
-    update(id, kategorieId = 1, bezeichnung = '', beschreibung = '', mehrwertsteuerId = 1, details = null, nettopreis = 0.0, datenblattId = null, bilder = []) {
-        const produktbildDao = new ProduktbildDao(this._conn);
-        produktbildDao.deleteByParent(id);
+    //     return this.loadById(result.lastInsertRowid);
+    // }
 
-        var sql = 'UPDATE Produkt SET kategorieId=?,bezeichnung=?,beschreibung=?,mehrwertsteuerId=?,details=?,nettopreis=?,datenblattId=? WHERE id=?';
-        var statement = this._conn.prepare(sql);
-        var params = [kategorieId, bezeichnung, beschreibung, mehrwertsteuerId, details, nettopreis, datenblattId, id];
-        var result = statement.run(params);
+    // update(id, kategorieId = 1, bezeichnung = '', beschreibung = '', details = null, nettopreis = 0.0, bilder = []) {
+    //     const produktbildDao = new ProduktbildDao(this._conn);
+    //     produktbildDao.deleteByParent(id);
 
-        if (result.changes != 1) 
-            throw new Error('Could not update existing Record. Data: ' + params);
+    //     var sql = 'UPDATE Produkt SET kategorieId=?,bezeichnung=?,beschreibung=?,details=?,nettopreis=? WHERE id=?';
+    //     var statement = this._conn.prepare(sql);
+    //     var params = [kategorieId, bezeichnung, beschreibung, details, nettopreis, id];
+    //     var result = statement.run(params);
 
-        if (bilder.length > 0) {
-            for (var element of bilder) {
-                produktbildDao.create(element.bildpfad, id);
-            }
-        }
+    //     if (result.changes != 1) 
+    //         throw new Error('Could not update existing Record. Data: ' + params);
 
-        return this.loadById(id);
-    }
+    //     if (bilder.length > 0) {
+    //         for (var element of bilder) {
+    //             produktbildDao.create(element.bildpfad, id);
+    //         }
+    //     }
 
-    delete(id) {
-        try {
-            const produktbildDao = new ProduktbildDao(this._conn);
-            produktbildDao.deleteByParent(id);
+    //     return this.loadById(id);
+    // }
 
-            var sql = 'DELETE FROM Produkt WHERE id=?';
-            var statement = this._conn.prepare(sql);
-            var result = statement.run(id);
+    // delete(id) {
+    //     try {
+    //         const produktbildDao = new ProduktbildDao(this._conn);
+    //         produktbildDao.deleteByParent(id);
 
-            if (result.changes != 1) 
-                throw new Error('Could not delete Record by id=' + id);
+    //         var sql = 'DELETE FROM Produkt WHERE id=?';
+    //         var statement = this._conn.prepare(sql);
+    //         var result = statement.run(id);
 
-            return true;
-        } catch (ex) {
-            throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
-        }
-    }
-    */
+    //         if (result.changes != 1) 
+    //             throw new Error('Could not delete Record by id=' + id);
+
+    //         return true;
+    //     } catch (ex) {
+    //         throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
+    //     }
+    // }
 
     toString() {
         console.log('ProduktDao [_conn=' + this._conn + ']');

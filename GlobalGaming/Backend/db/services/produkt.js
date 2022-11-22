@@ -46,7 +46,7 @@ serviceRouter.get('/produkt/existiert/:id', function(request, response) {
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
-/*
+
 serviceRouter.post('/produkt', function(request, response) {
     console.log('Service Produkt: Client requested creation of new record');
 
@@ -97,8 +97,7 @@ serviceRouter.post('/produkt', function(request, response) {
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
-*/
-/*
+
 serviceRouter.put('/produkt', function(request, response) {
     console.log('Service Produkt: Client requested update of existing record');
 
@@ -166,5 +165,5 @@ serviceRouter.delete('/produkt/:id', function(request, response) {
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
-*/
+
 module.exports = serviceRouter;
