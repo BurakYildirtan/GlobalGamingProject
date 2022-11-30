@@ -1,0 +1,64 @@
+CREATE TABLE Produkt (
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	kategorieId INTEGER NOT NULL,
+	titel TEXT NOT NULL,
+	mehrwertsteuerId INTEGER NOT NULL,
+	nettoPreis REAL NOT NULL DEFAULT 0.0,
+	CONSTRAINT fk_Produkt1 FOREIGN KEY (kategorieId) REFERENCES Produktkategorie(id),
+	CONSTRAINT fk_Produkt2 FOREIGN KEY (mehrwertsteuerId) REFERENCES Mehrwertsteuer(id),
+);
+
+CREATE TABLE Produktbild (
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	bildpfad TEXT NOT NULL,
+	produktId INTEGER NOT NULL,
+	CONSTRAINT fk_Produktbild1 FOREIGN KEY (produktId) REFERENCES Produkt(id)
+);
+
+CREATE TABLE Mehrwertsteuer (
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	bezeichnung TEXT NOT NULL,
+	steuerSatz REAL NOT NULL DEFAULT 19.0
+);
+
+CREATE TABLE Produktkategorie (
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	bezeichnung TEXT NOT NULL
+);
+
+CREATE TABLE Hardware (
+	id INTEGER NOT NULL,
+	leistung INTEGER NOT NULL,
+	--erscheinungsjahr DATE NOT NULL, nicht sicher ob dass das Date objekt ist
+	
+	CONSTRAINT fk_Hardware1 FOREIGN KEY (id) REFERENCES Produkt(id)
+);
+
+CREATE TABLE Software (
+	id INTEGER NOT NULL,
+	spielerAnzahl NOT NULL,
+	genre INTEGER NOT NULL,
+	CONSTRAINT fk_Software1 FOREIGN KEY (genre) REFERENCES Genre(id),
+	CONSTRAINT fk_Software1 FOREIGN KEY (id) REFERENCES Produkt(id),
+	CONSTRAINT check_spieler_anzahl CHECK (spieleranzahl>0 AND spieleranzahl<8)
+);
+
+CREATE TABLE Genre (
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	bezeichnung TEXT NOT NULL
+);
+
+
+CREATE TABLE SALES (
+	id INTEGER NOT NULL,
+	
+	CONSTRAINT fk_Sales1 FOREIGN KEY (id) REFERENCES Produkt(id),
+
+);
+
+CREATE TABLE CountdownArtikel (
+	id INTEGER NOT NULL,
+	
+	CONSTRAINT fk_CountdownArtikel1 FOREIGN KEY (id) REFERENCES Produkt(id),
+
+);
