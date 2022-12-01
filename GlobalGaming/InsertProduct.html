@@ -3,26 +3,42 @@
     <head>
         <meta name="viewport" content="width=device-width", inital-scale="1.0">
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/global.css">
+        <link rel="stylesheet" href="css/insertProduct.css">
         <link rel="icon" type="image/x-icon" href="pics/favicon.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/slideshow.css">
     </head>
 
 <body>
-    <header>
-        <div style="width: 100%; margin-top: 50px;">
-            <div style="width: 20%; height:200px;">
-                <h1 style="font-size: 50px;">GLOBAL</h1>
-            </div>
-            </div>
-            <div style="width: 442px; vertical-align: bottom; margin-bottom: 20px;">
-                <a class="NavBottons"><img src="pics/GlobalGamingLogo.png" alt="Logo" width="315px" height="250px"></a>
-            </div>
-            <div style="width: 20%;">
-                <h1 style="font-size: 50px;">GAMING</h1>
-            </div>
-        </div>
+    <header class="headerTitle">
+        <h1 class="textTitle textGlobal">GLOBAL</h1>
+        <img src="pics/GlobalGamingLogo.png" alt="Logo" width="315px" height="250px">
+        <h1 class="textTitle textGaming">GAMING</h1>
     </header>
-    
+    <h2 class="textTitle textAdmin">Admin - Bereich</h2>
+
+    <section class="cInsertProduct">
+        <form >
+            <h3 class="textSubTitle">Produkt hinzufügen</h3>
+            <h4 class="text">Wählen Sie die Produktkategorie aus:</h4>
+            <div class="optionRadioBtn">
+                <input class="inputBtn" type="radio" id="inpSoftware" name="input_software" value="Software">
+                <label class="labelBtn" for="inpSoftware">Software</label>
+            </div>
+            <div class="optionRadioBtn">
+                <input class="inputBtn" type="radio" id="inpHardware" name="input_hardware" value="Hardware">
+                <label class="labelBtn" for="inpHardware">Hardware</label>
+            </div>
+        </form>
+
+        <div class="cProductSpecs">
+
+        </div>
+        <div class="cHardwareSpecs">
+
+        </div>
+        <div class="cSoftwareSpecs">
+            
+        </div>
+    </section>
 </body>

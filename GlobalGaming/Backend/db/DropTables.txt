@@ -1,0 +1,8 @@
+drop table Genre;
+drop table CountdownArtikel;
+drop table Hardware;
+drop table Produkt;
+drop table Produktbild;
+drop table Sale;
+drop table Software;
+drop table Warenkorb;

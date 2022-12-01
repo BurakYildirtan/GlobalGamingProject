@@ -1,0 +1,65 @@
+* {
+    color:black;
+    font-size: 28px;
+    font-weight: 300;
+    margin: 0;
+    font-family: Garamond, serif; font-weight: 400;
+
+}
+
+body {
+    background-color: #4e7793;
+
+}
+
+.headerTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.textTitle {
+    width: fit-content;
+    height: fit-content;
+    font-size: 45px;
+}
+
+.textAdmin {
+    width: 100%;
+    font-size: 35px;
+    text-align: center;
+    border-bottom: 1px solid #444;
+    margin: 0;
+}
+
+.text {
+    font-size: 26px;
+    margin: 0 0 12px 0;
+}
+
+.textSubTitle {
+    margin: 0 0 15px 0;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.cInsertProduct {
+    margin: 15px;
+}
+
+.optionRadioBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 0 10px 0;
+}
+
+.inputBtn {
+    margin: 0 15px 0 0;
+}
+
+.labelBtn {
+    font-size: 24px;
+}

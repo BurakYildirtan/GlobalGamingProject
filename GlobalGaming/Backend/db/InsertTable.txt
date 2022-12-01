@@ -1,0 +1,33 @@
+--PRODUKTE
+INSERT INTO Produkt ( titel, nettoPreis ) VALUES ( 'TestSoftware' , 20.0 );
+INSERT INTO Produkt ( titel, nettoPreis ) VALUES ( 'TestHardware' , 450.99 );
+INSERT INTO Produkt ( titel, nettoPreis ) VALUES ( 'TestSale' , 100.00 );
+INSERT INTO Produkt ( titel, nettoPreis ) VALUES ( 'TestCountdownArtikel' , 100.00);
+
+--GENRE
+INSERT INTO GENRE ( bezeichnung ) VALUES ( 'Action');
+
+--SOFTWARE
+INSERT INTO Software ( id, spielerAnzahl, genre ) VALUES ( 1, 8, 1);
+
+--HARDWARE
+INSERT INTO Hardware ( id, leistung, erscheinungsDatum ) VALUES ( 2, 88, '20.02.2021');
+
+--SALE
+INSERT INTO Sale ( produktId, saleProzent) VALUES ( 3, 50.00);
+INSERT INTO Sale ( produktId, saleProzent) VALUES ( 4, 50.00);
+
+--PRODUKTBILD
+INSERT INTO Produktbild ( bildpfad, produktId) VALUES ( 'Produktbilder/Software/Fifa13.jpg', 1 );
+INSERT INTO Produktbild ( bildpfad, produktId) VALUES ( 'Produktbilder/Hardware/1660_Geforce.jpeg', 2 );
+INSERT INTO Produktbild ( bildpfad, produktId) VALUES ( 'Produktbilder/Software/APlagueTaleInnocence-1.jpg', 3 );
+INSERT INTO Produktbild ( bildpfad, produktId) VALUES ( 'Produktbilder/Hardware/6700_Radeon.jpeg', 4 );
+
+--COUNTDOWNARTIKEL
+INSERT INTO CountdownArtikel ( id, countdownZeit, extraProzent ) VALUES ( 4, 10000, 20.00);
+
+--WARENKORB
+INSERT INTO Warenkorb ( produktId) VALUES ( 1);
+INSERT INTO Warenkorb ( produktId) VALUES ( 2);
+INSERT INTO Warenkorb ( produktId) VALUES ( 3);
+INSERT INTO Warenkorb ( produktId) VALUES ( 4);
