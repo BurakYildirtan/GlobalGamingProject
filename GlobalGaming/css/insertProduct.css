@@ -71,7 +71,6 @@ body {
     align-items: center;
 }
 
-
 .cProductPic {
     width: 300px;
     height: 300px;
@@ -93,6 +92,6 @@ body {
     border-radius: 5px;
 }
 
-.cSoftwareSpecs, .cProductSpecs {
+.cSpecs{
     display: none;
 }

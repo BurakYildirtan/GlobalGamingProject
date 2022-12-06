@@ -7,7 +7,6 @@
         <link rel="icon" type="image/x-icon" href="pics/favicon.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/slideshow.css">
-        <script src="js/insertProduct.js"></script>
     </head>
 
 <body>
@@ -23,11 +22,11 @@
             <h3 class="textSubTitle">Produkt hinzufügen</h3>
             <h4 class="text">Wählen Sie die Produktkategorie aus:</h4>
             <div class="optionRadioBtn">
-                <input class="inputBtn" type="radio" id="inpSoftware" name="inputModus" value="Software">
+                <input class="inputBtn" type="radio" id="inpSoftware" name="inputHardOrSoft">
                 <label class="labelBtn" for="inpSoftware">Software</label>
             </div>
             <div class="optionRadioBtn">
-                <input class="inputBtn" type="radio" id="inpHardware" name="inputModus">
+                <input class="inputBtn" type="radio" id="inpHardware" name="inputHardOrSoft">
                 <label class="labelBtn" for="inpHardware">Hardware</label>
             </div>
         </form>
@@ -81,27 +80,27 @@
         </div>
 
         <div class="cSpecs cSaleSpecs">
-            <div class="optionRadioBtn">
+            <div id="cCheckBtnSale" class="cCheckBtn">
                 <input class="inputBtn" type="checkbox" id="inpSale" name="input_Sale" value="Sale">
                 <label class="labelBtn" for="inpSale">Soll der Artikel im Sale sein ?</label>
             </div>
 
-            <div class="cProductInput">
+            <div id="cProductSaleInPercent" class="cProductInput">
                 <label class="labelInput" for="productSaleInPercent">Prozent : </label>
                 <input id="productSaleInPercent" class="inputProduct" type="number">
             </div>
 
-            <div class="optionRadioBtn">
-                <input class="inputBtn" type="checkbox" id="inpCountdown" name="input_Countdown" value="Countdown">
-                <label class="labelBtn" for="inpCountdown">Soll der als Countdown Artikel eingefügt werden?</label>
+            <div id="cCheckBtnCountdown "class="cCheckBtnCountdown">
+                <input class="inputBtn" type="radio" id="inpCountdown" name="input_Countdown" value="Countdown">
+                <label class="labelBtn" for="inpCountdown">Soll der Artikel als Countdown Artikel eingefügt werden?</label>
             </div>
 
-            <div class="cProductInput">
+            <div id="cCountdownTime" class="cProductInput checkedCountdown">
                 <label class="labelInput" for="productCountdownTime">Bis wann : </label>
                 <input id="productSaleInPercent" class="inputProduct" type="date">
             </div>
 
-            <div class="cProductInput">
+            <div id="cCountdownSaleInPercent" class="cProductInput checkedCountdown">
                 <label class="labelInput" for="productSaleInPercent">Extra Prozent (auf Sale dazu) : </label>
                 <input id="productSaleInPercent" class="inputProduct" type="number">
             </div>
@@ -109,9 +108,7 @@
 
 
         </div>
-
-        <div class="cCountdownSpecs">
-
-        </div>
     </section>
+    <script type="text/javascript" src="js/insertProduct.js"></script>
 </body>
+</html>
