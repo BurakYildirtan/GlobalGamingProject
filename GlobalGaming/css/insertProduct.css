@@ -1,9 +1,10 @@
 * {
-    color:black;
+    color: black;
     font-size: 28px;
     font-weight: 300;
     margin: 0;
-    font-family: Garamond, serif; font-weight: 400;
+    font-family: Garamond, serif;
+    font-weight: 400;
 
 }
 
@@ -88,6 +89,9 @@ body {
     justify-content: flex-end;
     margin: 10px 0 10px 0;
     background-color: #444;
+    border-radius: 5px;
+    padding: 5px;
+
 }
 
 .inputProduct {
@@ -97,22 +101,26 @@ body {
 
 
 
-#cCheckBtnCountdown, #cCountdownTime, #cCountdownSaleInPercent, #cProductSaleInPercent, .cSpecs{
-    display:none;
+#cCheckBtnCountdown,
+#cCountdownTime,
+#cCountdownSaleInPercent,
+#cProductSaleInPercent,
+.cSpecs {
+    display: none;
 }
 
-#imgPreview{
+#imgPreview {
     height: 300px;
     width: 300px;
     border: 1px solid #444;
 }
 
-.centeredItems{
+.centeredItems {
     width: 100%;
-    
+
     display: flex;
     flex-direction: column;
     justify-items: center;
     align-items: center;
-    
+
 }
