@@ -44,8 +44,10 @@ body {
     font-weight: bold;
 }
 
+
 .cInsertProduct {
     margin: 15px;
+    width: 100%;
 }
 
 .optionRadioBtn {
@@ -68,7 +70,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+
 }
 
 .cProductPic {
@@ -92,6 +95,24 @@ body {
     border-radius: 5px;
 }
 
-.cSpecs{
-    display: none;
+
+
+#cCheckBtnCountdown, #cCountdownTime, #cCountdownSaleInPercent, #cProductSaleInPercent, .cSpecs{
+    display:none;
+}
+
+#imgPreview{
+    height: 300px;
+    width: 300px;
+    border: 1px solid #444;
+}
+
+.centeredItems{
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    
 }

@@ -30,84 +30,85 @@
                 <label class="labelBtn" for="inpHardware">Hardware</label>
             </div>
         </form>
+        <div class="centeredItems">
+            <div id="cProductSpecs" class="cSpecs cProductSpecs">
+                <div class="cProductPic">
+                    <img id="imgPreview" src="pics/noch_kein_bild.jpeg" class="imgPrev">
+                </div>
+                <form>
+                    <div class="cProductInput cProductTitle">
+                        <label class="labelInput" for="productTitle">Titel : </label>
+                        <input id="productTitle" class="inputProduct" type="value">
+                    </div>
 
-        <div id="cProductSpecs" class="cSpecs cProductSpecs">
-            <div class="cProductPic">
-                <img id="imgPreview" href="pics/noch_kein_bild.jpeg" class="imgPrev">
+                    <div class="cProductInput cProductPrice">
+                        <label class="labelInput" for="productPrice">Nettopreis : </label>
+                        <input id="productPrice" class="inputProduct" type="value">
+                    </div>
+
+                    <div class="cProductInput cProductPicturePath">
+                        <label class="labelInput" for="productPicturePath">Bildpfad : </label>
+                        <input id="productPicturePath" class="inputProduct" type="value">
+                    </div>
+                </form>
             </div>
-            <form>
-                <div class="cProductInput cProductTitle">
-                    <label class="labelInput" for="productTitle">Titel : </label>
-                    <input id="productTitle" class="inputProduct" type="value">
+
+            <div id="cSoftwareSpecs" class="cSpecs cSoftwareSpecs">
+                <h3>Software - Spezifikation</h3>
+                <div class="cProductInput">
+                    <label class="labelInput" for="productPlayer">SpielerAnzahl : </label>
+                    <input id="productPlayer" class="inputProduct" type="number">
                 </div>
 
-                <div class="cProductInput cProductPrice">
-                    <label class="labelInput" for="productPrice">Nettopreis : </label>
-                    <input id="productPrice" class="inputProduct" type="value">
+                <div class="cProductInput">
+                    <label class="labelInput" for="productGenre">Genre : </label>
+                    <input id="productGenre" class="inputProduct" type="value">
+                </div>
+            </div>
+
+            <div class="cSpecs cHardwareSpecs" id="cHardwareSpecs">
+                <h3>Hardware - Spezifikation</h3>
+                <div class="cProductInput">
+                    <label class="labelInput" for="productPlayer">Leistung : </label>
+                    <input id="productPlayer" class="inputProduct" type="number">
                 </div>
 
-                <div class="cProductInput cProductPicturePath">
-                    <label class="labelInput" for="productPicturePath">Bildpfad : </label>
-                    <input id="productPicturePath" class="inputProduct" type="value">
+                <div class="cProductInput">
+                    <label class="labelInput" for="productGenre">Erscheinungsdatum : </label>
+                    <input id="productGenre" class="inputProduct" type="date">
                 </div>
-            </form>
-        </div>
-
-        <div id="cSoftwareSpecs" class="cSpecs cSoftwareSpecs">
-            <h3>Software - Spezifikation</h3>
-            <div class="cProductInput">
-                <label class="labelInput" for="productPlayer">SpielerAnzahl : </label>
-                <input id="productPlayer" class="inputProduct" type="number">
             </div>
 
-            <div class="cProductInput">
-                <label class="labelInput" for="productGenre">Genre : </label>
-                <input id="productGenre" class="inputProduct" type="value">
+            <div class="cSpecs cSaleSpecs" id="cSaleSpecs">
+                <div id="cCheckBtnSale" class="cCheckBtn">
+                    <input class="inputBtn" type="checkbox" id="inpSale" name="input_Sale" value="Sale">
+                    <label class="labelBtn" for="inpSale">Soll der Artikel im Sale sein ?</label>
+                </div>
+
+                <div id="cProductSaleInPercent" class="cProductInput">
+                    <label class="labelInput" for="productSaleInPercent">Prozent : </label>
+                    <input id="productSaleInPercent" class="inputProduct" type="number">
+                </div>
+
+                <div id="cCheckBtnCountdown"class="cCheckBtnCountdown">
+                    <input class="inputBtn" type="checkbox" id="inpCountdown" name="input_Countdown" value="Countdown">
+                    <label class="labelBtn" for="inpCountdown">Soll der Artikel als Countdown Artikel eingefügt werden?</label>
+                </div>
+
+                <div id="cCountdownTime" class="cProductInput checkedCountdown">
+                    <label class="labelInput" for="productCountdownTime">Bis wann : </label>
+                    <input id="productSaleInPercent" class="inputProduct" type="date">
+                </div>
+
+                <div id="cCountdownSaleInPercent" class="cProductInput checkedCountdown">
+                    <label class="labelInput" for="productSaleInPercent">Extra Prozent (auf Sale dazu) : </label>
+                    <input id="productSaleInPercent" class="inputProduct" type="number">
+                </div>
+
+
+
             </div>
-        </div>
-
-        <div class="cSpecs cHardwareSpecs">
-            <h3>Hardware - Spezifikation</h3>
-            <div class="cProductInput">
-                <label class="labelInput" for="productPlayer">Leistung : </label>
-                <input id="productPlayer" class="inputProduct" type="number">
-            </div>
-
-            <div class="cProductInput">
-                <label class="labelInput" for="productGenre">Erscheinungsdatum : </label>
-                <input id="productGenre" class="inputProduct" type="date">
-            </div>
-        </div>
-
-        <div class="cSpecs cSaleSpecs">
-            <div id="cCheckBtnSale" class="cCheckBtn">
-                <input class="inputBtn" type="checkbox" id="inpSale" name="input_Sale" value="Sale">
-                <label class="labelBtn" for="inpSale">Soll der Artikel im Sale sein ?</label>
-            </div>
-
-            <div id="cProductSaleInPercent" class="cProductInput">
-                <label class="labelInput" for="productSaleInPercent">Prozent : </label>
-                <input id="productSaleInPercent" class="inputProduct" type="number">
-            </div>
-
-            <div id="cCheckBtnCountdown "class="cCheckBtnCountdown">
-                <input class="inputBtn" type="radio" id="inpCountdown" name="input_Countdown" value="Countdown">
-                <label class="labelBtn" for="inpCountdown">Soll der Artikel als Countdown Artikel eingefügt werden?</label>
-            </div>
-
-            <div id="cCountdownTime" class="cProductInput checkedCountdown">
-                <label class="labelInput" for="productCountdownTime">Bis wann : </label>
-                <input id="productSaleInPercent" class="inputProduct" type="date">
-            </div>
-
-            <div id="cCountdownSaleInPercent" class="cProductInput checkedCountdown">
-                <label class="labelInput" for="productSaleInPercent">Extra Prozent (auf Sale dazu) : </label>
-                <input id="productSaleInPercent" class="inputProduct" type="number">
-            </div>
-
-
-
-        </div>
+    </div>
     </section>
     <script type="text/javascript" src="js/insertProduct.js"></script>
 </body>

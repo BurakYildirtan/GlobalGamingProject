@@ -22,14 +22,25 @@ var cProductSpecs = document.getElementById("cProductSpecs");
 var cSoftwareSpecs = document.getElementById("cSoftwareSpecs");
 var cHardwareSpecs = document.getElementById("cHardwareSpecs");
 
-
+var textBoxPicture = document.getElementById("productPicturePath");
 //Software Bereich
 rBSoftware.addEventListener ("click", () => {
     if(rBSoftware.checked) {
         cProductSpecs.style.display = "flex";
         cSoftwareSpecs.style.display = "flex";
-        cHardwareSpecs.style.display = "flex";
+        cHardwareSpecs.style.display = "none";
+        cCheckBtnSale.style.display = "flex";
+        
+        document.getElementById("cSaleSpecs").style.display ="flex";
+        checkBtnSale.checked = false;
+        checkBtnCountdown.checked = false;
+        document.getElementById("cProductSaleInPercent").style.display="none"
+        document.getElementById("cCheckBtnCountdown").style.display="none"
+        document.getElementById("cCountdownTime").style.display="none"
+        document.getElementById("cCountdownSaleInPercent").style.display="none"
+        
     }
+
 });
 
 //Hardware Bereich 
@@ -37,21 +48,44 @@ rBHardware.addEventListener ("click", () => {
     if(rBHardware.checked) {
         cProductSpecs.style.display = "flex";
         cHardwareSpecs.style.display = "flex";
+        cSoftwareSpecs.style.display = "none";
+        cCheckBtnSale.style.display = "flex";
+
+        document.getElementById("cSaleSpecs").style.display ="flex";
+        checkBtnSale.checked = false;
+        checkBtnCountdown.checked = false;
+        document.getElementById("cProductSaleInPercent").style.display="none"
+        document.getElementById("cCheckBtnCountdown").style.display="none"
+        document.getElementById("cCountdownTime").style.display="none"
+        document.getElementById("cCountdownSaleInPercent").style.display="none"
     }
 });
 
 
 checkBtnSale.addEventListener ("click", () => {
     if(checkBtnSale.checked) {
-
+        document.getElementById("cProductSaleInPercent").style.display="flex"
+        document.getElementById("cCheckBtnCountdown").style.display="flex"
+    }
+    else{
+        document.getElementById("cProductSaleInPercent").style.display="none"
+        document.getElementById("cCheckBtnCountdown").style.display="none"
     }
 });
 
 checkBtnCountdown.addEventListener ("click", () => {
     if(checkBtnCountdown.checked) {
-        checkedBtn.style.display = "flex";
+        document.getElementById("cCountdownTime").style.display="flex"
+        document.getElementById("cCountdownSaleInPercent").style.display="flex"
     }else {
-        checkedBtn.style.display = "none";
+        document.getElementById("cCountdownTime").style.display="none"
+        document.getElementById("cCountdownSaleInPercent").style.display="none"
 
     }
 });
+
+textBoxPicture.addEventListener ("change", function() {
+    document.getElementById("imgPreview").src = textBoxPicture.value;
+    
+ });
+
