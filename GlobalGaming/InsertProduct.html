@@ -7,6 +7,7 @@
         <link rel="icon" type="image/x-icon" href="pics/favicon.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/slideshow.css">
+        <script src="js/insertProduct.js"></script>
     </head>
 
 <body>
@@ -22,23 +23,95 @@
             <h3 class="textSubTitle">Produkt hinzufügen</h3>
             <h4 class="text">Wählen Sie die Produktkategorie aus:</h4>
             <div class="optionRadioBtn">
-                <input class="inputBtn" type="radio" id="inpSoftware" name="input_software" value="Software">
+                <input class="inputBtn" type="radio" id="inpSoftware" name="inputModus" value="Software">
                 <label class="labelBtn" for="inpSoftware">Software</label>
             </div>
             <div class="optionRadioBtn">
-                <input class="inputBtn" type="radio" id="inpHardware" name="input_hardware" value="Hardware">
+                <input class="inputBtn" type="radio" id="inpHardware" name="inputModus">
                 <label class="labelBtn" for="inpHardware">Hardware</label>
             </div>
         </form>
 
-        <div class="cProductSpecs">
+        <div id="cProductSpecs" class="cSpecs cProductSpecs">
+            <div class="cProductPic">
+                <img id="imgPreview" href="pics/noch_kein_bild.jpeg" class="imgPrev">
+            </div>
+            <form>
+                <div class="cProductInput cProductTitle">
+                    <label class="labelInput" for="productTitle">Titel : </label>
+                    <input id="productTitle" class="inputProduct" type="value">
+                </div>
+
+                <div class="cProductInput cProductPrice">
+                    <label class="labelInput" for="productPrice">Nettopreis : </label>
+                    <input id="productPrice" class="inputProduct" type="value">
+                </div>
+
+                <div class="cProductInput cProductPicturePath">
+                    <label class="labelInput" for="productPicturePath">Bildpfad : </label>
+                    <input id="productPicturePath" class="inputProduct" type="value">
+                </div>
+            </form>
+        </div>
+
+        <div id="cSoftwareSpecs" class="cSpecs cSoftwareSpecs">
+            <h3>Software - Spezifikation</h3>
+            <div class="cProductInput">
+                <label class="labelInput" for="productPlayer">SpielerAnzahl : </label>
+                <input id="productPlayer" class="inputProduct" type="number">
+            </div>
+
+            <div class="cProductInput">
+                <label class="labelInput" for="productGenre">Genre : </label>
+                <input id="productGenre" class="inputProduct" type="value">
+            </div>
+        </div>
+
+        <div class="cSpecs cHardwareSpecs">
+            <h3>Hardware - Spezifikation</h3>
+            <div class="cProductInput">
+                <label class="labelInput" for="productPlayer">Leistung : </label>
+                <input id="productPlayer" class="inputProduct" type="number">
+            </div>
+
+            <div class="cProductInput">
+                <label class="labelInput" for="productGenre">Erscheinungsdatum : </label>
+                <input id="productGenre" class="inputProduct" type="date">
+            </div>
+        </div>
+
+        <div class="cSpecs cSaleSpecs">
+            <div class="optionRadioBtn">
+                <input class="inputBtn" type="checkbox" id="inpSale" name="input_Sale" value="Sale">
+                <label class="labelBtn" for="inpSale">Soll der Artikel im Sale sein ?</label>
+            </div>
+
+            <div class="cProductInput">
+                <label class="labelInput" for="productSaleInPercent">Prozent : </label>
+                <input id="productSaleInPercent" class="inputProduct" type="number">
+            </div>
+
+            <div class="optionRadioBtn">
+                <input class="inputBtn" type="checkbox" id="inpCountdown" name="input_Countdown" value="Countdown">
+                <label class="labelBtn" for="inpCountdown">Soll der als Countdown Artikel eingefügt werden?</label>
+            </div>
+
+            <div class="cProductInput">
+                <label class="labelInput" for="productCountdownTime">Bis wann : </label>
+                <input id="productSaleInPercent" class="inputProduct" type="date">
+            </div>
+
+            <div class="cProductInput">
+                <label class="labelInput" for="productSaleInPercent">Extra Prozent (auf Sale dazu) : </label>
+                <input id="productSaleInPercent" class="inputProduct" type="number">
+            </div>
+
+
 
         </div>
-        <div class="cHardwareSpecs">
 
-        </div>
-        <div class="cSoftwareSpecs">
-            
+        <div class="cCountdownSpecs">
+
         </div>
     </section>
 </body>
