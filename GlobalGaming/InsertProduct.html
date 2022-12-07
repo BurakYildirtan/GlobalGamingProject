@@ -33,7 +33,7 @@
         <div class="centeredItems">
             <div id="cProductSpecs" class="cSpecs cProductSpecs">
                 <div class="cProductPic">
-                    <img id="imgPreview" src="pics/noch_kein_bild.jpeg" class="imgPrev">
+                    <img id="imgPreview" src="pics/noch_kein_bild.jpeg" class="imgPrev" alt="BildPreview">
                 </div>
                 <form>
                     <div class="cProductInput cProductTitle">
@@ -104,10 +104,12 @@
                     <label class="labelInput" for="productSaleInPercent">Extra Prozent (auf Sale dazu) : </label>
                     <input id="productSaleInPercent" class="inputProduct" type="number">
                 </div>
-
-
-
             </div>
+
+            <input  id="btnSubmit" type="button" value="Submit" onclick="insertData()">
+            <span id="response">
+
+            </span>
     </div>
     </section>
     <script type="text/javascript" src="js/insertProduct.js"></script>

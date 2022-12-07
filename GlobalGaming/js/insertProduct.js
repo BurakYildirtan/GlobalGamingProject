@@ -4,14 +4,12 @@ var rBSoftware = document.getElementById("inpSoftware");
 var rBHardware = document.getElementById("inpHardware");
 var checkBtnSale = document.getElementById("inpSale");
 var checkBtnCountdown = document.getElementById("inpCountdown");
+var btnSubmit = document.getElementById("btnSubmit")
 
 
 
 //Klassen
 var checkedBtn = document.getElementsByClassName("checkedCountdown")
-
-
-
 
 
 var cCheckBtnSale = document.getElementById("cCheckBtnSale");
@@ -23,6 +21,7 @@ var cSoftwareSpecs = document.getElementById("cSoftwareSpecs");
 var cHardwareSpecs = document.getElementById("cHardwareSpecs");
 
 var textBoxPicture = document.getElementById("productPicturePath");
+
 //Software Bereich
 rBSoftware.addEventListener ("click", () => {
     if(rBSoftware.checked) {
@@ -30,6 +29,8 @@ rBSoftware.addEventListener ("click", () => {
         cSoftwareSpecs.style.display = "flex";
         cHardwareSpecs.style.display = "none";
         cCheckBtnSale.style.display = "flex";
+        btnSubmit.style.display = "block";
+        
         
         document.getElementById("cSaleSpecs").style.display ="flex";
         checkBtnSale.checked = false;
@@ -50,6 +51,7 @@ rBHardware.addEventListener ("click", () => {
         cHardwareSpecs.style.display = "flex";
         cSoftwareSpecs.style.display = "none";
         cCheckBtnSale.style.display = "flex";
+        btnSubmit.style.display = "block";
 
         document.getElementById("cSaleSpecs").style.display ="flex";
         checkBtnSale.checked = false;
