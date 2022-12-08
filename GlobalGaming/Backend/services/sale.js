@@ -1,35 +1,35 @@
 const helper = require('../helper.js');
-const ProduktDao = require('../dao/produktDao.js');
+const SaleDao = require('../dao/saleDao.js');
 const express = require('express');
 var serviceRouter = express.Router();
 
-console.log('- Service Produkt');
+console.log('- Service Sale');
 
-serviceRouter.post('/produkt', function(request, response) {
+serviceRouter.post('/sale', function(request, response) {
 
-    console.log('Service Produkt: Neues Produkt einfügen');
+    console.log('Service Sale: Neues Sales einfügen');
     var errorMsgs=[];
 
-    if(helper.isUndefined(request.body.title))
-        errorMsgs.push('titel fehlt');
+    if(helper.isUndefined(request.body.saleInPercent))
+        errorMsgs.push('saleProzent fehlt');
     
-    if(helper.isUndefined(request.body.price))
-        errorMsgs.push('preis fehlt');
+    if(helper.isUndefined(request.body.produktId))
+        errorMsgs.push('produktID fehlt');
     
     if (errorMsgs.length > 0) {
-        console.log('Service Produkt: Creation not possible, data missing');
+        console.log('Service Sale: Creation not possible, data missing');
         response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
         return;
     }
 
-    const produktDao = new ProduktDao(request.app.locals.dbConnection);
+    const saleDao = new SaleDao(request.app.locals.dbConnection);
     try {
-        var obj = produktDao.create(request.body.title, request.body.price);
-        console.log('Service Produkt: Record inserted');
+        var obj = saleDao.create(request.body.produktId, request.body.saleInPercent);
+        console.log('Service Sale: Record inserted');
         response.status(200).json(obj);
 
     } catch (ex) {
-        console.error('Service Produkt: Error creating new record. Exception occured: ' + ex.message);
+        console.error('Service Sale: Error creating new record. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });

@@ -1,35 +1,38 @@
 const helper = require('../helper.js');
-const ProduktDao = require('../dao/produktDao.js');
+const SoftwareDao = require('../dao/softwareDao.js');
 const express = require('express');
 var serviceRouter = express.Router();
 
-console.log('- Service Produkt');
+console.log('- Service Software');
 
-serviceRouter.post('/produkt', function(request, response) {
+serviceRouter.post('/software', function(request, response) {
 
-    console.log('Service Produkt: Neues Produkt einfügen');
+    console.log('Service Software: Neue Software einfügen');
     var errorMsgs=[];
 
-    if(helper.isUndefined(request.body.title))
-        errorMsgs.push('titel fehlt');
+    if(helper.isUndefined(request.body.id))
+        errorMsgs.push('ID fehlt');
     
-    if(helper.isUndefined(request.body.price))
-        errorMsgs.push('preis fehlt');
+    if(helper.isUndefined(request.body.players))
+        errorMsgs.push('spielerAnzahl fehlt');
+
+    if(helper.isUndefined(request.body.genre))
+        errorMsgs.push('Genre fehlt');
     
     if (errorMsgs.length > 0) {
-        console.log('Service Produkt: Creation not possible, data missing');
+        console.log('Service Software: Creation not possible, data missing');
         response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
         return;
     }
 
-    const produktDao = new ProduktDao(request.app.locals.dbConnection);
+    const softwareDao = new SoftwareDao(request.app.locals.dbConnection);
     try {
-        var obj = produktDao.create(request.body.title, request.body.price);
-        console.log('Service Produkt: Record inserted');
+        var obj = softwareDao.create(request.body.title, request.body.price);
+        console.log('Service Software: Record inserted');
         response.status(200).json(obj);
 
     } catch (ex) {
-        console.error('Service Produkt: Error creating new record. Exception occured: ' + ex.message);
+        console.error('Service Software: Error creating new record. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });

@@ -1,35 +1,38 @@
 const helper = require('../helper.js');
-const ProduktDao = require('../dao/produktDao.js');
+const HardwareDao = require('../dao/hardwareDao.js');
 const express = require('express');
 var serviceRouter = express.Router();
 
-console.log('- Service Produkt');
+console.log('- Service Hardware');
 
-serviceRouter.post('/produkt', function(request, response) {
+serviceRouter.post('/hardware', function(request, response) {
 
-    console.log('Service Produkt: Neues Produkt einfügen');
+    console.log('Service Hardware: Neue Hardware einfügen');
     var errorMsgs=[];
 
-    if(helper.isUndefined(request.body.title))
-        errorMsgs.push('titel fehlt');
+    if(helper.isUndefined(request.body.id))
+        errorMsgs.push('ID fehlt');
     
-    if(helper.isUndefined(request.body.price))
-        errorMsgs.push('preis fehlt');
-    
+    if(helper.isUndefined(request.body.performance))
+        errorMsgs.push('Leistung fehlt');
+
+    if(helper.isUndefined(request.body.releaseDate))
+        errorMsgs.push('Erscheinungsdatum fehlt');
+
     if (errorMsgs.length > 0) {
-        console.log('Service Produkt: Creation not possible, data missing');
+        console.log('Service Hardware: Creation not possible, data missing');
         response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
         return;
     }
 
-    const produktDao = new ProduktDao(request.app.locals.dbConnection);
+    const hardwareDao = new HardwareDao(request.app.locals.dbConnection);
     try {
-        var obj = produktDao.create(request.body.title, request.body.price);
-        console.log('Service Produkt: Record inserted');
+        var obj = hardwareDao.create(request.body.id, request.body.performance, request.body.releaseDate);
+        console.log('Service Hardware: Record inserted');
         response.status(200).json(obj);
 
     } catch (ex) {
-        console.error('Service Produkt: Error creating new record. Exception occured: ' + ex.message);
+        console.error('Service Hardware: Error creating new record. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
