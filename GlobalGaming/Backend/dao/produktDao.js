@@ -12,7 +12,7 @@ class ProduktDao {
         return this._conn;
     }
 
-    create(titel, nettoPreis) {
+    create(title, price) {
 
         //Definieren von SQL Statement mit Values
         var sql = 'INSERT INTO Produkt ( titel, nettoPreis) VALUES  (?,?)';
@@ -22,7 +22,7 @@ class ProduktDao {
 
 
         //Parameter der eingegebenen Produkt Details
-        var params = [titel, nettoPreis];
+        var params = [title, price];
 
         //ausführen von insert statement
         var result = statement.run(params);
@@ -32,9 +32,23 @@ class ProduktDao {
         if (result.changes != 1) 
             throw new Error('Dateien konnten nicht Eingefügt werden ' + params);
 
-        //zeigt das Produkt
-        return this.loadById(result.lastInsertRowid);
+        //zeigt das Produkt noch nicht wichtig
+        // return this.loadById(result.lastInsertRowid);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     delete(id) {
         try {

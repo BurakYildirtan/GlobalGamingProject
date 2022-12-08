@@ -5,21 +5,14 @@ var rBHardware = document.getElementById("inpHardware");
 var checkBtnSale = document.getElementById("inpSale");
 var checkBtnCountdown = document.getElementById("inpCountdown");
 var btnSubmit = document.getElementById("btnSubmit")
-
-
-
-//Klassen
 var checkedBtn = document.getElementsByClassName("checkedCountdown")
-
-
 var cCheckBtnSale = document.getElementById("cCheckBtnSale");
 var cCheckBtnCountdown = document.getElementById("cCheckBtnCountdown");
 
-
+//Divs
 var cProductSpecs = document.getElementById("cProductSpecs");
 var cSoftwareSpecs = document.getElementById("cSoftwareSpecs");
 var cHardwareSpecs = document.getElementById("cHardwareSpecs");
-
 var textBoxPicture = document.getElementById("productPicturePath");
 
 //Software Bereich
@@ -63,7 +56,7 @@ rBHardware.addEventListener ("click", () => {
     }
 });
 
-
+//Sale Produkt 
 checkBtnSale.addEventListener ("click", () => {
     if(checkBtnSale.checked) {
         document.getElementById("cProductSaleInPercent").style.display="flex"
@@ -75,6 +68,7 @@ checkBtnSale.addEventListener ("click", () => {
     }
 });
 
+//Countedown Produkt 
 checkBtnCountdown.addEventListener ("click", () => {
     if(checkBtnCountdown.checked) {
         document.getElementById("cCountdownTime").style.display="flex"
@@ -86,8 +80,34 @@ checkBtnCountdown.addEventListener ("click", () => {
     }
 });
 
+
 textBoxPicture.addEventListener ("change", function() {
     document.getElementById("imgPreview").src = textBoxPicture.value;
     
  });
+
+
+$('#btnSubmit').click(function() {
+    console.log('button btnSubmit clicked');
+
+    var valTitle = document.getElementById("productTitle").value;
+    var valPrice = document.getElementById("productPrice").value;
+    
+
+    var produkt = { 'title' : valTitle, 'price' : valPrice };
+    
+    $.ajax({
+        url: 'http://localhost:8000/api/produkt',
+        method: 'post',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(produkt)
+    }).done(function (response) {
+        console.log(response);
+        $('#output').html(JSON.stringify(response));
+    }).fail(function (jqXHR, statusText, error) {
+        console.log('Response Code: ' + jqXHR.status + ' - Fehlermeldung: ' + jqXHR.responseText);
+        $('#output').html('Ein Fehler ist aufgetreten');
+    });
+});
 

@@ -8,41 +8,13 @@ console.log('- Service Produkt');
 serviceRouter.post('/produkt', function(request, response) {
 
     console.log('Service Produkt: Neues Produkt einfügen');
-
     var errorMsgs=[];
 
-    if(helper.isUndefined())
-
-
-    if (helper.isUndefined(request.body.bezeichnung)) 
-        errorMsgs.push('bezeichnung fehlt');
-    if (helper.isUndefined(request.body.beschreibung)) 
-        request.body.beschreibung = '';
-    if (helper.isUndefined(request.body.details)) 
-        request.body.details = null;
-    if (helper.isUndefined(request.body.nettopreis)) 
-        errorMsgs.push('nettopreis fehlt');
-    if (!helper.isNumeric(request.body.nettopreis)) 
-        errorMsgs.push('nettopreis muss eine Zahl sein');
-    if (helper.isUndefined(request.body.kategorie)) {
-        errorMsgs.push('kategorie fehlt');
-    } else if (helper.isUndefined(request.body.kategorie.id)) {
-        errorMsgs.push('kategorie gesetzt, aber id fehlt');
-    }        
-    if (helper.isUndefined(request.body.mehrwertsteuer)) {
-        errorMsgs.push('mehrwertsteuer fehlt');
-    } else if (helper.isUndefined(request.body.mehrwertsteuer.id)) {
-        errorMsgs.push('mehrwertsteuer gesetzt, aber id fehlt');
-    }        
-    if (helper.isUndefined(request.body.datenblatt)) {
-        request.body.datenblatt = null;
-    } else if (helper.isUndefined(request.body.datenblatt.id)) {
-        errorMsgs.push('datenblatt gesetzt, aber id fehlt');
-    } else {
-        request.body.datenblatt = request.body.datenblatt.id;
-    }
-    if (helper.isUndefined(request.body.bilder)) 
-        request.body.bilder = [];
+    if(helper.isUndefined(request.body.title))
+        errorMsgs.push('titel fehlt');
+    
+    if(helper.isUndefined(request.body.price))
+        errorMsgs.push('preis fehlt');
     
     if (errorMsgs.length > 0) {
         console.log('Service Produkt: Creation not possible, data missing');
@@ -52,9 +24,10 @@ serviceRouter.post('/produkt', function(request, response) {
 
     const produktDao = new ProduktDao(request.app.locals.dbConnection);
     try {
-        var obj = produktDao.create(request.body.kategorie.id, request.body.bezeichnung, request.body.beschreibung, request.body.mehrwertsteuer.id, request.body.details, request.body.nettopreis, request.body.datenblatt, request.body.bilder);
+        var obj = produktDao.create(request.body.title, request.body.price);
         console.log('Service Produkt: Record inserted');
         response.status(200).json(obj);
+
     } catch (ex) {
         console.error('Service Produkt: Error creating new record. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
