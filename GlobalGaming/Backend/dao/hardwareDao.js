@@ -2,7 +2,7 @@ const helper = require('../helper.js');
 // const ProduktkategorieDao = require('./produktkategorieDao.js');
 // const ProduktbildDao = require('./produktbildDao.js');
 
-class ProduktDao {
+class HardwareDao {
 
     constructor(dbConnection) {
         this._conn = dbConnection;
@@ -12,16 +12,16 @@ class ProduktDao {
         return this._conn;
     }
 
-    create(title, price) {
+    create(id, performance, releaseDate ) {
         //Definieren von SQL Statement mit Values
-        var sql = 'INSERT INTO Produkt ( titel, nettoPreis) VALUES  (?,?)';
+        var sql = 'INSERT INTO Produkt ( id, leistung, erscheinungsDatum) VALUES  (?,?,?)';
 
         //definieren von Statement zum ausführen als sql statement
         var statement = this._conn.prepare(sql);
 
 
         //Parameter der eingegebenen Produkt Details
-        var params = [title, price];
+        var params = [ id, performance, releaseDate ];
 
         //ausführen von insert statement
         var result = statement.run(params);

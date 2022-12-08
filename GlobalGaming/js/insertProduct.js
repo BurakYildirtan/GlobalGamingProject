@@ -1,4 +1,5 @@
 
+
 //Buttons
 var rBSoftware = document.getElementById("inpSoftware");
 var rBHardware = document.getElementById("inpHardware");
@@ -83,18 +84,23 @@ checkBtnCountdown.addEventListener ("click", () => {
 
 textBoxPicture.addEventListener ("change", function() {
     document.getElementById("imgPreview").src = textBoxPicture.value;
-    
- });
+});
 
 
 $('#btnSubmit').click(function() {
-    console.log('button btnSubmit clicked');
+    console.log('Button Sumbit wurde geklickt');
 
     var valTitle = document.getElementById("productTitle").value;
     var valPrice = document.getElementById("productPrice").value;
-    
+    var valPath = document.getElementById("productPicturePath").value;
+    var valPlayer = document.getElementById("productPlayer").value;
+    var valGenre = document.getElementById("productGenre").value;
 
-    var produkt = { 'title' : valTitle, 'price' : valPrice };
+    console.log("bubububub "+valGenre)
+
+
+
+    var produkt = { 'title' : valTitle, 'price' : valPrice};
     
     $.ajax({
         url: 'http://localhost:8000/api/produkt',
@@ -109,5 +115,17 @@ $('#btnSubmit').click(function() {
         console.log('Response Code: ' + jqXHR.status + ' - Fehlermeldung: ' + jqXHR.responseText);
         $('#output').html('Ein Fehler ist aufgetreten');
     });
+    clearInput();
 });
+
+function clearInput () {
+    document.getElementById("productTitle").value = "";
+    document.getElementById("productPrice").value = "";
+
+
+};
+
+function checkInput () {
+    
+};
 
