@@ -104,37 +104,44 @@ $('#btnSubmit').click(async function() {
 
     var productData = { 'title' : 'TestProdukt1', 'price' : 9.99, 'picturePath' : './Produktbilder/Software/fifa13.jpg' };
     //request für Produkt und response speichern
-    var productResponse = await requestProduct(productData);
+    var productResponse = await requestProduct( productData );
     //Sicherheitsabfrage
     if (productResponse == undefined) {
         throw console.error('Produkt konnte nicht hinzugefuegt werden!');
-    }
+    };
 
     //Wenn Software ausgewählt
     if(rBSoftware.checked){
+
         var valPlayer = document.getElementById("productPlayer").value;
         var valGenre = document.getElementById("productGenre").value;
 
-        softwareData = { 'productId': productResponse.id, 'player' : valPlayer, 'genre' : genre };
-        
-        var softwareResponse = await 
-    }
+        // softwareData = { 'productId': productResponse.id, 'player' : valPlayer, 'genre' : genre };
+        try {
+            softwareData = { 'productId': productResponse.id, 'player' : 8, 'genre' : 'Action' };
+            // console.log("produktId von der es referenziert : "+productResponse.id);
+            var softwareResponse = await requestSoftware( softwareData );
+        }
+        catch (error) {
+            throw console.error("Software wurde nicht hinzugefügt");
+        }
+    };
     
     //Wenn Hardware ausgewählt
     if(rBHardware.checked){
         var valPerformance = document.getElementById("productPerformance").value;
         var valReleaseDate = document.getElementById("productReleaseDate").value;
-    }
+    };
     //Sale
     if(isInpSaleChecked){
         var isInpSaleChecked = document.getElementById("inpSale").checked;
         var valSaleInPercent = document.getElementById("productSaleInPercent").value;
-    }
+    };
 
     if(isInpCountdownChecked){
         var valCountdownTime = document.getElementById("productCountdownTime").value;
         var valCountdownSale = document.getElementById("productCountdownSale").value;
-    }
+    };
 
     // console.log("release Date : "+valReleaseDate);
 
@@ -163,6 +170,10 @@ function clearInput () {
 
 
 async function requestProduct(product) {
+    console.log('Produkt AJAX Aufruf gestartet');
+
+    var xhr1 = new XMLHttpRequest();
+
     var productData;
     productData = await $.ajax({
         url: 'http://localhost:8000/api/produkt',
@@ -183,10 +194,13 @@ async function requestProduct(product) {
         document.getElementById("response").style.visibility = "visible";
     });
 
+
     return productData
-}
+};
 
 async function requestSoftware(software) {
+    console.log('Software AJAX Aufruf gestartet');
+
     var softwareData;
     softwareData = await $.ajax({
         url: 'http://localhost:8000/api/software',
@@ -203,4 +217,4 @@ async function requestSoftware(software) {
     });
 
     return softwareData;
-}
+};
