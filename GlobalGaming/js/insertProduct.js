@@ -112,15 +112,14 @@ $('#btnSubmit').click(async function() {
 
     //Wenn Software ausgewählt
     if(rBSoftware.checked){
-
         var valPlayer = document.getElementById("productPlayer").value;
         var valGenre = document.getElementById("productGenre").value;
-
-        // softwareData = { 'productId': productResponse.id, 'player' : valPlayer, 'genre' : genre };
         try {
+            // softwareData = { 'productId': productResponse.id, 'player' : valPlayer, 'genre' : genre };
             softwareData = { 'productId': productResponse.id, 'player' : 8, 'genre' : 'Action' };
-            // console.log("produktId von der es referenziert : "+productResponse.id);
+            // console.log("produktId von der Software es referenziert : "+productResponse.id);
             var softwareResponse = await requestSoftware( softwareData );
+            console.log('Software erfolgreich hinzugefügt mit der ref. id : '+ softwareResponse.id);
         }
         catch (error) {
             throw console.error("Software wurde nicht hinzugefügt");
@@ -131,6 +130,16 @@ $('#btnSubmit').click(async function() {
     if(rBHardware.checked){
         var valPerformance = document.getElementById("productPerformance").value;
         var valReleaseDate = document.getElementById("productReleaseDate").value;
+        try {
+            // hardwareData = { 'productId': productResponse.id, 'performance' : valPerformance, 'releaseDate' : valReleaseDate };
+            hardwareData = { 'productId': productResponse.id, 'performance' : 100, 'releaseDate' : '2022-10-10' };
+            // console.log("produktId von der Hardware es referenziert : "+productResponse.id);
+            var hardwareResponse = await requestHardware( hardwareData );
+            console.log('Hardware erfolgreich hinzugefügt mit der ref. id : '+ hardwareResponse.id);
+        }
+        catch (error) {
+            throw console.error("Hardware wurde nicht hinzugefügt");
+        }
     };
     //Sale
     if(isInpSaleChecked){
@@ -191,7 +200,8 @@ async function requestProduct(product) {
 
     }).fail(function (jqXHR, statusText, error) {
         $('#response').html('Ein Fehler ist aufgetreten');
-        document.getElementById("response").style.visibility = "visible";
+        //DAS BRAUCH ICH ALS LETZTES
+        // document.getElementById("response").style.visibility = "visible";
     });
 
 
@@ -213,8 +223,26 @@ async function requestSoftware(software) {
 
     }).fail(function (jqXHR, statusText, error) {
         $('#response').html('Ein Fehler ist aufgetreten');
-        document.getElementById("response").style.visibility = "visible";
     });
 
     return softwareData;
+};
+
+async function requestHardware(hardware) {
+    console.log('Hardware AJAX Aufruf gestartet');
+
+    var hardwareData;
+    hardwareData = await $.ajax({
+        url: 'http://localhost:8000/api/hardware',
+        method: 'post',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(hardware)
+    }).done(function (response) {
+        hardwareData = response;
+    }).fail(function (jqXHR, statusText, error) {
+        $('#response').html('Ein Fehler ist aufgetreten');
+    });
+
+    return hardwareData;
 };

@@ -41,7 +41,7 @@ class SoftwareDao {
     }
 
     toString() {
-        console.log('ProduktDao [_conn=' + this._conn + ']');
+        console.log('SoftwareDao [_conn=' + this._conn + ']');
     }
 }
 

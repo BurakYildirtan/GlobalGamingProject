@@ -56,7 +56,10 @@ try {
     serviceRouter = require('./services/produkt.js');
     app.use(TOPLEVELPATH, serviceRouter);
 
-    serviceRouter = require('./services/software.js');
+    var serviceRouter = require('./services/software.js');
+    app.use(TOPLEVELPATH, serviceRouter);
+
+    serviceRouter = require('./services/hardware.js');
     app.use(TOPLEVELPATH, serviceRouter);
     
     // send default error message if no matching endpoint found
