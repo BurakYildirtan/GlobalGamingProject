@@ -33,7 +33,7 @@ class HardwareDao {
     }
 
     loadById(id) {
-        var sql = 'SELECT * FROM Produkt WHERE id=?';
+        var sql = 'SELECT * FROM Hardware WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
         return result;

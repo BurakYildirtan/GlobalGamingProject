@@ -29,7 +29,6 @@ class ProduktDao {
         if ( result.changes != 1 ) 
             throw new Error('Dateien konnten nicht Eingefügt werden ' + params);
 
-        console.log('Hierrrr result last wert: '+result.lastInsertRowid)
         return this.loadById(result.lastInsertRowid);
     }
 

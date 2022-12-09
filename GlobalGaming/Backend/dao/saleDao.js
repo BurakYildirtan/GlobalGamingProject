@@ -10,15 +10,15 @@ class SaleDao {
         return this._conn;
     }
 
-    create(produktId, saleInPercent) {
+    create(productId, saleInPercent) {
         //Definieren von SQL Statement mit Values
-        var sql = 'INSERT INTO Produkt ( produktId, saleProzent) VALUES  (?,?)';
+        var sql = 'INSERT INTO Sale ( produktId, saleProzent) VALUES  (?,?)';
 
         //definieren von Statement zum ausführen als sql statement
         var statement = this._conn.prepare(sql);
 
         //Parameter der eingegebenen Produkt Details
-        var params = [ produktId, saleInPercent ];
+        var params = [ productId, saleInPercent ];
 
         //ausführen von insert statement
         var result = statement.run(params);
@@ -27,97 +27,19 @@ class SaleDao {
         if (result.changes != 1) 
             throw new Error('Dateien konnten nicht Eingefügt werden ' + params);
 
-        // return this.loadById(result.lastInsertRowid);
+        return this.loadById(result.lastInsertRowid);
     }
 
-
-    getProductid()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // loadById(id) {
-    //     // const produktkategorieDao = new ProduktkategorieDao(this._conn);
-    //     // const produktbildDao = new ProduktbildDao(this._conn);
-
-       
-
-    //     // if (helper.isUndefined(result)) 
-    //     //     throw new Error('No Record found by id=' + id);
-
-    //     // result.kategorie = produktkategorieDao.loadById(result.kategorieId);
-    //     // delete result.kategorieId;
-
-    //     // result.bilder = produktbildDao.loadByParent(result.id);
-
-
-    //     var sql = 'SELECT * FROM Produkt WHERE id=?';
-    //     var statement = this._conn.prepare(sql);
-    //     var result = statement.get(id);
-    //     return result;
-    // }
-
-    // loadAll() {
-    //     /*
-    //     const produktkategorieDao = new ProduktkategorieDao(this._conn);
-    //     const produktbildDao = new ProduktbildDao(this._conn);
-
-       
-
-    //     if (helper.isArrayEmpty(result)) 
-    //         return [];
-
-    //     for (var i = 0; i < result.length; i++) {
-    //         result[i].kategorie = produktkategorieDao.loadById(result[i].kategorieId);
-    //         delete result[i].kategorieid;
-
-
-    //         result[i].bilder = produktbildDao.loadByParent(result[i].id);
-
-
-    //     }
-    //     */
-    //     var sql = 'SELECT * FROM Produkt';
-    //     var statement = this._conn.prepare(sql);
-    //     var result = statement.all();
-    //     return result;
-    // }
-
-    // update(id, kategorieId = 1, bezeichnung = '', beschreibung = '', details = null, nettopreis = 0.0, bilder = []) {
-    //     const produktbildDao = new ProduktbildDao(this._conn);
-    //     produktbildDao.deleteByParent(id);
-
-    //     var sql = 'UPDATE Produkt SET kategorieId=?,bezeichnung=?,beschreibung=?,details=?,nettopreis=? WHERE id=?';
-    //     var statement = this._conn.prepare(sql);
-    //     var params = [kategorieId, bezeichnung, beschreibung, details, nettopreis, id];
-    //     var result = statement.run(params);
-
-    //     if (result.changes != 1) 
-    //         throw new Error('Could not update existing Record. Data: ' + params);
-
-    //     if (bilder.length > 0) {
-    //         for (var element of bilder) {
-    //             produktbildDao.create(element.bildpfad, id);
-    //         }
-    //     }
-
-    //     return this.loadById(id);
-    // }
+    loadById(id) {
+        var sql = 'SELECT * FROM Sale WHERE id=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(id);
+        return result;
+    }
 
     toString() {
-        console.log('ProduktDao [_conn=' + this._conn + ']');
+        console.log('SaleDao [_conn=' + this._conn + ']');
     }
 }
 
-module.exports = ProduktDao;
+module.exports = SaleDao;

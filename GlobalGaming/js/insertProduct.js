@@ -143,8 +143,17 @@ $('#btnSubmit').click(async function() {
     };
     //Sale
     if(isInpSaleChecked){
-        var isInpSaleChecked = document.getElementById("inpSale").checked;
         var valSaleInPercent = document.getElementById("productSaleInPercent").value;
+        try {
+            // saleData = { 'productId': productResponse.id, 'saleInPercent' :  valSaleInPercent};
+            saleData = { 'productId': productResponse.id, 'saleInPercent' : 99 };
+            // console.log("produktId von der Sale es referenziert : "+productResponse.id);
+            var saleResponse = await requestSale( saleData );
+            console.log('Sale erfolgreich hinzugefügt mit der ref. id : '+ saleResponse.produktId + ' und der Sale Id : '+ saleResponse.id);
+        }
+        catch (error) {
+            throw console.error("Sale wurde nicht hinzugefügt");
+        }
     };
 
     if(isInpCountdownChecked){
@@ -246,3 +255,41 @@ async function requestHardware(hardware) {
 
     return hardwareData;
 };
+
+async function requestSale(sale) {
+    console.log('Hardware AJAX Aufruf gestartet');
+
+    var saleData;
+    saleData = await $.ajax({
+        url: 'http://localhost:8000/api/sale',
+        method: 'post',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(sale)
+    }).done(function (response) {
+        saleData = response;
+    }).fail(function (jqXHR, statusText, error) {
+        $('#response').html('Ein Fehler ist aufgetreten');
+    });
+
+    return saleData;
+};
+
+// async function requestCountdown(countdown) {
+//     console.log('Hardware AJAX Aufruf gestartet');
+
+//     var countdownData;
+//     hardwareData = await $.ajax({
+//         url: 'http://localhost:8000/api/countdown',
+//         method: 'post',
+//         contentType: 'application/json; charset=utf-8',
+//         cache: false,
+//         data: JSON.stringify(countdown)
+//     }).done(function (response) {
+//         countdownData = response;
+//     }).fail(function (jqXHR, statusText, error) {
+//         $('#response').html('Ein Fehler ist aufgetreten');
+//     });
+
+//     return countdownData;
+// };
