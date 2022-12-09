@@ -1,6 +1,7 @@
 const helper = require('../helper.js');
 const SaleDao = require('../dao/saleDao.js');
 const express = require('express');
+const { startCase } = require('lodash');
 var serviceRouter = express.Router();
 
 console.log('- Service Sale');
@@ -33,9 +34,6 @@ serviceRouter.post('/sale', function(request, response) {
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
-
-
-
 
 
 

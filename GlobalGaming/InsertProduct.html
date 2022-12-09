@@ -71,12 +71,12 @@
                 <h3>Hardware - Spezifikation</h3>
                 <div class="cProductInput">
                     <label class="labelInput" for="productPlayer">Leistung : </label>
-                    <input id="productPlayer" class="inputProduct" type="number">
+                    <input id="productPerformance" class="inputProduct" type="number">
                 </div>
 
                 <div class="cProductInput">
                     <label class="labelInput" for="productGenre">Erscheinungsdatum : </label>
-                    <input id="productGenre" class="inputProduct" type="date">
+                    <input id="productReleaseDate" class="inputProduct" type="date">
                 </div>
             </div>
 
@@ -86,30 +86,30 @@
                     <label class="labelBtn" for="inpSale">Soll der Artikel im Sale sein ?</label>
                 </div>
 
-                <div id="cProductSaleInPercent" class="cProductInput">
+                <div id="cProductSaleInPercent" class=" cSpecs cProductInput">
                     <label class="labelInput" for="productSaleInPercent">Prozent : </label>
                     <input id="productSaleInPercent" class="inputProduct" type="number">
                 </div>
 
-                <div id="cCheckBtnCountdown"class="cCheckBtnCountdown">
+                <div id="cCheckBtnCountdown"class="cSpecs cCheckBtnCountdown">
                     <input class="inputBtn" type="checkbox" id="inpCountdown" name="input_Countdown" value="Countdown">
                     <label class="labelBtn" for="inpCountdown">Soll der Artikel als Countdown Artikel eingefügt werden?</label>
                 </div>
 
                 <div id="cCountdownTime" class="cProductInput checkedCountdown">
                     <label class="labelInput" for="productCountdownTime">Wie lange : </label>
-                    <input id="productSaleInPercent" class="inputProduct" type="value" placeholder="in Stunden">
+                    <input id="productCountdownTime" class="inputProduct" type="value" placeholder="in Stunden">
                 </div>
 
                 <div id="cCountdownSaleInPercent" class="cProductInput checkedCountdown">
-                    <label class="labelInput" for="productSaleInPercent">Extra Prozent (auf Sale dazu) : </label>
-                    <input id="productSaleInPercent" class="inputProduct" type="number">
+                    <label class="labelInput" for="productCountdownSale">Extra Prozent (auf Sale dazu) : </label>
+                    <input id="productCountdownSale" class="inputProduct" type="number">
                 </div>
             </div>
 
             <input  id="btnSubmit" type="button" value="Submit">
             <span id="response">
-
+                
             </span>
     </div>
     </section>

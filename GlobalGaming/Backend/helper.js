@@ -240,3 +240,13 @@ module.exports.round = function(val) {
     val = Math.round(val*Math.pow(10,2))/Math.pow(10,2);
     return val;
 }
+
+// looks if value is float with twoDigits
+module.exports.isFloatWithTwoDigits =  function checkDoubleWithTwoDigits(value) {
+    if (Number.isFinite(value)) {
+        if (value.toFixed(2) === value) {
+          return true;
+        }
+        return false;
+    }
+}

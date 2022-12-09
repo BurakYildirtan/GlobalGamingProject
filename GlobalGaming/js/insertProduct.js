@@ -1,5 +1,3 @@
-
-
 //Buttons
 var rBSoftware = document.getElementById("inpSoftware");
 var rBHardware = document.getElementById("inpHardware");
@@ -33,7 +31,6 @@ rBSoftware.addEventListener ("click", () => {
         document.getElementById("cCheckBtnCountdown").style.display="none"
         document.getElementById("cCountdownTime").style.display="none"
         document.getElementById("cCountdownSaleInPercent").style.display="none"
-        
     }
 
 });
@@ -87,45 +84,123 @@ textBoxPicture.addEventListener ("change", function() {
 });
 
 
-$('#btnSubmit').click(function() {
-    console.log('Button Sumbit wurde geklickt');
-
+$('#btnSubmit').click(async function() {
+    //Produkt
     var valTitle = document.getElementById("productTitle").value;
     var valPrice = document.getElementById("productPrice").value;
     var valPath = document.getElementById("productPicturePath").value;
-    var valPlayer = document.getElementById("productPlayer").value;
-    var valGenre = document.getElementById("productGenre").value;
 
-    console.log("bubububub "+valGenre)
+    var softwareData;
+    var hardwareData;
+    var saleData;
+    var countdownData;
 
+    //Extra Ausgwählt Sale und/oder Coundown 
+    var isInpSaleChecked = document.getElementById("inpSale").checked;
+    var isInpCountdownChecked = document.getElementById("inpCountdown").checked;
 
+    //Für später
+    // var productData = { 'title' : valTitle, 'price' : valPrice, 'picturePath' : valPath };
 
-    var produkt = { 'title' : valTitle, 'price' : valPrice};
+    var productData = { 'title' : 'TestProdukt1', 'price' : 9.99, 'picturePath' : './Produktbilder/Software/fifa13.jpg' };
+    //request für Produkt und response speichern
+    var productResponse = await requestProduct(productData);
+    //Sicherheitsabfrage
+    if (productResponse == undefined) {
+        throw console.error('Produkt konnte nicht hinzugefuegt werden!');
+    }
+
+    //Wenn Software ausgewählt
+    if(rBSoftware.checked){
+        var valPlayer = document.getElementById("productPlayer").value;
+        var valGenre = document.getElementById("productGenre").value;
+
+        softwareData = { 'productId': productResponse.id, 'player' : valPlayer, 'genre' : genre };
+        
+        var softwareResponse = await 
+    }
     
-    $.ajax({
+    //Wenn Hardware ausgewählt
+    if(rBHardware.checked){
+        var valPerformance = document.getElementById("productPerformance").value;
+        var valReleaseDate = document.getElementById("productReleaseDate").value;
+    }
+    //Sale
+    if(isInpSaleChecked){
+        var isInpSaleChecked = document.getElementById("inpSale").checked;
+        var valSaleInPercent = document.getElementById("productSaleInPercent").value;
+    }
+
+    if(isInpCountdownChecked){
+        var valCountdownTime = document.getElementById("productCountdownTime").value;
+        var valCountdownSale = document.getElementById("productCountdownSale").value;
+    }
+
+    // console.log("release Date : "+valReleaseDate);
+
+});
+
+function clearInput () {
+    //Produkt
+    document.getElementById("productTitle").contentType = null;
+    document.getElementById("productPrice").value = null;
+    //Bildpfad
+    document.getElementById("productPicturePath").value = null;
+    //Software
+    document.getElementById("productPlayer").value = null;
+    document.getElementById("productGenre").value = null;
+    //Hardware
+    document.getElementById("productPerformance").value = null;
+    document.getElementById("productReleaseDate").value = null;
+    //Sale
+    document.getElementById("inpSale").checked = false;
+    document.getElementById("productSaleInPercent").value = null;
+    //Countdown
+    document.getElementById("inpCountdown").checked = false;
+    document.getElementById("productCountdownTime").value = null;
+    document.getElementById("productCountdownSale").value = null;
+};
+
+
+async function requestProduct(product) {
+    var productData;
+    productData = await $.ajax({
         url: 'http://localhost:8000/api/produkt',
         method: 'post',
         contentType: 'application/json; charset=utf-8',
         cache: false,
-        data: JSON.stringify(produkt)
+        data: JSON.stringify(product)
     }).done(function (response) {
-        console.log(response);
-        $('#output').html(JSON.stringify(response));
+        //DAS BRAUCHE ICH ALS LETZTES
+        // $('#response').html(JSON.stringify(response));
+        // document.getElementById("response").style.visibility = "visible";
+        // clearInput();
+        productData = response;
+        console.log('productData : '+productData.id);
+
     }).fail(function (jqXHR, statusText, error) {
-        console.log('Response Code: ' + jqXHR.status + ' - Fehlermeldung: ' + jqXHR.responseText);
-        $('#output').html('Ein Fehler ist aufgetreten');
+        $('#response').html('Ein Fehler ist aufgetreten');
+        document.getElementById("response").style.visibility = "visible";
     });
-    clearInput();
-});
 
-function clearInput () {
-    document.getElementById("productTitle").value = "";
-    document.getElementById("productPrice").value = "";
+    return productData
+}
 
+async function requestSoftware(software) {
+    var softwareData;
+    softwareData = await $.ajax({
+        url: 'http://localhost:8000/api/software',
+        method: 'post',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(software)
+    }).done(function (response) {
+        softwareData = response;
 
-};
+    }).fail(function (jqXHR, statusText, error) {
+        $('#response').html('Ein Fehler ist aufgetreten');
+        document.getElementById("response").style.visibility = "visible";
+    });
 
-function checkInput () {
-    
-};
-
+    return softwareData;
+}

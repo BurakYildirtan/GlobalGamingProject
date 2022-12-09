@@ -1,6 +1,4 @@
 const helper = require('../helper.js');
-// const ProduktkategorieDao = require('./produktkategorieDao.js');
-// const ProduktbildDao = require('./produktbildDao.js');
 
 class SoftwareDao {
 
@@ -34,9 +32,6 @@ class SoftwareDao {
         //zeigt das Produkt noch nicht wichtig
         // return this.loadById(result.lastInsertRowid);
     }
-
-
-    getProductid()
 
 
 

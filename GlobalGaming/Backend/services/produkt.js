@@ -6,26 +6,27 @@ var serviceRouter = express.Router();
 console.log('- Service Produkt');
 
 serviceRouter.post('/produkt', function(request, response) {
-
     console.log('Service Produkt: Neues Produkt einfügen');
+    //errorMsgs für Attribute
     var errorMsgs=[];
 
-    if(helper.isUndefined(request.body.title))
-        errorMsgs.push('titel fehlt');
-    
-    if(helper.isUndefined(request.body.price))
-        errorMsgs.push('preis fehlt');
-    
-    if (errorMsgs.length > 0) {
+    if (helper.isUndefined(request.body.title)) 
+        errorMsgs.push('title fehlerhaft !');
+    if (helper.isUndefined(request.body.price)) 
+        errorMsgs.push('Preis fehlerhaft !');
+    if (helper.isUndefined(request.body.picturePath)) 
+        request.body.beschreibung = 'Bildpfad fehlerhaft !';
+        
+    if ( errorMsgs.length > 0 ) {
         console.log('Service Produkt: Creation not possible, data missing');
-        response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
+        response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich weil : '+ errorMsgs });
         return;
     }
 
     const produktDao = new ProduktDao(request.app.locals.dbConnection);
     try {
-        var obj = produktDao.create(request.body.title, request.body.price);
-        console.log('Service Produkt: Record inserted');
+        var obj = produktDao.create(request.body.title, request.body.price, request.body.picturePath);
+        console.log('Service Produkt: Hinzugefügt!');
         response.status(200).json(obj);
 
     } catch (ex) {
@@ -34,58 +35,85 @@ serviceRouter.post('/produkt', function(request, response) {
     }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-serviceRouter.get('/produkt/gib/:id', function(request, response) {
-    console.log('Service Produkt: Client requested one record, id=' + request.params.id);
-
-    const produktDao = new ProduktDao(request.app.locals.dbConnection);
-    try {
-        var obj = produktDao.loadById(request.params.id);
-        console.log('Service Produkt: Record loaded');
-        response.status(200).json(obj);
-    } catch (ex) {
-        console.error('Service Produkt: Error loading record by id. Exception occured: ' + ex.message);
-        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+function checkProductSpecs ( title, price, path ) {
+    var error="Das Produkt hat den Fehler :\n";
+    var noError = error;
+    if(!title instanceof String){
+        error += "Titel ist kein String\n"
     }
-});
-
-serviceRouter.get('/produkt/alle', function(request, response) {
-    console.log('Service Produkt: Client requested all records');
-
-    const produktDao = new ProduktDao(request.app.locals.dbConnection);
-    try {
-        var arr = produktDao.loadAll();
-        console.log('Service Produkt: Records loaded, count=' + arr.length);
-        response.status(200).json(arr);
-    } catch (ex) {
-        console.error('Service Produkt: Error loading all records. Exception occured: ' + ex.message);
-        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    if(!helper.isFloatWithTwoDigits(price)){
+        error += "Preis muss eine Kommazahl sein mit 2 Nachkommastellen !\n";
     }
-});
-
-serviceRouter.get('/produkt/existiert/:id', function(request, response) {
-    console.log('Service Produkt: Client requested check, if record exists, id=' + request.params.id);
-
-    const produktDao = new ProduktDao(request.app.locals.dbConnection);
-    try {
-        var exists = produktDao.exists(request.params.id);
-        console.log('Service Produkt: Check if record exists by id=' + request.params.id + ', exists=' + exists);
-        response.status(200).json({'id': request.params.id, 'existiert': exists});
-    } catch (ex) {
-        console.error('Service Produkt: Error checking if record exists. Exception occured: ' + ex.message);
-        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    if(!path instanceof String){
+        error += " Bildpfad muss ein String sein!\n";
     }
-});
+    if( noError != error ) {
+        return false;
+    }
+    console.log(error)
+    return true;
+};
+
+
+function checkSoftwareSpecs ( player, genre ) {
+    var error="Die Software hat den Fehler :\n";
+    var noError = error;
+    if( player < 1 && player > 8 ){
+        error += "Die Software darf maximal 8 und mindestens 1 Spieler haben";
+    }
+    if(!genre instanceof String ) {
+        error += "Genre muss ein String sein";
+    }
+    if( noError != error ) {
+        alert(error);
+        return false;
+    }
+    return true;
+};
+
+function checkHardwareSpecs ( performance, releaseDate ) {
+    var error="Die Software hat den Fehler :\n";
+    var noError = error;
+    if( performance < 1 && player > 100 ){
+        error += "Die Performace darf maximal 100 und mindestens 1 Punkt haben";
+    }
+    if(!genre instanceof String ) {
+        error += "Genre muss ein String sein";
+    }
+    if( noError != error ) {
+        alert(error);
+        return false;
+    }
+    return true;
+};
+
+
+function checkDoubleWithTwoDigits(value) {
+    if (Number.isFinite(value)) {
+        // Check if the value has 2 digits after the decimal point
+        if (value.toFixed(2) === value) {
+          console.log('The value is a float with 2 digits');
+        } else {
+          console.log('The value is a float but does not have 2 digits');
+        }
+      } else {
+        console.log('The value is not a float');
+      }
+}
+
+// serviceRouter.get('/produkt/existiert/:id', function(request, response) {
+//     console.log('Service Produkt: Client requested check, if record exists, id=' + request.params.id);
+
+//     const produktDao = new ProduktDao(request.app.locals.dbConnection);
+//     try {
+//         var exists = produktDao.exists(request.params.id);
+//         console.log('Service Produkt: Check if record exists by id=' + request.params.id + ', exists=' + exists);
+//         response.status(200).json({'id': request.params.id, 'existiert': exists});
+//     } catch (ex) {
+//         console.error('Service Produkt: Error checking if record exists. Exception occured: ' + ex.message);
+//         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+//     }
+// });
 
 // serviceRouter.put('/produkt', function(request, response) {
 //     console.log('Service Produkt: Client requested update of existing record');

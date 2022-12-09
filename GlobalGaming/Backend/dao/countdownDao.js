@@ -1,4 +1,6 @@
 const helper = require('../helper.js');
+// const ProduktkategorieDao = require('./produktkategorieDao.js');
+// const ProduktbildDao = require('./produktbildDao.js');
 
 class ProduktDao {
 
@@ -10,72 +12,83 @@ class ProduktDao {
         return this._conn;
     }
 
-    create( title, price, picturePath ) {
+    create(title, price) {
         //Definieren von SQL Statement mit Values
-        var sql = 'INSERT INTO Produkt ( titel, nettoPreis, bildpfad ) VALUES  (?,?,?)';
+        var sql = 'INSERT INTO Produkt ( titel, nettoPreis) VALUES  (?,?)';
 
         //definieren von Statement zum ausführen als sql statement
         var statement = this._conn.prepare(sql);
 
 
         //Parameter der eingegebenen Produkt Details
-        var params = [ title, price, picturePath ];
+        var params = [title, price];
 
         //ausführen von insert statement
         var result = statement.run(params);
 
 
         //wenn nicht eingeführt werden konnte
-        if ( result.changes != 1 ) 
+        if (result.changes != 1) 
             throw new Error('Dateien konnten nicht Eingefügt werden ' + params);
 
-        console.log('Hierrrr result last wert: '+result.lastInsertRowid)
-        return this.loadById(result.lastInsertRowid);
+        //zeigt das Produkt noch nicht wichtig
+        // return this.loadById(result.lastInsertRowid);
     }
 
 
-    //Herausnehmen des Objekts mit der ID:
-    loadById(id) {
-        var sql = 'SELECT * FROM Produkt WHERE id=?';
-        var statement = this._conn.prepare(sql);
-        var result = statement.get(id);
+    getProductid()
 
-        if (helper.isUndefined(result)) 
-            throw new Error('No Record found by id=' + id);
-            console.log('Hierrrr loadbyId return aus der man id nehmen kann: '+result.id);
-        return result;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    delete(id) {
+        try {
+            // const produktbildDao = new ProduktbildDao(this._conn);
+            // produktbildDao.deleteByParent(id);
+
+            var sql = 'DELETE FROM Produkt WHERE id=?';
+            var statement = this._conn.prepare(sql);
+            var result = statement.run(id);
+
+            if (result.changes != 1) 
+                throw new Error('Produkt mit der ID =' + id+ ' konnte nicht gelöscht werden.');
+
+            return true;
+        } catch (ex) {
+            throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
+        }
     }
 
+    // loadById(id) {
+    //     // const produktkategorieDao = new ProduktkategorieDao(this._conn);
+    //     // const produktbildDao = new ProduktbildDao(this._conn);
+
+       
+
+    //     // if (helper.isUndefined(result)) 
+    //     //     throw new Error('No Record found by id=' + id);
+
+    //     // result.kategorie = produktkategorieDao.loadById(result.kategorieId);
+    //     // delete result.kategorieId;
+
+    //     // result.bilder = produktbildDao.loadByParent(result.id);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    // delete(id) {
-    //     try {
-    //         // const produktbildDao = new ProduktbildDao(this._conn);
-    //         // produktbildDao.deleteByParent(id);
-
-    //         var sql = 'DELETE FROM Produkt WHERE id=?';
-    //         var statement = this._conn.prepare(sql);
-    //         var result = statement.run(id);
-
-    //         if (result.changes != 1) 
-    //             throw new Error('Produkt mit der ID =' + id+ ' konnte nicht gelöscht werden.');
-
-    //         return true;
-    //     } catch (ex) {
-    //         throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
-    //     }
+    //     var sql = 'SELECT * FROM Produkt WHERE id=?';
+    //     var statement = this._conn.prepare(sql);
+    //     var result = statement.get(id);
+    //     return result;
     // }
 
     // loadAll() {

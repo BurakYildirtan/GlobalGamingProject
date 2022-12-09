@@ -1,9 +1,9 @@
 const helper = require('../helper.js');
-const SoftwareDao = require('../dao/softwareDao.js');
+const ProduktDao = require('../dao/produktDao.js');
 const express = require('express');
 var serviceRouter = express.Router();
 
-console.log('- Service Software');
+console.log('- Software Service');
 
 serviceRouter.post('/software', function(request, response) {
 

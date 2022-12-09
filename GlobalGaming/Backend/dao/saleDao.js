@@ -1,6 +1,4 @@
 const helper = require('../helper.js');
-// const ProduktkategorieDao = require('./produktkategorieDao.js');
-// const ProduktbildDao = require('./produktbildDao.js');
 
 class SaleDao {
 
@@ -48,24 +46,6 @@ class SaleDao {
 
 
 
-
-    delete(id) {
-        try {
-            // const produktbildDao = new ProduktbildDao(this._conn);
-            // produktbildDao.deleteByParent(id);
-
-            var sql = 'DELETE FROM Produkt WHERE id=?';
-            var statement = this._conn.prepare(sql);
-            var result = statement.run(id);
-
-            if (result.changes != 1) 
-                throw new Error('Produkt mit der ID =' + id+ ' konnte nicht gelöscht werden.');
-
-            return true;
-        } catch (ex) {
-            throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
-        }
-    }
 
     // loadById(id) {
     //     // const produktkategorieDao = new ProduktkategorieDao(this._conn);
