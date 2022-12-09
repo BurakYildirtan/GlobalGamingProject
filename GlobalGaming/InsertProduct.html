@@ -34,22 +34,33 @@
         <div class="centeredItems">
             <div id="cProductSpecs" class="cSpecs cProductSpecs">
                 <div class="cProductPic">
-                    <img id="imgPreview" src="pics/noch_kein_bild.jpeg" class="imgPrev" alt="BildPreview">
+                    <img id="imgPreview" src="pics/noch_kein_bild.jpeg" class="imgPrev" alt="BildPreview" onerror="this.src='pics/noch_kein_bild.jpeg';">
                 </div>
                 <form>
                     <div class="cProductInput cProductTitle">
                         <label class="labelInput" for="productTitle">Titel : </label>
-                        <input id="productTitle" class="inputProduct" type="value">
+                        <input id="productTitle" class="inputProduct productData" type="value">
+                        <div class="cNotice">
+                            <p class="normalText">Bitte gebe einen Titel an</p>
+                        </div>
                     </div>
 
                     <div class="cProductInput cProductPrice">
                         <label class="labelInput" for="productPrice">Nettopreis : </label>
-                        <input id="productPrice" class="inputProduct" type="value">
+                        <input id="productPrice" class="inputProduct productData" type="value">
+                        <div class="cNotice">
+                            <p class="normalText">Bitte gebe eine Kommazahl an e.x 9.99</p>
+                        </div>
                     </div>
 
                     <div class="cProductInput cProductPicturePath">
                         <label class="labelInput" for="productPicturePath">Bildpfad : </label>
-                        <input id="productPicturePath" class="inputProduct" type="value">
+                        <input id="productPicturePath" class="inputProduct productData" type="value">
+                        <div class="cNotice">
+                            <p class="normalText">Bitte gebe einen gültigen Pfad an<br>
+                            ex. ./Produktbilder/Software/... .jpg
+                            </p>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -58,58 +69,78 @@
                 <h3>Software - Spezifikation</h3>
                 <div class="cProductInput">
                     <label class="labelInput" for="productPlayer">SpielerAnzahl : </label>
-                    <input id="productPlayer" class="inputProduct" type="number">
+                    <input id="productPlayer" class="inputProduct softwareData" type="number" max="8" min="1">
+                    <div class="cNotice">
+                        <p class="normalText">1 <= deine Zahl <= 8</p>
+                    </div>
                 </div>
 
                 <div class="cProductInput">
                     <label class="labelInput" for="productGenre">Genre : </label>
-                    <input id="productGenre" class="inputProduct" type="value">
+                    <input id="productGenre" class="inputProduct softwareData" type="value">
+                    <div class="cNotice">
+                        <p class="normalText">Bitte nur Buchstaben</p>
+                    </div>
                 </div>
             </div>
 
             <div class="cSpecs cHardwareSpecs" id="cHardwareSpecs">
                 <h3>Hardware - Spezifikation</h3>
                 <div class="cProductInput">
-                    <label class="labelInput" for="productPlayer">Leistung : </label>
-                    <input id="productPerformance" class="inputProduct" type="number">
+                    <label class="labelInput" for="productPerformance">Leistung : </label>
+                    <input id="productPerformance" class="inputProduct hardwareData" type="number">
+                    <div class="cNotice">
+                        <p class="normalText">1 <= deine Zahl <= 100</p>
+                    </div>
                 </div>
 
                 <div class="cProductInput">
-                    <label class="labelInput" for="productGenre">Erscheinungsdatum : </label>
-                    <input id="productReleaseDate" class="inputProduct" type="date">
+                    <label class="labelInput" for="productReleaseDate">Erscheinungsdatum : </label>
+                    <input id="productReleaseDate" class="inputProduct hardwareData" type="date">
+                    <div class="cNotice">
+                        <p class="normalText">Bitte gebe ein Datum an</p>
+                    </div>
                 </div>
             </div>
 
             <div class="cSpecs cSaleSpecs" id="cSaleSpecs">
                 <div id="cCheckBtnSale" class="cCheckBtn">
-                    <input class="inputBtn" type="checkbox" id="inpSale" name="input_Sale" value="Sale">
+                    <input class="inputBtn isCheckBtnSale" type="checkbox" id="inpSale" name="input_Sale" value="Sale">
                     <label class="labelBtn" for="inpSale">Soll der Artikel im Sale sein ?</label>
                 </div>
 
                 <div id="cProductSaleInPercent" class=" cSpecs cProductInput">
                     <label class="labelInput" for="productSaleInPercent">Prozent : </label>
-                    <input id="productSaleInPercent" class="inputProduct" type="number">
+                    <input id="productSaleInPercent" class="inputProduct saleData" type="number">
+                    <div class="cNotice">
+                        <p class="normalText">1 <= deine Zahl <= 99</p>
+                    </div>
                 </div>
 
                 <div id="cCheckBtnCountdown"class="cSpecs cCheckBtnCountdown">
-                    <input class="inputBtn" type="checkbox" id="inpCountdown" name="input_Countdown" value="Countdown">
-                    <label class="labelBtn" for="inpCountdown">Soll der Artikel als Countdown Artikel eingefügt werden?</label>
+                    <input class="inputBtn isCheckCountdown" type="checkbox" id="inpCountdown" name="input_Countdown" value="Countdown">
+                    <label class="labelBtn" for="inpCountdown">Soll das Produkt im Countdown sein?</label>
                 </div>
 
                 <div id="cCountdownTime" class="cProductInput checkedCountdown">
                     <label class="labelInput" for="productCountdownTime">Wie lange : </label>
-                    <input id="productCountdownTime" class="inputProduct" type="value" placeholder="in Stunden">
+                    <input id="productCountdownTime" class="inputProduct countdownData" type="value" placeholder="in Stunden">
+                    <div class="cNotice">
+                        <p class="normalText">1 <= deine Zahl <= 100</p>
+                    </div>
                 </div>
 
                 <div id="cCountdownSaleInPercent" class="cProductInput checkedCountdown">
                     <label class="labelInput" for="productCountdownSale">Extra Prozent (auf Sale dazu) : </label>
-                    <input id="productCountdownSale" class="inputProduct" type="number">
+                    <input id="productCountdownSale" class="inputProduct countdownData" type="number">
+                    <div class="cNotice">
+                        <p class="normalText">1 <= deine Zahl <= 99</p>
+                    </div>
                 </div>
             </div>
 
             <input  id="btnSubmit" type="button" value="Submit">
             <span id="response">
-                
             </span>
     </div>
     </section>
