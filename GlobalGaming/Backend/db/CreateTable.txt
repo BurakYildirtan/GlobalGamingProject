@@ -1,7 +1,8 @@
 CREATE TABLE Produkt (
 	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	titel TEXT NOT NULL,
-	nettoPreis REAL NOT NULL
+	nettoPreis REAL NOT NULL,
+	bildpfad TEXT NOT NULL,
 	CONSTRAINT p_1 check ( nettoPreis > 0 )
 );
 
@@ -15,22 +16,9 @@ CREATE TABLE Hardware (
 CREATE TABLE Software (
 	id INTEGER NOT NULL,
 	spielerAnzahl NOT NULL,
-	genre INTEGER NOT NULL,
-	CONSTRAINT fk_Software1 FOREIGN KEY (genre) REFERENCES Genre(id),
+	genre TEXT NOT NULL,
 	CONSTRAINT fk_Software1 FOREIGN KEY (id) REFERENCES Produkt(id),
 	CONSTRAINT check_spieler_anzahl CHECK ( spieleranzahl > 0 AND spieleranzahl < 9 )
-);
-
-CREATE TABLE Produktbild (
-	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	bildpfad TEXT NOT NULL,
-	produktId INTEGER NOT NULL,
-	CONSTRAINT fk_Produktbild1 FOREIGN KEY (produktId) REFERENCES Produkt(id)
-);
-
-CREATE TABLE Genre (
-	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	bezeichnung TEXT NOT NULL
 );
 
 CREATE TABLE Sale (
@@ -42,9 +30,9 @@ CREATE TABLE Sale (
 
 );
 
-CREATE TABLE CountdownArtikel (
+CREATE TABLE Countdown (
 	id INTEGER NOT NULL,
-	countdownZeit INTEGER NOT NULL DEFAULT 10000,
+	countdownZeit INTEGER NOT NULL,
 	extraProzent REAL NOT NULL,
 	CONSTRAINT fk_CountdownArtikel1 FOREIGN KEY (id) REFERENCES Sale(id)
 	CONSTRAINT extra_inProzent check ( extraProzent > 0 and extraProzent < 100 )
