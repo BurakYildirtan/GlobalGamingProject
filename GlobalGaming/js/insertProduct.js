@@ -159,6 +159,16 @@ $('#btnSubmit').click(async function() {
     if(isInpCountdownChecked){
         var valCountdownTime = document.getElementById("productCountdownTime").value;
         var valCountdownSale = document.getElementById("productCountdownSale").value;
+        try {
+            // countdownData = { 'id': saleResponse.id, 'countdownTime' : valCountdownTime, 'countdownPerCent' : valCountdownSale };
+            countdownData = { 'salesId': saleResponse.id, 'countdownTime' : 10000, 'countdownPerCent' : 20 };
+            console.log("id von der Countdown es referenziert : "+saleResponse.id);
+            var countdownResponse = await requestCountdown( countdownData );
+            console.log('Countdown erfolgreich hinzugefügt mit der ref. id : '+ countdownResponse.id);
+        }
+        catch (error) {
+            throw console.error("Countdown wurde nicht hinzugefügt");
+        }
     };
 
     // console.log("release Date : "+valReleaseDate);
@@ -257,7 +267,7 @@ async function requestHardware(hardware) {
 };
 
 async function requestSale(sale) {
-    console.log('Hardware AJAX Aufruf gestartet');
+    console.log('Sale AJAX Aufruf gestartet');
 
     var saleData;
     saleData = await $.ajax({
@@ -275,21 +285,21 @@ async function requestSale(sale) {
     return saleData;
 };
 
-// async function requestCountdown(countdown) {
-//     console.log('Hardware AJAX Aufruf gestartet');
+async function requestCountdown(countdown) {
+    console.log('Countdown AJAX Aufruf gestartet');
 
-//     var countdownData;
-//     hardwareData = await $.ajax({
-//         url: 'http://localhost:8000/api/countdown',
-//         method: 'post',
-//         contentType: 'application/json; charset=utf-8',
-//         cache: false,
-//         data: JSON.stringify(countdown)
-//     }).done(function (response) {
-//         countdownData = response;
-//     }).fail(function (jqXHR, statusText, error) {
-//         $('#response').html('Ein Fehler ist aufgetreten');
-//     });
+    var countdownData;
+    countdownData = await $.ajax({
+        url: 'http://localhost:8000/api/countdown',
+        method: 'post',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(countdown)
+    }).done(function (response) {
+        countdownData = response;
+    }).fail(function (jqXHR, statusText, error) {
+        $('#response').html('Ein Fehler ist aufgetreten');
+    });
 
-//     return countdownData;
-// };
+    return countdownData;
+};
