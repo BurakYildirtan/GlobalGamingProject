@@ -3,13 +3,14 @@ CREATE TABLE Produkt (
 	titel TEXT NOT NULL,
 	nettoPreis REAL NOT NULL,
 	bildpfad TEXT NOT NULL,
+	erscheinungsDatum DATE NOT NULL,
 	CONSTRAINT p_1 check ( nettoPreis > 0 )
 );
 
 CREATE TABLE Hardware (
 	id INTEGER NOT NULL,
 	leistung INTEGER NOT NULL,
-	erscheinungsDatum DATE NOT NULL,
+	hersteller string NOT NULL,
 	CONSTRAINT fk_Hardware1 FOREIGN KEY (id) REFERENCES Produkt(id)
 );
 
@@ -17,6 +18,7 @@ CREATE TABLE Software (
 	id INTEGER NOT NULL,
 	spielerAnzahl NOT NULL,
 	genre TEXT NOT NULL,
+	fsk INTEGER NOT NULL,
 	CONSTRAINT fk_Software1 FOREIGN KEY (id) REFERENCES Produkt(id),
 	CONSTRAINT check_spieler_anzahl CHECK ( spieleranzahl > 0 AND spieleranzahl < 9 )
 );
