@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width", inital-scale="1.0">
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/insertProduct.css">
+        <link rel="stylesheet" href="css/adminPage.css">
         <link rel="icon" type="image/x-icon" href="pics/favicon.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -18,9 +18,28 @@
     </header>
     <h2 class="textTitle textAdmin">Admin - Bereich</h2>
 
-    <section class="cInsertProduct">
+    <section class="cAdminOption">
+
+        <div class="optionRadioBtn">
+            <input class="inputBtn" type="radio" id="inpInsertProduct" name="adminOption" alt="insert Product" value="0">
+            <label class="labelBtn" for="inpAddProduct"><h3>Produkt Hinzufügen</h3></label>
+        </div>
+
+        <div class="optionRadioBtn">
+            <input class="inputBtn" type="radio" id="inpChangeProduct" name="adminOption" alt="change Product" value="1">
+            <label class="labelBtn" for="inpSoftware"><h3>Produkt Attribute Ändern</h3></label>
+        </div>
+
+        <div class="optionRadioBtn">
+            <input class="inputBtn" type="radio" id="inpDeleteProduct" name="adminOption" alt="delete Product" value="2">
+            <label class="labelBtn" for="inpDelete"><h3>Produkt Löschen</h3></label>
+        </div>
+
+    </section>
+
+    <section class="cInsertProduct" id="cInsertProduct">
+
         <form >
-            <h3 class="textSubTitle">Produkt hinzufügen</h3>
             <h4 class="text">Wählen Sie die Produktkategorie aus:</h4>
             <div class="optionRadioBtn">
                 <input class="inputBtn" type="radio" id="inpSoftware" name="inputHardOrSoft">
@@ -144,6 +163,12 @@
             </span>
     </div>
     </section>
-    <script type="text/javascript" src="js/insertProduct.js"></script>
+
+    <section class="cChangeProduct" id="cChangeProduct">
+    </section>
+
+    <section class="cDeleteProduct" id="cDeleteProduct">
+    </section>
+    <script type="text/javascript" src="js/adminPage.js"></script>
 </body>
 </html>

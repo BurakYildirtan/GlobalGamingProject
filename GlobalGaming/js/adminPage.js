@@ -1,3 +1,37 @@
+//-----------------------------------Admin Page------------------------------------------------------------
+
+//Optionen
+var rBInsertProduct = document.getElementById('inpInsertProduct');
+var rBChangeProduct = document.getElementById('inpChangeProduct');
+var rBDeleteProduct = document.getElementById('inpDeleteProduct');
+var adminOption = document.querySelectorAll('input[type="radio"][name="adminOption"]');
+
+adminOption.forEach( button => {
+    button.addEventListener('change', function() {
+        switch (this.value) {
+            case 0:
+                document.getElementsById('cInsertProduct').style.visibility = 'visible';
+                document.getElementsById('cInsertProduct').style.background = 'red';
+                console.log("this is 0")
+                break;
+            case 1:
+                document.getElementsById('cInsertProduct').style.visibility = 'hidden';
+                document.getElementsById('cInsertProduct').style.background = 'blue';
+                console.log("this is 1")
+                break;
+            case 2:
+                document.getElementsById('cInsertProduct').style.visibility = 'hidden';
+                document.getElementsById('cInsertProduct').style.background = 'yellow';
+                console.log("this is 2")
+                break;
+
+        }     
+    });
+});
+
+
+
+//-------------------------------------INSERT PRODUKT------------------------------------------------------------------
 //Buttons
 var rBSoftware = document.getElementById("inpSoftware");
 var rBHardware = document.getElementById("inpHardware");
