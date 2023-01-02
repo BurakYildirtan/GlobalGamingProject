@@ -120,16 +120,6 @@ body {
     border: 1px solid #444;
 }
 
-.centeredItems {
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    align-items: center;
-
-}
-
 #btnSubmit {
     margin: 15px;
 }
@@ -151,4 +141,8 @@ body {
 
 .normalText {
     font-size: 15px;
+}
+
+#cInsertProduct, #cChangeProduct, #cDeleteProduct  {
+    visibility: hidden;
 }

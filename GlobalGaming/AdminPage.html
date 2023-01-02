@@ -50,7 +50,6 @@
                 <label class="labelBtn" for="inpHardware">Hardware</label>
             </div>
         </form>
-        <div class="centeredItems">
             <div id="cProductSpecs" class="cSpecs cProductSpecs">
                 <div class="cProductPic">
                     <img id="imgPreview" src="pics/noch_kein_bild.jpeg" class="imgPrev" alt="BildPreview" onerror="this.src='pics/noch_kein_bild.jpeg';">
@@ -69,6 +68,14 @@
                         <input id="productPrice" class="inputProduct productData" type="value">
                         <div class="cNotice">
                             <p class="normalText">Bitte gebe eine Kommazahl an e.x 9.99</p>
+                        </div>
+                    </div>
+
+                    <div class="cProductInput">
+                        <label class="labelInput" for="productReleaseDate">Erscheinungsdatum : </label>
+                        <input id="productReleaseDate" class="inputProduct hardwareData" type="date">
+                        <div class="cNotice">
+                            <p class="normalText">Bitte gebe ein Datum an</p>
                         </div>
                     </div>
 
@@ -101,9 +108,18 @@
                         <p class="normalText">Bitte nur Buchstaben</p>
                     </div>
                 </div>
+
+                <div class="cProductInput">
+                    <label class="labelInput" for="productFsk">Fsk : </label>
+                    <input id="productFsk" class="inputProduct softwareData" type="value">
+                    <div class="cNotice">
+                        <p class="normalText">0 <= deine Zahl <= 18</p>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="cSpecs cHardwareSpecs" id="cHardwareSpecs">
+            <div id="cHardwareSpecs" class="cSpecs cHardwareSpecs">
                 <h3>Hardware - Spezifikation</h3>
                 <div class="cProductInput">
                     <label class="labelInput" for="productPerformance">Leistung : </label>
@@ -114,21 +130,21 @@
                 </div>
 
                 <div class="cProductInput">
-                    <label class="labelInput" for="productReleaseDate">Erscheinungsdatum : </label>
-                    <input id="productReleaseDate" class="inputProduct hardwareData" type="date">
+                    <label class="labelInput" for="productProducer">Hersteller : </label>
+                    <input id="productProducer" class="inputProduct hardwareData" type="text">
                     <div class="cNotice">
-                        <p class="normalText">Bitte gebe ein Datum an</p>
+                        <p class="normalText">Bitte gebe einen Hersteller an</p>
                     </div>
                 </div>
             </div>
 
-            <div class="cSpecs cSaleSpecs" id="cSaleSpecs">
+            <div id="cSaleSpecs" class="cSpecs cSaleSpecs">
                 <div id="cCheckBtnSale" class="cCheckBtn">
                     <input class="inputBtn isCheckBtnSale" type="checkbox" id="inpSale" name="input_Sale" value="Sale">
                     <label class="labelBtn" for="inpSale">Soll der Artikel im Sale sein ?</label>
                 </div>
 
-                <div id="cProductSaleInPercent" class=" cSpecs cProductInput">
+                <div id="cProductSaleInPercent" class="cSpecs cProductInput">
                     <label class="labelInput" for="productSaleInPercent">Prozent : </label>
                     <input id="productSaleInPercent" class="inputProduct saleData" type="number">
                     <div class="cNotice">
@@ -136,7 +152,7 @@
                     </div>
                 </div>
 
-                <div id="cCheckBtnCountdown"class="cSpecs cCheckBtnCountdown">
+                <div id="cCheckBtnCountdown"class="cCheckBtnCountdown">
                     <input class="inputBtn isCheckCountdown" type="checkbox" id="inpCountdown" name="input_Countdown" value="Countdown">
                     <label class="labelBtn" for="inpCountdown">Soll das Produkt im Countdown sein?</label>
                 </div>
@@ -161,7 +177,6 @@
             <input  id="btnSubmit" type="button" value="Submit">
             <span id="response">
             </span>
-    </div>
     </section>
 
     <section class="cChangeProduct" id="cChangeProduct">

@@ -6,32 +6,40 @@ var rBChangeProduct = document.getElementById('inpChangeProduct');
 var rBDeleteProduct = document.getElementById('inpDeleteProduct');
 var adminOption = document.querySelectorAll('input[type="radio"][name="adminOption"]');
 
+//Admin Option auswählen
 adminOption.forEach( button => {
     button.addEventListener('change', function() {
         switch (this.value) {
-            case 0:
-                document.getElementsById('cInsertProduct').style.visibility = 'visible';
-                document.getElementsById('cInsertProduct').style.background = 'red';
-                console.log("this is 0")
-                break;
-            case 1:
-                document.getElementsById('cInsertProduct').style.visibility = 'hidden';
-                document.getElementsById('cInsertProduct').style.background = 'blue';
-                console.log("this is 1")
-                break;
-            case 2:
-                document.getElementsById('cInsertProduct').style.visibility = 'hidden';
-                document.getElementsById('cInsertProduct').style.background = 'yellow';
-                console.log("this is 2")
-                break;
+            case '0':
+                document.getElementById('cInsertProduct').style.visibility = 'visible';
+                document.getElementById('cChangeProduct').style.visibility = 'hidden';
+                document.getElementById('cDeleteProduct').style.visibility = 'hidden';
 
+                break;
+            case '1':
+                document.getElementById('cInsertProduct').style.visibility = 'hidden';
+                document.getElementById('cChangeProduct').style.visibility = 'visible';
+                document.getElementById('cDeleteProduct').style.visibility = 'hidden';
+                break;
+            case '2':
+                document.getElementById('cInsertProduct').style.visibility = 'hidden';
+                document.getElementById('cChangeProduct').style.visibility = 'hidden';
+                document.getElementById('cDeleteProduct').style.visibility = 'visible';
+                break;
+            default:
+                console.log('Etwas ist schief gelaufen');
         }     
     });
 });
 
+//-----------------------------------DELETE PRODUCT------------------------------------------------------------
 
 
-//-------------------------------------INSERT PRODUKT------------------------------------------------------------------
+//-----------------------------------CHANGE PRODUCT------------------------------------------------------------
+
+
+//-------------------------------------INSERT PRODUCT------------------------------------------------------------------
+
 //Buttons
 var rBSoftware = document.getElementById("inpSoftware");
 var rBHardware = document.getElementById("inpHardware");
