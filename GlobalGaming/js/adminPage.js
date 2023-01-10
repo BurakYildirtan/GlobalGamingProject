@@ -68,6 +68,10 @@ var inpSalePerCent = document.getElementById("productSaleInPercent");
 var inpCountdownTime = document.getElementById("productCountdownTime");
 var inpCountdownSale = document.getElementById("productCountdownSale");
 
+var inpFsk = document.getElementById("productFsk");
+var inpProducer = document.getElementById("productProducer");
+
+
 //DatenSammlungen
 var productData;
 var softwareData;
@@ -195,6 +199,15 @@ inpGenre.addEventListener("input", function() {
     }
 });
 
+//Fsk überprüfen
+inpFsk.addEventListener("input", function() {
+    if (inpFsk.value <= 18 && inpFsk.value >= 0 ) {
+        inpFsk.style.border = "5px solid green";
+    }else{
+        inpFsk.style.border = "3px solid red";
+    }
+});
+
 //Performance überprüfen
 inpPerformance.addEventListener("input", function() {
     if(inpPerformance.value >= 1 && inpPerformance.value <= 100 ) {
@@ -210,6 +223,15 @@ inpReleaseDate.addEventListener("input", function() {
         inpReleaseDate.style.border = "5px solid green";
     }else{
         inpReleaseDate.style.border = "3px solid red";
+    }
+});
+
+//Hersteller überprüfen
+inpProducer.addEventListener("input", function() {
+    if (inpProducer.value != "" && inpProducer.value != undefined) {
+        inpProducer.style.border = "5px solid green";
+    }else{
+        inpProducer.style.border = "3px solid red";
     }
 });
 
@@ -246,6 +268,7 @@ $('#btnSubmit').click(async function(event) {
     var valTitle = document.getElementById("productTitle").value;
     var valPrice = document.getElementById("productPrice").value;
     var valPath = document.getElementById("productPicturePath").value;
+    var valReleaseDate = document.getElementById("productReleaseDate").value;
 
     //Extra Ausgwählt Sale und/oder Coundown 
     var isInpSaleChecked = document.getElementById("inpSale").checked;
@@ -257,36 +280,27 @@ $('#btnSubmit').click(async function(event) {
             return;
         }
         try {
-            var productData = { 'title' : valTitle, 'price' : valPrice, 'picturePath' : valPath };
+            var productData = { 'title' : valTitle, 'price' : valPrice, 'picturePath' : valPath, 'realeaseDate': valReleaseDate };
             //request für Produkt und response speichern
             var productResponse = await requestProduct( productData );
+            var softwareResponse = await insertSoftware(productResponse);
+
+
         }
         catch (error) {
             throw console.error("Produkt wurde nicht hinzugefügt");
         }
     }
 
-    //Wenn Software ausgewählt
-    if(rBSoftware.checked){
-        console.log("CHECKED DATA SOFTWARE: ", !checkedSoftwareData)
-        if(!checkedSoftwareData()){
-            spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
-            return;
-        }
+    // //Wenn Software ausgewählt
+    // if(rBSoftware.checked){
 
-        var valPlayer = document.getElementById("productPlayer").value;
-        var valGenre = document.getElementById("productGenre").value;
-        try {
-            // softwareData = { 'productId': productResponse.id, 'player' : valPlayer, 'genre' : genre };
-            softwareData = { 'productId': productResponse.id, 'player' : 8, 'genre' : 'Action' };
-            // console.log("produktId von der Software es referenziert : "+productResponse.id);
-            var softwareResponse = await requestSoftware( softwareData );
-            console.log('Software erfolgreich hinzugefügt mit der ref. id : '+ softwareResponse.id);
-        }
-        catch (error) {
-            throw console.error("Software wurde nicht hinzugefügt");
-        }
-    };
+    //     if(!checkedSoftwareData()){
+    //         spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
+    //         return;
+    //     }
+    //     insertSoftware(productResponse);
+    // };
     
     //Wenn Hardware ausgewählt
     if(rBHardware.checked){
@@ -353,19 +367,48 @@ $('#btnSubmit').click(async function(event) {
     clearInput()
 });
 
+//Software einfügen
+async function insertSoftware(productResponse) {
+    
+    var valPlayer = document.getElementById("productPlayer").value;
+    var valGenre = document.getElementById("productGenre").value;
+    var valFsk = document.getElementById("productFsk").value;
+
+    console.log("valProductid: "+productResponse.id)
+    console.log("valPlayer : "+valPlayer);
+    console.log ("valGenre : "+valGenre);
+    console.log ("valFsk : "+valFsk);
+
+    console.log("produktId von der Software es referenziert BEI SOFTWARE : "+productResponse.id);
+
+    try {
+        softwareData = { 'productId': productResponse.id, 'player' : valPlayer, 'genre' : genre, 'fsk' : valFsk};
+        //TESTWERT
+        // softwareData = { 'productId': 29, 'player' : 8, 'genre' : "Baba", 'fsk' : 8};
+
+        var softwareResponse = await requestSoftware( softwareData );
+        console.log('Software erfolgreich hinzugefügt mit der ref. id : '+ softwareResponse.id);
+    }
+    catch (error) {
+        throw console.error("Software wurde nicht hinzugefügt");
+    }
+};
+
 //Entfernen der Werte 
 function clearInput () {
     //Produkt
     document.getElementById("productTitle").value = null;
     document.getElementById("productPrice").value = null;
+    document.getElementById("productReleaseDate").value = null;
     //Bildpfad
     document.getElementById("productPicturePath").value = null;
     //Software
     document.getElementById("productPlayer").value = null;
     document.getElementById("productGenre").value = null;
+    document.getElementById("productFsk").value = null;
     //Hardware
     document.getElementById("productPerformance").value = null;
-    document.getElementById("productReleaseDate").value = null;
+    document.getElementById("productProducer").value = null;
     //Sale
     document.getElementById("inpSale").checked = false;
     document.getElementById("productSaleInPercent").value = null;
@@ -383,49 +426,51 @@ function clearInput () {
     inpReleaseDate.style.border = "1px solid #444";
     inpSalePerCent.style.border = "1px solid #444";
     inpCountdownTime.style.border = "1px solid #444";
+    inpFsk.style.border = "1px solid #444";
+    inpProducer.style.border = "1px solid #444";
 };
 
 //AJAX Aufruf Produkt
 async function requestProduct(product) {
     console.log('Produkt AJAX Aufruf gestartet');
-
     var xhr1 = new XMLHttpRequest();
 
-    var productData;
-    productData = await $.ajax({
+    var productData = await $.ajax({
         url: 'http://localhost:8000/api/produkt',
         method: 'post',
         contentType: 'application/json; charset=utf-8',
         cache: false,
         data: JSON.stringify(product)
     }).done(function (response) {
-        productData = response;
-        console.log('productData : '+productData.id);
+        console.log('productData : '+response.id);
+        response;
 
     }).fail(function (jqXHR, statusText, error) {
         $('#response').html('Ein Fehler ist aufgetreten');
+        error;
     });
 
-
     return productData
+
+
 };
 
 //AJAX Aufruf Software
 async function requestSoftware(software) {
     console.log('Software AJAX Aufruf gestartet');
 
-    var softwareData;
-    softwareData = await $.ajax({
+    var softwareData = await $.ajax({
         url: 'http://localhost:8000/api/software',
         method: 'post',
         contentType: 'application/json; charset=utf-8',
         cache: false,
         data: JSON.stringify(software)
     }).done(function (response) {
-        softwareData = response;
+        response;
 
     }).fail(function (jqXHR, statusText, error) {
         $('#response').html('Ein Fehler ist aufgetreten');
+        error;
     });
 
     return softwareData;
@@ -505,7 +550,8 @@ function isAlphabetic(input) {
 function checkedProductData() {
     if( inpPrice.style.borderColor == "green" &&
     inpTitle.style.borderColor == "green" &&
-    inpPicturePath.style.borderColor == "green" ) {
+    inpPicturePath.style.borderColor == "green" &&
+    inpReleaseDate.style.borderColor == "green") {
         return true
     } else {
         return false
@@ -515,7 +561,8 @@ function checkedProductData() {
 function checkedSoftwareData() {
     if(checkedProductData() &&
         inpPlayer.style.borderColor == "green" &&
-        inpGenre.style.borderColor == "green"){
+        inpGenre.style.borderColor == "green" &&
+        inpFsk.style.borderColor == "green"){
             return true
         } else {
             return false
@@ -526,7 +573,7 @@ function checkedSoftwareData() {
 function checkedHardwareData() {
     if(checkedProductData &&
         inpPerformance.style.borderColor == "green" &&
-        inpReleaseDate.style.borderColor == "green"){
+        inpProducer.style.borderColor == "green"){
         return true
     } else {
         return false

@@ -10,20 +10,18 @@ class ProduktDao {
         return this._conn;
     }
 
-    create( title, price, picturePath ) {
+    create( title, price, picturePath, realeaseDate ) {
         //Definieren von SQL Statement mit Values
-        var sql = 'INSERT INTO Produkt ( titel, nettoPreis, bildpfad ) VALUES  (?,?,?)';
+        var sql = 'INSERT INTO Produkt ( titel, nettoPreis, bildpfad, erscheinungsDatum ) VALUES  (?,?,?,?)';
 
         //definieren von Statement zum ausführen als sql statement
         var statement = this._conn.prepare(sql);
 
-
         //Parameter der eingegebenen Produkt Details
-        var params = [ title, price, picturePath ];
+        var params = [ title, price, picturePath, realeaseDate ];
 
         //ausführen von insert statement
         var result = statement.run(params);
-
 
         //wenn nicht eingeführt werden konnte
         if ( result.changes != 1 ) 

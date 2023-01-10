@@ -12,10 +12,15 @@ serviceRouter.post('/produkt', function(request, response) {
 
     if (helper.isUndefined(request.body.title)) 
         errorMsgs.push('title fehlerhaft !');
+
     if (helper.isUndefined(request.body.price)) 
         errorMsgs.push('Preis fehlerhaft !');
+
     if (helper.isUndefined(request.body.picturePath)) 
         request.body.beschreibung = 'Bildpfad fehlerhaft !';
+        
+    if (helper.isUndefined(request.body.realeaseDate)) 
+        errorMsgs.push('Preis fehlerhaft !');
         
     if ( errorMsgs.length > 0 ) {
         console.log('Service Produkt: Creation not possible, data missing');
@@ -25,7 +30,7 @@ serviceRouter.post('/produkt', function(request, response) {
 
     const produktDao = new ProduktDao(request.app.locals.dbConnection);
     try {
-        var obj = produktDao.create(request.body.title, request.body.price, request.body.picturePath);
+        var obj = produktDao.create(request.body.title, request.body.price, request.body.picturePath, request.body.realeaseDate);
         console.log('Service Produkt: Hinzugefügt!');
         response.status(200).json(obj);
 
@@ -35,71 +40,6 @@ serviceRouter.post('/produkt', function(request, response) {
     }
 });
 
-function checkProductSpecs ( title, price, path ) {
-    var error="Das Produkt hat den Fehler :\n";
-    var noError = error;
-    if(!title instanceof String){
-        error += "Titel ist kein String\n"
-    }
-    if(!helper.isFloatWithTwoDigits(price)){
-        error += "Preis muss eine Kommazahl sein mit 2 Nachkommastellen !\n";
-    }
-    if(!path instanceof String){
-        error += " Bildpfad muss ein String sein!\n";
-    }
-    if( noError != error ) {
-        return false;
-    }
-    console.log(error)
-    return true;
-};
-
-
-function checkSoftwareSpecs ( player, genre ) {
-    var error="Die Software hat den Fehler :\n";
-    var noError = error;
-    if( player < 1 && player > 8 ){
-        error += "Die Software darf maximal 8 und mindestens 1 Spieler haben";
-    }
-    if(!genre instanceof String ) {
-        error += "Genre muss ein String sein";
-    }
-    if( noError != error ) {
-        alert(error);
-        return false;
-    }
-    return true;
-};
-
-function checkHardwareSpecs ( performance, releaseDate ) {
-    var error="Die Software hat den Fehler :\n";
-    var noError = error;
-    if( performance < 1 && player > 100 ){
-        error += "Die Performace darf maximal 100 und mindestens 1 Punkt haben";
-    }
-    if(!genre instanceof String ) {
-        error += "Genre muss ein String sein";
-    }
-    if( noError != error ) {
-        alert(error);
-        return false;
-    }
-    return true;
-};
-
-
-function checkDoubleWithTwoDigits(value) {
-    if (Number.isFinite(value)) {
-        // Check if the value has 2 digits after the decimal point
-        if (value.toFixed(2) === value) {
-          console.log('The value is a float with 2 digits');
-        } else {
-          console.log('The value is a float but does not have 2 digits');
-        }
-      } else {
-        console.log('The value is not a float');
-      }
-}
 
 // serviceRouter.get('/produkt/existiert/:id', function(request, response) {
 //     console.log('Service Produkt: Client requested check, if record exists, id=' + request.params.id);

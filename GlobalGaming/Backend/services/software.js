@@ -19,6 +19,9 @@ serviceRouter.post('/software', function(request, response) {
     if(helper.isUndefined(request.body.genre))
         errorMsgs.push('Genre fehlt');
     
+    if(helper.isUndefined(request.body.fsk))
+        errorMsgs.push('FSK fehlt');
+
     if (errorMsgs.length > 0) {
         console.log('Service Software: Creation not possible, data missing');
         response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
@@ -27,7 +30,8 @@ serviceRouter.post('/software', function(request, response) {
 
     const softwareDao = new SoftwareDao(request.app.locals.dbConnection);
     try {
-        var obj = softwareDao.create( request.body.productId, request.body.player, request.body.genre );
+        console.log('Service Software DAO wird versucht anzubinden')
+        var obj = softwareDao.create( request.body.productId, request.body.player, request.body.genre, request.body.fsk );
         console.log('Service Software: Software Hinzugefügt !');
         response.status(200).json(obj);
 

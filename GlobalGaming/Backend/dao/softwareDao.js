@@ -10,16 +10,16 @@ class SoftwareDao {
         return this._conn;
     }
 
-    create(id, players, genre) {
+    create(id, player, genre, fsk) {
         //Definieren von SQL Statement mit Values
-        var sql = 'INSERT INTO Software ( id, spielerAnzahl, genre) VALUES  (?,?,?)';
+        var sql = 'INSERT INTO Software ( id, spielerAnzahl, genre, fsk) VALUES  (?,?,?,?)';
 
         //definieren von Statement zum ausführen als sql statement
         var statement = this._conn.prepare(sql);
 
 
         //Parameter der eingegebenen Produkt Details
-        var params = [ id, players, genre ];
+        var params = [ id, player, genre, fsk ];
 
         //ausführen von insert statement
         var result = statement.run(params);
