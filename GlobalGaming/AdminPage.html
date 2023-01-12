@@ -136,6 +136,18 @@
                         <p class="normalText">Bitte gebe einen Hersteller an</p>
                     </div>
                 </div>
+
+                <div class="cProductInput">
+                    <label class="labelInput" for="productSelect">Art : </label>
+                    <select id="productSelect" class="inputProduct" name="select">
+                        <option value="prozessor">Prozessor</option>
+                        <option value="grafikkarte">Grafikkarte</option>
+                        <option value="arbeitsspeicher">Arbeitsspeicher</option>
+                    </select>
+                    <div class="cNotice">
+                        <p class="normalText">Bitte wähle eines aus</p>
+                    </div>
+                </div>
             </div>
 
             <div id="cSaleSpecs" class="cSpecs cSaleSpecs">
@@ -184,11 +196,34 @@
 
     <section class="cDeleteProduct" id="cDeleteProduct">
 
-        <div id="table_space">
+        <table id="table_product">
+            <caption>Product</caption>
+            <thead id="thead_product">
+                <tr>
+                    <th id="headline_product_id" class="thead_product">Product ID</th>
+                    <th id="headline_product_title" class="thead_product">Titel</th>
+                    <th id="headline_product_price" class="thead_product">Preis</th>
+                    <th id="headline_product_picture_path" class="thead_product">Bildpfad</th>
+                    <th id="headline_product_realease_date" class="thead_product">Realease</th>
+                    <th id="headline_product_player" class="thead_product">Spieler</th>
+                    <th id="headline_product_genre" class="thead_product">Genre</th>
+                    <th id="headline_product_fsk" class="thead_product">Fsk</th>
+                    <th id="headline_product_performance" class="thead_product">Leistung</th>
+                    <th id="headline_product_producer" class="thead_product">Hersteller</th>
+                    <th id="headline_product_type" class="thead_product">Art</th>
+                    <th id="headline_product_sale_id" class="thead_product">Sale ID</th>
+                    <th id="healdine_product_sale_in_percent" class="thead_product">Sale</th>
+                    <th id="headline_product_countdown_time" class="thead_product">Countdown Zeit</th>
+                    <th id="healdine_product_countdown_per_cent" class="thead_product">Countdown Sale</th>
+                </tr>
+            </thead>
 
-        </div>
+            <tbody id="tbody_product">
+
+            </tbody>
+
+        </table>
     </section>
     <script type="text/javascript" src="js/adminPage.js"></script>
-
 </body>
 </html>

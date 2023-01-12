@@ -10,16 +10,16 @@ class HardwareDao {
         return this._conn;
     }
 
-    create(id, performance, producer ) {
+    create(id, performance, producer, type ) {
         //Definieren von SQL Statement mit Values
-        var sql = 'INSERT INTO Hardware ( id, leistung, hersteller) VALUES  (?,?,?)';
+        var sql = 'INSERT INTO Hardware ( id, leistung, hersteller, art) VALUES  (?,?,?,?)';
 
         //definieren von Statement zum ausführen als sql statement
         var statement = this._conn.prepare(sql);
 
 
         //Parameter der eingegebenen Produkt Details
-        var params = [ id, performance, producer];
+        var params = [ id, performance, producer, type];
 
         //ausführen von insert statement
         var result = statement.run(params);

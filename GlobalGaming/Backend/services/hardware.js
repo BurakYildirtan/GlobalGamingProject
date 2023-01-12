@@ -19,6 +19,9 @@ serviceRouter.post('/hardware', function(request, response) {
     if(helper.isUndefined(request.body.producer))
         errorMsgs.push('Producer fehlt');
 
+    if(helper.isUndefined(request.body.type))
+        errorMsgs.push('Art fehlt');
+
     if (errorMsgs.length > 0) {
         console.log('Service Hardware: Creation not possible, data missing');
         response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
@@ -27,7 +30,7 @@ serviceRouter.post('/hardware', function(request, response) {
 
     const hardwareDao = new HardwareDao(request.app.locals.dbConnection);
     try {
-        var obj = hardwareDao.create(request.body.productId, request.body.performance, request.body.producer);
+        var obj = hardwareDao.create(request.body.productId, request.body.performance, request.body.producer, request.body.type);
         console.log('Service Hardware: Record inserted');
         response.status(200).json(obj);
 

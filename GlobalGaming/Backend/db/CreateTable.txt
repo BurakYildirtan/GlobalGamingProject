@@ -10,7 +10,9 @@ CREATE TABLE Produkt (
 CREATE TABLE Hardware (
 	id INTEGER NOT NULL,
 	leistung INTEGER NOT NULL,
-	hersteller string NOT NULL,
+	hersteller TEXT NOT NULL,
+	art TEXT NOT NULL,
+	CONSTRAINT fk_HardwareArt check ( art in ('prozessor', 'grafikkarte', 'arbeitsspeicher') )
 	CONSTRAINT fk_Hardware1 FOREIGN KEY (id) REFERENCES Produkt(id)
 );
 
@@ -19,8 +21,8 @@ CREATE TABLE Software (
 	spielerAnzahl NOT NULL,
 	genre TEXT NOT NULL,
 	fsk INTEGER NOT NULL,
-	CONSTRAINT fk_Software1 FOREIGN KEY (id) REFERENCES Produkt(id),
-	CONSTRAINT check_spieler_anzahl CHECK ( spieleranzahl > 0 AND spieleranzahl < 9 )
+	CONSTRAINT fk_Software1 FOREIGN KEY (id) REFERENCES Produkt(id)
+	CONSTRAINT check_spieler_anzahl CHECK ( spielerAnzahl > 0 AND spielerAnzahl < 9 )
 );
 
 CREATE TABLE Sale (

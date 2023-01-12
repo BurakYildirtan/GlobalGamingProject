@@ -1,59 +1,9 @@
-//-----------------------------------Admin Page------------------------------------------------------------
-//Optionen
-var rBInsertProduct = document.getElementById('inpInsertProduct');
-var rBChangeProduct = document.getElementById('inpChangeProduct');
-var rBDeleteProduct = document.getElementById('inpDeleteProduct');
-var adminOption = document.querySelectorAll('input[type="radio"][name="adminOption"]');
-
-//Admin Option auswählen
-adminOption.forEach( button => {
-    button.addEventListener('change', function() {
-        console.log(this.value)
-        switch (this.value) {
-            case '0':
-                document.getElementById('cInsertProduct').style.visibility = 'visible';
-                document.getElementById('cChangeProduct').style.visibility = 'hidden';
-                document.getElementById('cDeleteProduct').style.visibility = 'hidden';
-
-                break;
-            case '1':
-                document.getElementById('cInsertProduct').style.visibility = 'hidden';
-                document.getElementById('cChangeProduct').style.visibility = 'visible';
-                document.getElementById('cDeleteProduct').style.visibility = 'hidden';
-                break;
-            case '2':
-                document.getElementById('cInsertProduct').style.visibility = 'hidden';
-                document.getElementById('cChangeProduct').style.visibility = 'hidden';
-                document.getElementById('cDeleteProduct').style.visibility = 'visible';
-                break;
-            default:
-                console.log('Etwas ist schief gelaufen');
-        }     
-    });
-});
-
-//-----------------------------------DELETE PRODUCT------------------------------------------------------------
-
+//------- FÜR DIE GANZE SEITE WICHTIG ------------------
 window.addEventListener("load", function(){
-    testJSON()
+    createProductTable()
 })
 
-async function testJSON(){
-    let productJSON = getAllProducts()
-    let softwareJSON = getAllSoftware()
-    let hardwareJSON = getAllHardware()
-    let saleJSON = getAllSale()
-    let countdownJSON = getAllCountdown()
-
-    console.log("These are all Items in Product Table : ",productJSON)
-    console.log("These are all Items in Software Table : ",softwareJSON)
-    console.log("These are all Items in Hardware Table : ",hardwareJSON)
-    console.log("These are all Items in Sale Table : ",saleJSON)
-    console.log("These are all Items in Countdown Table : ",countdownJSON)
-
-}
-
-//GetAllProducts------------------------
+//GetAllProducts---------------------------------------------------------
 async function getAllProducts() {
 
     let products =  await $.ajax({
@@ -145,97 +95,134 @@ async function getAllCountdown() {
 }
 
 
-//AJAX Aufruf Sale
-async function requestSale(sale) {
-    console.log('Sale AJAX Aufruf gestartet');
+//-------------------------------------------------------------------------
 
-    var saleData;
-    saleData = await $.ajax({
-        url: 'http://localhost:8000/api/sale',
-        method: 'post',
-        contentType: 'application/json; charset=utf-8',
-        cache: false,
-        data: JSON.stringify(sale)
-    }).done(function (response) {
-        saleData = response;
-    }).fail(function (jqXHR, statusText, error) {
-        $('#response').html('Ein Fehler ist aufgetreten');
+
+//-----------------------------------Admin Page------------------------------------------------------------
+//Optionen
+var rBInsertProduct = document.getElementById('inpInsertProduct');
+var rBChangeProduct = document.getElementById('inpChangeProduct');
+var rBDeleteProduct = document.getElementById('inpDeleteProduct');
+var adminOption = document.querySelectorAll('input[type="radio"][name="adminOption"]');
+
+//Admin Option auswählen
+adminOption.forEach( button => {
+    button.addEventListener('change', function() {
+        console.log(this.value)
+        switch (this.value) {
+            case '0':
+                document.getElementById('cInsertProduct').style.visibility = 'visible';
+                document.getElementById('cChangeProduct').style.visibility = 'hidden';
+                document.getElementById('cDeleteProduct').style.visibility = 'hidden';
+
+                break;
+            case '1':
+                document.getElementById('cInsertProduct').style.visibility = 'hidden';
+                document.getElementById('cChangeProduct').style.visibility = 'visible';
+                document.getElementById('cDeleteProduct').style.visibility = 'hidden';
+                break;
+            case '2':
+                document.getElementById('cInsertProduct').style.visibility = 'hidden';
+                document.getElementById('cChangeProduct').style.visibility = 'hidden';
+                document.getElementById('cDeleteProduct').style.visibility = 'visible';
+                break;
+            default:
+                console.log('Etwas ist schief gelaufen');
+        }     
     });
+});
 
-    return saleData;
-};
+//-----------------------------------DELETE PRODUCT------------------------------------------------------------
 
-function createTable() {
-    //Tabelle erstellen
-    let table = document.createElement("table")
-    let thead = document.createElement("thead")
-    let row = document.createElement("tr")
+async function createProductTable() {
 
-    //Überschriften
-    let productId = document.createElement("th")
-    let productTitle = document.createElement("th")
-    let productPrice = document.createElement("th")
-    let productPicturePath = document.createElement("th")
-    let productRealeaseDate = document.createElement("th")
+    //JSON Responses from AJAX call
+    let productJSON = await getAllProducts()
+    let softwareJSON = await getAllSoftware()
+    let hardwareJSON = await getAllHardware()
+    let saleJSON = await getAllSale()
+    let countdownJSON = await getAllCountdown()
 
-    // //id festlegen
-    // productId.id = "headline_product_id"
-    // productTitle.id = "headline_product_title"
-    // productPrice.id = "headline_product_price"
-    // productPicturePath.id = "headline_product_picture_path"
-    // productRealeaseDate.id = "headline_product_realease_date"
+    let productKeys = Object.keys(productJSON)
 
-    //Value bestimmen
-    productId.innerHTML = "ID"
-    productTitle.innerHTML = "Titel"
-    productPrice.innerHTML = "Preis"
-    productPicturePath.innerHTML = "Bildpfad"
-    productRealeaseDate.innerHTML = "Realease"
+    for( var i = 0; i < productKeys.length; i++ ) {
+        console.log("Das ist das ",i," te Produkt ",productJSON[i])
 
-    //Hinzufügen Überschriften in Row
-    row.appendChild(productId)
-    row.appendChild(productTitle)
-    row.appendChild(productPrice)
-    row.appendChild(productPicturePath)
-    row.appendChild(productRealeaseDate)
+        let softwareData = lookForSoftware ( productJSON[i].id, softwareJSON )
+        console.log("Das ist Software data von ",productJSON[i].id)
+        console.log(softwareData)
+        if(softwareData == null) {
+            let hardwareData = lookForHardware ( productJSON[i].id, hardwareJSON )
+            console.log("Das ist  Hardware data von ",productJSON[i].id)
+            console.log(hardwareData)
+        }
+        let saleData = lookForSale ( productJSON[i].id, saleJSON)
+        console.log("Das ist  Sale Data von ",productJSON[i].id)
+        console.log(saleData)
+        if(saleData != null){
+            let countdownData = lookForCountdown( saleData.id, countdownJSON)
+            console.log("Das ist  Sale Data von ",productJSON[i].id)
+            console.log(countdownData)
+        }
+        
+    }
 
-    //In head einfügen
-    thead.appendChild(row)
-    //In table einfügen
-    table.appendChild(thead)
-
-    return table
 }
 
-// function createSoftwareTable()
+function lookForSoftware( productId , softwareJSON ) {
+    let softwareKeys = Object.keys(softwareJSON)
 
-// function createHardwareTable()
+    for( var i = 0; i < softwareKeys.length; i++ ) {
+        if ( productId == softwareJSON[i].id ) {
+            return softwareJSON[i]
+        }
+    }
 
-// function createSaleTable()
+    return null
 
-// function createCountdownTable()
+}
+
+function lookForHardware( productId , hardwareJSON ) {
+    let hardwareKeys = Object.keys(hardwareJSON)
+
+    for( var i = 0; i < hardwareKeys.length; i++ ) {
+        if ( productId == hardwareJSON[i].id ) {
+            return hardwareJSON[i]
+        }
+    }
+
+    return null
+
+}
+
+function lookForSale( productId , saleJSON ) {
+    let saleKeys = Object.keys(saleJSON)
+
+    for( var i = 0; i < saleKeys.length; i++ ) {
+        if ( productId == saleJSON[i].produktId ) {
+            return saleJSON[i]
+        }
+    }
+
+    return null
+
+}
+
+function lookForCountdown( saleId , countdownJSON ) {
+    let countdownKeys = Object.keys(countdownJSON)
+
+    for( var i = 0; i < countdownKeys.length; i++ ) {
+        if ( saleId == countdownJSON[i].id ) {
+            return countdownJSON[i]
+        }
+    }
+
+    return null
+
+}
 
 
 //-----------------------------------CHANGE PRODUCT------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -566,13 +553,8 @@ async function insertSoftware(productResponse) {
     try {
 
         softwareData = { 'productId': productResponse.id, 'player' : valPlayer, 'genre' : valGenre, 'fsk' : valFsk};
-        // softwareData = { 'productId': 29, 'player' : 8, 'genre' : "Baba", 'fsk' : 8};
-        console.log("Kurz Bevor Software Data Product ID : "+softwareData.productId)
-        console.log("Kurz Bevor Software Data Player : "+softwareData.player)
-        console.log("Kurz Bevor Software Data Genre: "+softwareData.genre)
-        console.log("Kurz Bevor Software Data Fsk : "+softwareData.fsk)
-
         var softwareResponse = await requestSoftware( softwareData );
+
         console.log('Software erfolgreich hinzugefügt mit der ref. id : '+ softwareResponse.id);
     }
     catch (error) {
@@ -586,13 +568,10 @@ async function insertHardware(productResponse) {
     var productId = parseInt(productResponse.id)
     var valPerformance = parseInt(document.getElementById("productPerformance").value)
     var valProducer = document.getElementById("productProducer").value
+    var valType = document.getElementById("productSelect").value
 
     try {
-        hardwareData = { 'productId': productId, 'performance' : valPerformance, 'producer' : valProducer };
-
-        console.log("Vor AJAX",hardwareData.productId)
-        console.log("VOR AJAX",hardwareData.performance)
-        console.log("Vor Ajax",hardwareData.producer)
+        hardwareData = { 'productId': productId, 'performance' : valPerformance, 'producer' : valProducer, "type": valType };
         
         var hardwareResponse = await requestHardware( hardwareData );
         console.log('Hardware erfolgreich hinzugefügt mit der ref. id : '+ hardwareResponse.id);
