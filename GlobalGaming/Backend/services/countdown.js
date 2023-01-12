@@ -37,4 +37,20 @@ serviceRouter.post('/countdown', function(request, response) {
     }
 });
 
+serviceRouter.get('/countdown/all', function(request, response) {
+
+    const countdownDao = new CountdownDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Countdown : Get All Countdown")
+
+        var allCountdown = countdownDao.loadAll()
+        response.status(200).json(allCountdown)
+
+    } catch (ex) {
+        console.log ('Service Countdown : Error Getting All Countdown. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+});
+
 module.exports = serviceRouter;

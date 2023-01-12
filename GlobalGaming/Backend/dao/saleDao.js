@@ -37,6 +37,13 @@ class SaleDao {
         return result;
     }
 
+    loadAll() {
+        var sql = 'SELECT * FROM Sale';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all();
+        return result;
+    }
+
     toString() {
         console.log('SaleDao [_conn=' + this._conn + ']');
     }

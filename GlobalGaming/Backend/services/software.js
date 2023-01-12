@@ -41,4 +41,21 @@ serviceRouter.post('/software', function(request, response) {
     }
 });
 
+serviceRouter.get('/software/all', function(request, response) {
+
+    const softwareDao = new SoftwareDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Sale : Get All Software")
+
+        var allSoftware = softwareDao.loadAll()
+        response.status(200).json(allSoftware)
+
+    } catch (ex) {
+        console.log ('Service Software: Error Getting All Software. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
+});
+
 module.exports = serviceRouter;

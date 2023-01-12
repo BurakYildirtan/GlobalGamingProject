@@ -43,6 +43,13 @@ class ProduktDao {
         return result;
     }
 
+    loadAll() {
+        var sql = 'SELECT * FROM Produkt';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all();
+        return result;
+    }
+
 
 
 
@@ -73,32 +80,6 @@ class ProduktDao {
     //     } catch (ex) {
     //         throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
     //     }
-    // }
-
-    // loadAll() {
-    //     /*
-    //     const produktkategorieDao = new ProduktkategorieDao(this._conn);
-    //     const produktbildDao = new ProduktbildDao(this._conn);
-
-       
-
-    //     if (helper.isArrayEmpty(result)) 
-    //         return [];
-
-    //     for (var i = 0; i < result.length; i++) {
-    //         result[i].kategorie = produktkategorieDao.loadById(result[i].kategorieId);
-    //         delete result[i].kategorieid;
-
-
-    //         result[i].bilder = produktbildDao.loadByParent(result[i].id);
-
-
-    //     }
-    //     */
-    //     var sql = 'SELECT * FROM Produkt';
-    //     var statement = this._conn.prepare(sql);
-    //     var result = statement.all();
-    //     return result;
     // }
 
     // update(id, kategorieId = 1, bezeichnung = '', beschreibung = '', details = null, nettopreis = 0.0, bilder = []) {

@@ -39,6 +39,13 @@ class CountdownDao {
         return result;
     }
 
+    loadAll() {
+        var sql = 'SELECT * FROM Countdown';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all();
+        return result;
+    }
+
     toString() {
         console.log('CountdownDao [_conn=' + this._conn + ']');
     }

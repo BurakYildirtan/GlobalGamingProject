@@ -37,7 +37,14 @@ class HardwareDao {
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
         return result;
-    }   
+    } 
+    
+    loadAll() {
+        var sql = 'SELECT * FROM Hardware';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all();
+        return result;
+    }
 
     toString() {
         console.log('HardwareDao [_conn=' + this._conn + ']');

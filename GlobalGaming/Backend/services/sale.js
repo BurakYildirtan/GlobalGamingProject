@@ -35,4 +35,21 @@ serviceRouter.post('/sale', function(request, response) {
     }
 });
 
+serviceRouter.get('/sale/all', function(request, response) {
+
+    const saleDao = new SaleDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Sale : Get All Sale")
+
+        var allSale = saleDao.loadAll()
+        response.status(200).json(allSale)
+
+    } catch (ex) {
+        console.log ('Service Produkt : Error Getting All Sale. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
+});
+
 module.exports = serviceRouter;

@@ -8,6 +8,7 @@ var adminOption = document.querySelectorAll('input[type="radio"][name="adminOpti
 //Admin Option auswählen
 adminOption.forEach( button => {
     button.addEventListener('change', function() {
+        console.log(this.value)
         switch (this.value) {
             case '0':
                 document.getElementById('cInsertProduct').style.visibility = 'visible';
@@ -33,8 +34,209 @@ adminOption.forEach( button => {
 
 //-----------------------------------DELETE PRODUCT------------------------------------------------------------
 
+window.addEventListener("load", function(){
+    testJSON()
+})
+
+async function testJSON(){
+    let productJSON = getAllProducts()
+    let softwareJSON = getAllSoftware()
+    let hardwareJSON = getAllHardware()
+    let saleJSON = getAllSale()
+    let countdownJSON = getAllCountdown()
+
+    console.log("These are all Items in Product Table : ",productJSON)
+    console.log("These are all Items in Software Table : ",softwareJSON)
+    console.log("These are all Items in Hardware Table : ",hardwareJSON)
+    console.log("These are all Items in Sale Table : ",saleJSON)
+    console.log("These are all Items in Countdown Table : ",countdownJSON)
+
+}
+
+//GetAllProducts------------------------
+async function getAllProducts() {
+
+    let products =  await $.ajax({
+        url: 'http://localhost:8000/api/produkt/all',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false
+    }).done(function(response){
+        response
+        console.log('AJAX Call getAllProducts Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call get getAllProducts Failed !')
+    })
+
+    return products 
+}
+
+async function getAllSoftware() {
+
+    let software=  await $.ajax({
+        url: 'http://localhost:8000/api/software/all',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false
+    }).done(function(response){
+        response
+        console.log('AJAX Call getAllSoftware Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call getAllSoftware Failed !')
+    })
+
+    return software
+}
+
+async function getAllHardware() {
+
+    let hardware =  await $.ajax({
+        url: 'http://localhost:8000/api/hardware/all',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false
+    }).done(function(response){
+        response
+        console.log('AJAX Call getAllHardware Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call getAllHardware Failed !')
+    })
+
+    return hardware
+}
+
+async function getAllSale() {
+
+    let sale =  await $.ajax({
+        url: 'http://localhost:8000/api/sale/all',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false
+    }).done(function(response){
+        response
+        console.log('AJAX Call getAllSale Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call getAllSale Failed !')
+    })
+
+    return sale
+}
+
+async function getAllCountdown() {
+
+    let countdown =  await $.ajax({
+        url: 'http://localhost:8000/api/countdown/all',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false
+    }).done(function(response){
+        response
+        console.log('AJAX Call getAllCountdown Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call getAllCountdown Failed !')
+    })
+
+    return countdown 
+}
+
+
+//AJAX Aufruf Sale
+async function requestSale(sale) {
+    console.log('Sale AJAX Aufruf gestartet');
+
+    var saleData;
+    saleData = await $.ajax({
+        url: 'http://localhost:8000/api/sale',
+        method: 'post',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(sale)
+    }).done(function (response) {
+        saleData = response;
+    }).fail(function (jqXHR, statusText, error) {
+        $('#response').html('Ein Fehler ist aufgetreten');
+    });
+
+    return saleData;
+};
+
+function createTable() {
+    //Tabelle erstellen
+    let table = document.createElement("table")
+    let thead = document.createElement("thead")
+    let row = document.createElement("tr")
+
+    //Überschriften
+    let productId = document.createElement("th")
+    let productTitle = document.createElement("th")
+    let productPrice = document.createElement("th")
+    let productPicturePath = document.createElement("th")
+    let productRealeaseDate = document.createElement("th")
+
+    // //id festlegen
+    // productId.id = "headline_product_id"
+    // productTitle.id = "headline_product_title"
+    // productPrice.id = "headline_product_price"
+    // productPicturePath.id = "headline_product_picture_path"
+    // productRealeaseDate.id = "headline_product_realease_date"
+
+    //Value bestimmen
+    productId.innerHTML = "ID"
+    productTitle.innerHTML = "Titel"
+    productPrice.innerHTML = "Preis"
+    productPicturePath.innerHTML = "Bildpfad"
+    productRealeaseDate.innerHTML = "Realease"
+
+    //Hinzufügen Überschriften in Row
+    row.appendChild(productId)
+    row.appendChild(productTitle)
+    row.appendChild(productPrice)
+    row.appendChild(productPicturePath)
+    row.appendChild(productRealeaseDate)
+
+    //In head einfügen
+    thead.appendChild(row)
+    //In table einfügen
+    table.appendChild(thead)
+
+    return table
+}
+
+// function createSoftwareTable()
+
+// function createHardwareTable()
+
+// function createSaleTable()
+
+// function createCountdownTable()
+
 
 //-----------------------------------CHANGE PRODUCT------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //-------------------------------------INSERT PRODUCT------------------------------------------------------------------

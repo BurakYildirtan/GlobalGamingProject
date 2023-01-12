@@ -40,6 +40,27 @@ serviceRouter.post('/produkt', function(request, response) {
     }
 });
 
+serviceRouter.get('/produkt/all', function(request, response) {
+
+    const produktDao = new ProduktDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Produkt : Get All Products")
+
+        var allProducts = produktDao.loadAll()
+        response.status(200).json(allProducts)
+
+    } catch (ex) {
+        console.log ('Service Produkt : Error Getting All Products. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
+});
+
+
+
+
+
 
 // serviceRouter.get('/produkt/existiert/:id', function(request, response) {
 //     console.log('Service Produkt: Client requested check, if record exists, id=' + request.params.id);

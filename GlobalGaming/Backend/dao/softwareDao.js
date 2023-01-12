@@ -40,6 +40,13 @@ class SoftwareDao {
         return result;
     }
 
+    loadAll() {
+        var sql = 'SELECT * FROM Software';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all();
+        return result;
+    }
+
     toString() {
         console.log('SoftwareDao [_conn=' + this._conn + ']');
     }
