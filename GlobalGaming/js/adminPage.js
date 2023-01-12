@@ -1,5 +1,4 @@
 //-----------------------------------Admin Page------------------------------------------------------------
-
 //Optionen
 var rBInsertProduct = document.getElementById('inpInsertProduct');
 var rBChangeProduct = document.getElementById('inpChangeProduct');
@@ -283,7 +282,6 @@ $('#btnSubmit').click(async function(event) {
             var productData = { 'title' : valTitle, 'price' : valPrice, 'picturePath' : valPath, 'realeaseDate': valReleaseDate };
             //request für Produkt und response speichern
             var productResponse = await requestProduct( productData );
-            var softwareResponse = await insertSoftware(productResponse);
 
 
         }
@@ -292,15 +290,15 @@ $('#btnSubmit').click(async function(event) {
         }
     }
 
-    // //Wenn Software ausgewählt
-    // if(rBSoftware.checked){
+    //Wenn Software ausgewählt
+    if(rBSoftware.checked){
 
-    //     if(!checkedSoftwareData()){
-    //         spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
-    //         return;
-    //     }
-    //     insertSoftware(productResponse);
-    // };
+        if(!checkedSoftwareData()){
+            spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
+            return;
+        }
+        var softwareResponse = await insertSoftware(productResponse)
+    };
     
     //Wenn Hardware ausgewählt
     if(rBHardware.checked){
@@ -309,18 +307,9 @@ $('#btnSubmit').click(async function(event) {
             return;
         }
 
-        var valPerformance = document.getElementById("productPerformance").value;
-        var valReleaseDate = document.getElementById("productReleaseDate").value;
-        try {
-            // hardwareData = { 'productId': productResponse.id, 'performance' : valPerformance, 'releaseDate' : valReleaseDate };
-            hardwareData = { 'productId': productResponse.id, 'performance' : 100, 'releaseDate' : '2022-10-10' };
-            // console.log("produktId von der Hardware es referenziert : "+productResponse.id);
-            var hardwareResponse = await requestHardware( hardwareData );
-            console.log('Hardware erfolgreich hinzugefügt mit der ref. id : '+ hardwareResponse.id);
-        }
-        catch (error) {
-            throw console.error("Hardware wurde nicht hinzugefügt");
-        }
+        var hardwareResponse = await insertHardware(productResponse)
+
+        console.log ("ERG HARDWARE : ",hardwareResponse)
     };
     //Sale
     if(isInpSaleChecked){
@@ -328,11 +317,9 @@ $('#btnSubmit').click(async function(event) {
             spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
             return;
         }
-        var valSaleInPercent = document.getElementById("productSaleInPercent").value;
+        var valSaleInPercent = parseInt(document.getElementById("productSaleInPercent").value);
         try {
-            // saleData = { 'productId': productResponse.id, 'saleInPercent' :  valSaleInPercent};
-            saleData = { 'productId': productResponse.id, 'saleInPercent' : 99 };
-            // console.log("produktId von der Sale es referenziert : "+productResponse.id);
+            saleData = { 'productId': productResponse.id, 'saleInPercent' : valSaleInPercent };
             var saleResponse = await requestSale( saleData );
             console.log('Sale erfolgreich hinzugefügt mit der ref. id : '+ saleResponse.produktId + ' und der Sale Id : '+ saleResponse.id);
         }
@@ -346,19 +333,19 @@ $('#btnSubmit').click(async function(event) {
             spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
             return;
         }
-        var valCountdownTime = document.getElementById("productCountdownTime").value;
-        var valCountdownSale = document.getElementById("productCountdownSale").value;
+        var valCountdownTime = parseInt(document.getElementById("productCountdownTime").value);
+        var valCountdownSale = parseFloat(document.getElementById("productCountdownSale").value);
         try {
-            // countdownData = { 'id': saleResponse.id, 'countdownTime' : valCountdownTime, 'countdownPerCent' : valCountdownSale };
-            countdownData = { 'salesId': saleResponse.id, 'countdownTime' : 10000, 'countdownPerCent' : 20 };
-            console.log("id von der Countdown es referenziert : "+saleResponse.id);
+            countdownData = { 'salesId': saleResponse.id, 'countdownTime' : valCountdownTime, 'countdownPerCent' : valCountdownSale };
             var countdownResponse = await requestCountdown( countdownData );
+
             console.log('Countdown erfolgreich hinzugefügt mit der ref. id : '+ countdownResponse.id);
         }
         catch (error) {
             throw console.error("Countdown wurde nicht hinzugefügt");
         }
     };
+    
     spanResponse.innerHTML = "Erfolgreich Hinzugefügt !"
     document.getElementById("response").style.visibility = "visible";
     setTimeout(function() {
@@ -370,21 +357,18 @@ $('#btnSubmit').click(async function(event) {
 //Software einfügen
 async function insertSoftware(productResponse) {
     
-    var valPlayer = document.getElementById("productPlayer").value;
-    var valGenre = document.getElementById("productGenre").value;
-    var valFsk = document.getElementById("productFsk").value;
-
-    console.log("valProductid: "+productResponse.id)
-    console.log("valPlayer : "+valPlayer);
-    console.log ("valGenre : "+valGenre);
-    console.log ("valFsk : "+valFsk);
-
-    console.log("produktId von der Software es referenziert BEI SOFTWARE : "+productResponse.id);
-
+    var productId = parseInt(productResponse.id)
+    var valPlayer = parseInt(document.getElementById("productPlayer").value)
+    var valGenre = document.getElementById("productGenre").value
+    var valFsk = parseInt(document.getElementById("productFsk").value)
     try {
-        softwareData = { 'productId': productResponse.id, 'player' : valPlayer, 'genre' : genre, 'fsk' : valFsk};
-        //TESTWERT
+
+        softwareData = { 'productId': productResponse.id, 'player' : valPlayer, 'genre' : valGenre, 'fsk' : valFsk};
         // softwareData = { 'productId': 29, 'player' : 8, 'genre' : "Baba", 'fsk' : 8};
+        console.log("Kurz Bevor Software Data Product ID : "+softwareData.productId)
+        console.log("Kurz Bevor Software Data Player : "+softwareData.player)
+        console.log("Kurz Bevor Software Data Genre: "+softwareData.genre)
+        console.log("Kurz Bevor Software Data Fsk : "+softwareData.fsk)
 
         var softwareResponse = await requestSoftware( softwareData );
         console.log('Software erfolgreich hinzugefügt mit der ref. id : '+ softwareResponse.id);
@@ -394,6 +378,28 @@ async function insertSoftware(productResponse) {
     }
 };
 
+//Hardware einfügen
+async function insertHardware(productResponse) {
+
+    var productId = parseInt(productResponse.id)
+    var valPerformance = parseInt(document.getElementById("productPerformance").value)
+    var valProducer = document.getElementById("productProducer").value
+
+    try {
+        hardwareData = { 'productId': productId, 'performance' : valPerformance, 'producer' : valProducer };
+
+        console.log("Vor AJAX",hardwareData.productId)
+        console.log("VOR AJAX",hardwareData.performance)
+        console.log("Vor Ajax",hardwareData.producer)
+        
+        var hardwareResponse = await requestHardware( hardwareData );
+        console.log('Hardware erfolgreich hinzugefügt mit der ref. id : '+ hardwareResponse.id);
+    }
+    catch (error) {
+        throw console.error("Hardware wurde nicht hinzugefügt");
+    }
+    
+}
 //Entfernen der Werte 
 function clearInput () {
     //Produkt
@@ -459,6 +465,8 @@ async function requestProduct(product) {
 async function requestSoftware(software) {
     console.log('Software AJAX Aufruf gestartet');
 
+    console.log("SOFTWARE DATA REQUEST",software)
+
     var softwareData = await $.ajax({
         url: 'http://localhost:8000/api/software',
         method: 'post',
@@ -480,17 +488,18 @@ async function requestSoftware(software) {
 async function requestHardware(hardware) {
     console.log('Hardware AJAX Aufruf gestartet');
 
-    var hardwareData;
-    hardwareData = await $.ajax({
+
+    var hardwareData = await $.ajax({
         url: 'http://localhost:8000/api/hardware',
         method: 'post',
         contentType: 'application/json; charset=utf-8',
         cache: false,
         data: JSON.stringify(hardware)
     }).done(function (response) {
-        hardwareData = response;
+        response;
     }).fail(function (jqXHR, statusText, error) {
         $('#response').html('Ein Fehler ist aufgetreten');
+        response
     });
 
     return hardwareData;
