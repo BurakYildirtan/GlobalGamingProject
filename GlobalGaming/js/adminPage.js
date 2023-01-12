@@ -1,3 +1,4 @@
+
 //------- FÜR DIE GANZE SEITE WICHTIG ------------------
 window.addEventListener("load", function(){
     createProductTable()
@@ -108,7 +109,6 @@ var adminOption = document.querySelectorAll('input[type="radio"][name="adminOpti
 //Admin Option auswählen
 adminOption.forEach( button => {
     button.addEventListener('change', function() {
-        console.log(this.value)
         switch (this.value) {
             case '0':
                 document.getElementById('cInsertProduct').style.visibility = 'visible';
@@ -142,31 +142,150 @@ async function createProductTable() {
     let hardwareJSON = await getAllHardware()
     let saleJSON = await getAllSale()
     let countdownJSON = await getAllCountdown()
+    let productTBody = document.getElementById('tbody_product')
 
     let productKeys = Object.keys(productJSON)
+    let productCounter = 1
 
     for( var i = 0; i < productKeys.length; i++ ) {
-        console.log("Das ist das ",i," te Produkt ",productJSON[i])
 
-        let softwareData = lookForSoftware ( productJSON[i].id, softwareJSON )
-        console.log("Das ist Software data von ",productJSON[i].id)
-        console.log(softwareData)
+        var productData = productJSON[i]
+        var softwareData = lookForSoftware ( productJSON[i].id, softwareJSON )
+
         if(softwareData == null) {
-            let hardwareData = lookForHardware ( productJSON[i].id, hardwareJSON )
-            console.log("Das ist  Hardware data von ",productJSON[i].id)
-            console.log(hardwareData)
+            var hardwareData = lookForHardware ( productJSON[i].id, hardwareJSON )
+        } else {
+            var hardwareData = null
         }
-        let saleData = lookForSale ( productJSON[i].id, saleJSON)
-        console.log("Das ist  Sale Data von ",productJSON[i].id)
-        console.log(saleData)
+
+        var  saleData = lookForSale ( productJSON[i].id, saleJSON)
+
         if(saleData != null){
-            let countdownData = lookForCountdown( saleData.id, countdownJSON)
-            console.log("Das ist  Sale Data von ",productJSON[i].id)
-            console.log(countdownData)
+            var countdownData = lookForCountdown( saleData.id, countdownJSON)
+        } else {
+            var countdownData = null
         }
-        
+
+        var r = createRow ( productData, softwareData, hardwareData, saleData, countdownData, i, productCounter )
+
+        productTBody.appendChild(r)
+
+        productCounter++ 
     }
 
+}
+
+function createRow( productData, softwareData , hardwareData, saleData, countdownData, counter, productCounter ) {
+
+    let tRow = document.createElement("tr")
+    tRow.id = "tr"+counter
+    tRow.style.backgroundColor = "#444"
+
+    let trNr = document.createElement("td")
+    trNr.innerHTML = productCounter
+    tRow.appendChild(trNr)
+
+    //ProduktData in Tabelle Row hinzufügen
+    let productDataKeys = Object.keys(productData)
+    productDataKeys.forEach( key =>{
+        let c = createCell( productData[key], counter, key )
+        tRow.appendChild(c)
+    })
+
+    //SoftwareData in Tabelle Row hinzufügen
+    if(softwareData != null) {
+        let softwareDataKeys = Object.keys(softwareData)
+        softwareDataKeys.forEach( key =>{
+            if(key != "id"){
+                let c = createCell( softwareData[key], counter, key )
+                tRow.appendChild(c)
+            }
+        })
+    } else {
+        let softwareCellNr = 3
+        let tableNameSoftware = "Software"
+        for( let i = 0 ; i < softwareCellNr ; i++) {
+            let blancC = createBlancCell( tableNameSoftware,counter)
+            tRow.appendChild(blancC)
+
+        }
+    }
+
+    //HardwareData in Tabelle Row hinzufügen
+    if(hardwareData != null) {
+        let hardwareDataKeys = Object.keys(hardwareData)
+        hardwareDataKeys.forEach( key =>{
+            if(key != "id"){
+                let c = createCell( hardwareData[key], counter, key )
+                tRow.appendChild(c)
+            }
+        })
+    } else {
+        let hardwareCellNr = 3
+        let tableNameHardware = "Hardware"
+        for( let i = 0 ; i < hardwareCellNr ; i++) {
+            let blancC = createBlancCell( tableNameHardware,counter)
+            tRow.appendChild(blancC)
+        }
+    }
+
+    //SaleData in Tabelle Row hinzufügen
+    if(saleData != null) {
+        let saleDataKeys = Object.keys(saleData)
+        saleDataKeys.forEach( key =>{
+            if(key != "produktId"){
+                let c = createCell( saleData[key], counter, key )
+                tRow.appendChild(c)
+            }
+        })
+    } else {
+        let saleCellNr = 3
+        let tableNameSale = "Sale"
+        for( let i = 0 ; i < saleCellNr ; i++) {
+            let blancC = createBlancCell( tableNameSale,counter)
+            tRow.appendChild(blancC)
+        }
+    }
+    
+    //countdownData in Tabelle Row hinzufügen
+    if(countdownData != null) {
+        let countdownDataKeys = Object.keys(countdownData)
+        countdownDataKeys.forEach( key =>{
+            if(key != "id") {
+                let c = createCell( countdownData[key], counter, key )
+                tRow.appendChild(c)
+            }
+        })
+    } else {
+        let countdownCellNr = 2
+        let tableNameCountdown = "Countdown"
+        for( let i = 0 ; i < countdownCellNr ; i++) {
+            let blancC = createBlancCell( tableNameCountdown,counter)
+            tRow.appendChild(blancC)
+        }
+    }    
+
+    return tRow
+}
+
+function createBlancCell( tableName,counter ) {
+    let tCell = document.createElement("td")
+    tCell.id = "td_"+tableName+"_"+counter
+    tCell.innerHTML = ""
+
+    //Style
+    tCell.style.fontSize = "1px"
+
+
+    return tCell
+
+}
+
+function createCell( data, counter, key ) {
+    let tCell = document.createElement('td')
+    tCell.id = "td_"+key+"_"+counter
+    tCell.innerHTML = data
+    return tCell
 }
 
 function lookForSoftware( productId , softwareJSON ) {
@@ -174,6 +293,7 @@ function lookForSoftware( productId , softwareJSON ) {
 
     for( var i = 0; i < softwareKeys.length; i++ ) {
         if ( productId == softwareJSON[i].id ) {
+            
             return softwareJSON[i]
         }
     }
@@ -222,6 +342,27 @@ function lookForCountdown( saleId , countdownJSON ) {
 }
 
 
+function filterSoftware(data){
+    delete data.id
+    return data
+}
+
+function filterHardware(data){
+    delete data.id
+    return data
+    
+}
+
+function filterSale(data){
+    delete data.productId
+    return data
+}
+
+function filterCountdown(data){
+    delete data.id
+    return data
+    
+}
 //-----------------------------------CHANGE PRODUCT------------------------------------------------------------
 
 
