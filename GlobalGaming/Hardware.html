@@ -7,6 +7,7 @@
         <link rel="icon" type="image/x-icon" href="pics/favicon.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/hardware.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </head>
     <body>
         <header>
@@ -47,21 +48,31 @@
             <div style="width: 90%; background-color: silver; height: 800px; border-radius: 5px;">
             <div style="width: 15%; height: 100%;float:left; border-radius:5px ;">
             <div style="width:80%; height:150px;margin-top: 100px;margin-left: 30px;">
-            <h1>Sortieren</h1>
-            <ul class="sortieren">
-                <li class="sortierenList">Preis aufsteigen</li>
-                <li class="sortierenList">Preis absteigend</li>
-                <li class="sortierenList">Neuste</li>
-            </ul>
-            </div>
-            <div style="width:80%; height:200px;margin-left: 30px;">
-                <h1>Filter</h1>
-                <ul class="sortieren">
-                    <li class="sortierenList">Typ</li>
-                    <li class="sortierenList">Hersteller</li>
-                    <li class="sortierenList">Preis ab: ______</li>
-                    <li class="sortierenList">Preis bis: ______</li>
-                </ul>
+                <button id="filter-button" class="button">Filter</button>
+                <div id="filter-container" class="filters">
+                  <ul class="filters__list">
+                    <li>
+                  <input id="f1" type="checkbox" onclick='handleClick(this)'/>
+                    <label for="f1">Filter 1</label>
+                    </li>
+                        <li>
+                  <input id="f2" type="checkbox" />
+                    <label for="f2">Filter 2</label>
+                    </li>
+                        <li>
+                  <input id="f3" type="checkbox" />
+                    <label for="f3">Filter 3</label>
+                    </li>
+                        <li>
+                  <input id="f4" type="checkbox" />
+                    <label for="f4">Filter 4</label>
+                    </li>
+                        <li>
+                  <input id="f5" type="checkbox" />
+                    <label for="f5">Filter 5</label>
+                    </li>
+                    
+                  </ul></div>
             </div>
             </div>
             <div style="width: 75%; height:700px;

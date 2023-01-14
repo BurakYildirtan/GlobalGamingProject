@@ -7,17 +7,17 @@ window.addEventListener("load", function(){
 async function loadElements() {
 
     //JSON Responses from AJAX call
-    let productJSON = await getAllHardware()
     let saleJSON = await getAllSale()
-    productJSON.array.forEach(elementP => {
-        saleJSON.array.forEach(elementS => {
-            if (elementP.id === elementS.id){
-                elementP.nettoPreis = (1-elementS.saleProzent/100)*elementP.nettoPreis
-            }
-        });
-        createItem(elementP)
-    });
+    let productJSON = await getAllHardware()
 
+        productJSON.forEach(elementP => {
+            saleJSON.forEach(elementS => {
+                if (elementP.id === elementS.id){
+                    elementP.nettoPreis = Math.round(((1-elementS.saleProzent/100)*elementP.nettoPreis + Number.EPSILON) * 100) / 100
+                }
+            });
+            createItem(elementP)
+        });
 };
 
 //Laden von tabllen
@@ -43,7 +43,7 @@ async function getAllSale() {
 async function getAllHardware() {
 
     let hardware =  await $.ajax({
-        url: 'http://localhost:8000/api/hardware/all',
+        url: 'http://localhost:8000/api/hardware/allWithProduct',
         method: 'get',
         contentType: 'application/json; charset=utf-8',
         cache: false
@@ -58,6 +58,22 @@ async function getAllHardware() {
     return hardware
 };
 
+function changeItem(JSONitem){
+    productJSON.forEach(elementP => {
+        saleJSON.forEach(elementS => {
+            if (elementP.id === elementS.id){
+                elementP.nettoPreis = Math.round(((1-elementS.saleProzent/100)*elementP.nettoPreis + Number.EPSILON) * 100) / 100
+            }
+        });
+        let container = document.getElementById("container")
+        gridItem.id = JSONitem.id
+        bild.src = JSONitem.bildpfad
+        titel.innerHTML = JSONitem.titel
+        preis.innerHTML = JSONitem.nettoPreis
+    });
+    
+};
+
 function createItem(JSONitem){
     let container = document.getElementById("container")
     let gridItem= document.createElement("div")
@@ -68,13 +84,53 @@ function createItem(JSONitem){
     link.href = "SingleArticlePage.html"
     let bild = document.createElement("img")
     bild.src = JSONitem.bildpfad
+    bild.classList.add("grid-item-img")
     link.appendChild(bild)
     gridItem.appendChild(link)
+    let titel = document.createElement("p")
+    titel.innerHTML = JSONitem.titel
+    titel.classList.add("grid-item-p")
+    gridItem.appendChild(titel)
     let preis = document.createElement("p")
     preis.innerHTML = JSONitem.nettoPreis
+    preis.classList.add("grid-item-p")
     gridItem.appendChild(preis)
-
 };
+
+// Filter-button
+
+var button = document.getElementById("filter-button");
+var container = document.getElementById("filter-container");
+
+button.onclick = function (e) {
+  e.stopPropagation();
+  if (container.classList.contains("filters--active")) {
+    container.classList.remove("filters--active");
+  } else {
+    container.classList.add("filters--active");
+  }
+};
+
+container.onclick = function (e) {
+  e.stopPropagation();
+};
+
+window.onclick = function () {
+  container.classList.remove("filters--active");
+};
+
+console.log(input);
+
+function handleClick(cb) {
+    if(cb.checked){
+        alert("ich bin jetzt checked")
+
+    }
+    else{
+        alert("ich war checked")
+    }
+  }
+
 
 
 
