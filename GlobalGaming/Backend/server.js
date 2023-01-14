@@ -1,4 +1,4 @@
-fs/////////////////
+/////////////////
 // workaround / bugfix for linux systems
 Object.fromEntries = l => l.reduce((a, [k,v]) => ({...a, [k]: v}), {})
 /////////////////

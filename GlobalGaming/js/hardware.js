@@ -1,12 +1,6 @@
 
 window.addEventListener("load", function(){
-    Test()
-    Test()
-    Test()
-    Test()
-    Test()
-    Test()
-    Test()    
+    loadElements() 
 });
 
 
@@ -14,13 +8,37 @@ async function loadElements() {
 
     //JSON Responses from AJAX call
     let productJSON = await getAllHardware()
-    let productTBody = document.getElementById('tbody_product')
+    let saleJSON = await getAllSale()
+    productJSON.array.forEach(elementP => {
+        saleJSON.array.forEach(elementS => {
+            if (elementP.id === elementS.id){
+                elementP.nettoPreis = (1-elementS.saleProzent/100)*elementP.nettoPreis
+            }
+        });
+        createItem(elementP)
+    });
 
-    let productKeys = Object.keys(productJSON)    
-
-}
+};
 
 //Laden von tabllen
+
+async function getAllSale() {
+
+    let sale =  await $.ajax({
+        url: 'http://localhost:8000/api/sale/all',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false
+    }).done(function(response){
+        response
+        console.log('AJAX Call getAllSale Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call getAllSale Failed !')
+    })
+
+    return sale
+};
 
 async function getAllHardware() {
 
@@ -38,30 +56,26 @@ async function getAllHardware() {
     })
 
     return hardware
-}
+};
 
-
-//TEST
-function Test(){
+function createItem(JSONitem){
     let container = document.getElementById("container")
-    let testDiv = document.createElement("div")
-    testDiv.classList.add("grid-item")
-    container.appendChild(testDiv)
+    let gridItem= document.createElement("div")
+    gridItem.classList.add("grid-item")
+    gridItem.id = JSONitem.id
+    container.appendChild(gridItem)
     let link = document.createElement("a")
     link.href = "SingleArticlePage.html"
     let bild = document.createElement("img")
-    bild.src = "pics/fortnite.jpeg"
+    bild.src = JSONitem.bildpfad
     link.appendChild(bild)
-    testDiv.appendChild(link)
-    let del = document.createElement("del")
-    let PreisD = document.createElement("p")
-    PreisD.innerHTML = "19.99"
-    del.appendChild(PreisD)
+    gridItem.appendChild(link)
     let preis = document.createElement("p")
-    testDiv.appendChild(del)
-    preis.innerHTML = "9.99€"
-    testDiv.appendChild(preis)
+    preis.innerHTML = JSONitem.nettoPreis
+    gridItem.appendChild(preis)
+
 };
+
 
 
 
