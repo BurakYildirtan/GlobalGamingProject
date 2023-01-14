@@ -1,12 +1,13 @@
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: auto auto auto;
     border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
   }
   .grid-item {
-    font-size: 30px;
-    text-align: center;
-    height:139.4px;
+    margin: 15px;
   }
 
   .sortieren, .sortierenList{
