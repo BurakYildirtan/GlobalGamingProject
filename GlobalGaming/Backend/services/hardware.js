@@ -3,6 +3,8 @@ const HardwareDao = require('../dao/hardwareDao.js')
 const express = require('express');
 var serviceRouter = express.Router();
 
+
+
 console.log('- Service Hardware');
 
 serviceRouter.post('/hardware', function(request, response) {
