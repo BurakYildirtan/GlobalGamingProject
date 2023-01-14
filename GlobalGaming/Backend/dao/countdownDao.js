@@ -39,11 +39,41 @@ class CountdownDao {
         return result;
     }
 
+    loadByIdSoftware(id) {
+        var sql = 'Select p.*,s.spielerAnzahl,s.genre ,s.fsk,sl2.id,c1.countdownZeit ,c1.extraProzent  from Produkt p INNER JOIN Software s ON p.id = s.id INNER JOIN Sale sl2 ON p.id =sl2.produktId INNER JOIN Countdown c1 on sl2.id = c1.id WHERE sl2.id = ?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(id);
+        return result;
+    }
+
+    loadByIdSoftware(id) {
+        var sql = 'Select p.*,h.leistung,h.hersteller,h.art,sl.id ,sl.saleProzent,c.countdownZeit,c.extraProzent  from Produkt p INNER JOIN Hardware h on p.id = h.id INNER JOIN Sale sl  on p.id =sl.produktId INNER JOIN Countdown c on sl.id = c.id WHERE sl.id = ?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(id);
+        return result;
+    }
+
     loadAll() {
         var sql = 'SELECT * FROM Countdown';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
         return result;
+    }
+
+    loadAllHardware() {
+        var sql = 'Select p.*,h.leistung,h.hersteller,h.art,sl.id ,sl.saleProzent,c.countdownZeit,c.extraProzent  from Produkt p INNER JOIN Hardware h on p.id = h.id  INNER JOIN Sale sl  on p.id =sl.produktId INNER JOIN Countdown c on sl.id = c.id '
+        var statement = this._conn.prepare(sql)
+        var result = statement.all();
+
+        return result
+    }
+
+    loadAllSoftware() {
+        var sql = 'Select p.*,s.spielerAnzahl,s.genre ,s.fsk,sl2.id,c1.countdownZeit ,c1.extraProzent  from Produkt p INNER JOIN Software s ON p.id = s.id INNER JOIN Sale sl2 ON p.id =sl2.produktId INNER JOIN Countdown c1 on sl2.id = c1.id '
+        var statement = this._conn.prepare(sql)
+        var result = statement.all();
+
+        return result
     }
 
     toString() {

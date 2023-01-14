@@ -53,4 +53,38 @@ serviceRouter.get('/countdown/all', function(request, response) {
     }
 });
 
+serviceRouter.get('/countdown/allSoftware', function(request, response) {
+
+    const countdownDao = new CountdownDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Countdown : Get All Countdown Software")
+
+        var allCountdownSoftware = countdownDao.loadAllSoftware()
+        response.status(200).json(allCountdownSoftware)
+
+    } catch (ex) {
+        console.log ('Service Countdown : Error Getting All Countdown Software. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+});
+
+serviceRouter.get('/countdown/allHardware', function(request, response) {
+
+    const countdownDao = new CountdownDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Countdown : Get All Countdown Hardware")
+
+        var allCountdownHardware = countdownDao.loadAllHardware()
+        response.status(200).json(allCountdownHardware)
+
+    } catch (ex) {
+        console.log ('Service Countdown : Error Getting All Countdown Hardware. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+});
+
+
+
 module.exports = serviceRouter;

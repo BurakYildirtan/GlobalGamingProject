@@ -34,14 +34,52 @@ class SaleDao {
         var sql = 'SELECT * FROM Sale WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
+
         return result;
     }
+
+    loadByIdHardware(id) {
+        var sql = 'SELECT p.*,h.leistung,h.hersteller,h.art,sl.id ,sl.saleProzent  FROM Produkt p INNER JOIN Hardware h ON p.id = h.id  INNER JOIN Sale sl  ON p.id =sl.produktId WHERE p.id = ?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(id);
+
+        return result;
+
+    }
+
+    loadByIdSoftware(id) {
+        var sql = 'Select p.*,s.spielerAnzahl,s.genre ,s.fsk  from Produkt p INNER JOIN Software s ON p.id = s.id INNER JOIN Sale s2 ON p.id =s2.produktId WHERE p.id = ?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(id);
+
+        return result;
+
+    }
+
 
     loadAll() {
         var sql = 'SELECT * FROM Sale';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
+
         return result;
+    }
+
+    loadAllHardware() {
+        var sql = 'SELECT p.*,h.leistung,h.hersteller,h.art,sl.id ,sl.saleProzent  FROM Produkt p INNER JOIN Hardware h ON p.id = h.id INNER JOIN Sale sl  ON p.id =sl.produktId'
+        var statement = this._conn.prepare(sql);
+        var result = statement.all();
+
+        return result;
+
+    }
+
+    loadAllSoftware() {
+        var sql = 'Select p.*,s.spielerAnzahl,s.genre ,s.fsk  from Produkt p INNER JOIN Software s ON p.id = s.id INNER JOIN Sale s2 ON p.id =s2.produktId'
+        var statement = this._conn.prepare(sql)
+        var result = statement.all()
+
+        return result
     }
 
     toString() {

@@ -3,6 +3,8 @@ window.addEventListener("load", function(){
     createProductTable()
     createDeleteSelect()
 })
+    
+
 
 //GetAllProducts---------------------------------------------------------
 async function getAllProducts() {

@@ -52,4 +52,38 @@ serviceRouter.get('/sale/all', function(request, response) {
 
 });
 
+serviceRouter.get('/sale/allSoftware', function(request, response) {
+
+    const saleDao = new SaleDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Sale : Get All Sale with Software")
+
+        var allSaleSoftware = saleDao.loadAllSoftware()
+        response.status(200).json(allSaleSoftware)
+
+    } catch (ex) {
+        console.log ('Service Produkt : Error Getting All Sale with Software. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
+});
+
+serviceRouter.get('/sale/allHardware', function(request, response) {
+
+    const saleDao = new SaleDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Sale : Get All Sale with Hardware")
+
+        var allSaleHardware = saleDao.loadAllHardware()
+        response.status(200).json(allSaleHardware)
+
+    } catch (ex) {
+        console.log ('Service Produkt : Error Getting All Sale with Hardware. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
+});
+
 module.exports = serviceRouter;
