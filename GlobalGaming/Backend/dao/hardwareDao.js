@@ -38,6 +38,13 @@ class HardwareDao {
         var result = statement.get(id);
         return result;
     } 
+
+    loadByIdWithProduct(id) {
+        var sql = 'Select p.*,h.leistung,h.hersteller,h.art  from Produkt p INNER JOIN Hardware h on p.id = h.id WHERE p.id=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(id);
+        return result;
+    } 
     
     loadAll() {
         var sql = 'SELECT * FROM Hardware';
@@ -48,6 +55,13 @@ class HardwareDao {
 
     toString() {
         console.log('HardwareDao [_conn=' + this._conn + ']');
+    }
+
+    loadAllwithProduct() {
+        var sql = 'SELECT p.*, h.leistung, h.hersteller, h.art  FROM Produkt p INNER JOIN Hardware h ON p.id = h.id'
+        var statement = this._conn.prepare(sql);
+        var result = statement.all();
+        return result;
     }
 }
 

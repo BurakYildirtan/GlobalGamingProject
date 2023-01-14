@@ -1,7 +1,7 @@
-
 //------- FÜR DIE GANZE SEITE WICHTIG ------------------
 window.addEventListener("load", function(){
     createProductTable()
+    createDeleteSelect()
 })
 
 //GetAllProducts---------------------------------------------------------
@@ -132,7 +132,7 @@ adminOption.forEach( button => {
     });
 });
 
-//-----------------------------------DELETE PRODUCT------------------------------------------------------------
+//-----------------------------------CREATE PRODUCT TABLE------------------------------------------------------------
 
 async function createProductTable() {
 
@@ -146,6 +146,9 @@ async function createProductTable() {
 
     let productKeys = Object.keys(productJSON)
     let productCounter = 1
+
+    let table = document.getElementById("table_product")
+    table.classList.add("productTableClass")
 
     for( var i = 0; i < productKeys.length; i++ ) {
 
@@ -179,7 +182,7 @@ function createRow( productData, softwareData , hardwareData, saleData, countdow
 
     let tRow = document.createElement("tr")
     tRow.id = "tr"+counter
-    tRow.style.backgroundColor = "#444"
+    tRow.className = "product_table_row"
 
     let trNr = document.createElement("td")
     trNr.innerHTML = productCounter
@@ -239,7 +242,7 @@ function createRow( productData, softwareData , hardwareData, saleData, countdow
             }
         })
     } else {
-        let saleCellNr = 3
+        let saleCellNr = 2
         let tableNameSale = "Sale"
         for( let i = 0 ; i < saleCellNr ; i++) {
             let blancC = createBlancCell( tableNameSale,counter)
@@ -271,11 +274,8 @@ function createRow( productData, softwareData , hardwareData, saleData, countdow
 function createBlancCell( tableName,counter ) {
     let tCell = document.createElement("td")
     tCell.id = "td_"+tableName+"_"+counter
-    tCell.innerHTML = ""
-
-    //Style
-    tCell.style.fontSize = "1px"
-
+    tCell.className = "product_table_cell"
+    tCell.innerHTML = "-"
 
     return tCell
 
@@ -284,7 +284,9 @@ function createBlancCell( tableName,counter ) {
 function createCell( data, counter, key ) {
     let tCell = document.createElement('td')
     tCell.id = "td_"+key+"_"+counter
+    tCell.className = "product_table_cell"
     tCell.innerHTML = data
+
     return tCell
 }
 
@@ -341,31 +343,29 @@ function lookForCountdown( saleId , countdownJSON ) {
 
 }
 
+//-----------------------------------DLETE PRODUCT------------------------------------------------------------
 
-function filterSoftware(data){
-    delete data.id
-    return data
+async function createDeleteSelect() {
+    let productJSON = await getAllProducts()
+    let selDelete = document.getElementById("selectToDeleteProduct")
+    selDelete.classList.add("selectPorudct")
+
+    productKeys = Object.keys(productJSON)
+
+    for( var i = 0; i < productKeys.length; i++) {
+        let option =  createOption(productJSON[i].id, productJSON[i].id)
+        selDelete.appendChild(option)
+    }
 }
 
-function filterHardware(data){
-    delete data.id
-    return data
-    
+function createOption( value , innerText ) {
+    let option = document.createElement('option')
+    option.value = value
+    option.innerHTML = innerText
+
+    return option
+
 }
-
-function filterSale(data){
-    delete data.productId
-    return data
-}
-
-function filterCountdown(data){
-    delete data.id
-    return data
-    
-}
-//-----------------------------------CHANGE PRODUCT------------------------------------------------------------
-
-
 
 //-------------------------------------INSERT PRODUCT------------------------------------------------------------------
 

@@ -59,4 +59,21 @@ serviceRouter.get('/hardware/all', function(request, response) {
 
 });
 
+serviceRouter.get('/hardware/allWithProduct', function(request, response) {
+
+    const hardwareDao = new HardwareDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Hardware : Get All with Product DATA Hardware")
+
+        var allHardwareWithProduct = hardwareDao.loadAllwithProduct()
+        response.status(200).json(allHardwareWithProduct)
+
+    } catch (ex) {
+        console.log ('Service Hardware : Error Getting All withP Product DATA Hardware. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
+});
+
 module.exports = serviceRouter;
