@@ -4,6 +4,7 @@
         <meta name="viewport" content="width=device-width", inital-scale="1.0">
         <meta charset="UTF-8">
         <link rel="stylesheet" href="css/adminPage.css">
+        <link rel="stylesheet" href="css/adminPage2.css">
         <link rel="icon" type="image/x-icon" href="pics/favicon.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -196,12 +197,12 @@
 
     <section class="cDeleteProduct" id="cDeleteProduct">
 
-        <table id="table_product">
-            <caption>Product</caption>
+        <table id="table_product" class="productTableClass">
             <thead id="thead_product">
+                <caption id="table_caption">Product</caption>
                 <tr>
                     <th id="headline_number" class="thead_product">NR</th>
-                    <th id="headline_product_id" class="thead_product">Product ID</th>
+                    <th id="headline_product_id" class="thead_product">Produkt ID</th>
                     <th id="headline_product_title" class="thead_product">Titel</th>
                     <th id="headline_product_price" class="thead_product">Preis</th>
                     <th id="headline_product_picture_path" class="thead_product">Bildpfad</th>
@@ -214,17 +215,27 @@
                     <th id="headline_product_type" class="thead_product">Art</th>
                     <th id="headline_product_sale_id" class="thead_product">Sale ID</th>
                     <th id="healdine_product_sale_in_percent" class="thead_product">Sale</th>
-                    <th id="headline_product_countdown_time" class="thead_product">Countdown Zeit</th>
-                    <th id="healdine_product_countdown_per_cent" class="thead_product">Countdown Sale</th>
+                    <th id="headline_product_countdown_time" class="thead_product">CD Zeit</th>
+                    <th id="healdine_product_countdown_per_cent" class="thead_product">CD Sale</th>
                 </tr>
             </thead>
 
             <tbody id="tbody_product">
 
             </tbody>
-
         </table>
+
+        <div id="cDeleteProductSelection">
+            <label class="selectLabel" for="selectToDeleteProduct">Welches Produkt möchten Sie löschen ? (Produkt ID) : </label>
+            <select id="selectToDeleteProduct" name="delSelect" class="selectDel">
+            </select>
+
+            <button class="delButton" type="button">
+                <span class="buttonText">Löschen</span>
+            </button>
+        </div>
+
     </section>
     <script type="text/javascript" src="js/adminPage.js"></script>
-</body>
+    </body>
 </html>

@@ -58,4 +58,21 @@ serviceRouter.get('/software/all', function(request, response) {
 
 });
 
+serviceRouter.get('/software/allWithProduct', function(request, response) {
+
+    const softwareDao = new SoftwareDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Sale : Get All With Product Software")
+
+        var allSoftwareWithProduct = softwareDao.loadAllWithProduct()
+        response.status(200).json(allSoftwareWithProduct)
+
+    } catch (ex) {
+        console.log ('Service Software: Error Getting All With Product Software. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
+});
+
 module.exports = serviceRouter;

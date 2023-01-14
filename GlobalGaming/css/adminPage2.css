@@ -1,0 +1,114 @@
+
+.productTableClass {
+    border: 1px solid #333;
+    border-collapse: collapse;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    margin: 10px 2% 10px 2%;
+}
+
+.productTableClass td,
+.productTableClass th {
+    margin: 0 ;
+    padding: 3px 15px 3px 15px;
+    text-align: center;
+}
+
+.productTableClass td {
+    font-size: medium;
+
+        
+}
+
+.productTableClass th {
+    background-color: #444;
+    font-weight: bold;
+    font-size: large;
+    color: #eee;
+}
+
+.productTableClass caption {
+    font-size: xx-large;
+    font-weight: bolder;
+    margin: 0 0 15px 0;
+    border-bottom: 2px solid #444;
+
+}
+
+.productTableClass tr {
+    margin: 0;
+}
+
+.productTableClass td:nth-child(odd) {
+    background-color: #c3cdca;
+  }
+  .productTableClass td:nth-child(even) {
+    background-color: #b2bdc3;
+  }
+
+
+#cDeleteProduct {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.selectLabel {
+    font-size: x-large;
+    font-weight: bold;
+    border-bottom: 1px solid #444;
+    padding: 5px 10px 5px 10px;
+
+}
+
+.selectDel {
+    min-width: 200px;
+    background-color: #c7d2d8;
+    border: 1px solid #444;
+    border-radius: 7px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+
+}
+
+.selectLabel,
+.selectDel {
+    margin: 0px 10px 0 10px;
+}
+
+#cDeleteProductSelection {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 2% 30px 2%;
+}
+
+
+.selectDel option {
+    background-color: #adb4b9;
+    text-align: center;
+}
+
+.selectDel option:hover {
+    background-color: #444;
+}
+
+.delButton {
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(204, 204, 204);
+    border: 1px solid rgb(176, 176, 176);
+    color: #1f1f1f;  
+    padding: 5px 10px 5px 10px;
+    font-size: 25px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    
+}
+
+.delButton:active {
+    background-color: rgb(183, 183, 183);
+    border: 1px solid rgb(150, 150, 150);
+}
