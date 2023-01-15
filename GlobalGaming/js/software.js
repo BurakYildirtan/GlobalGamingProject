@@ -10,14 +10,18 @@ async function loadElements() {
     let saleJSON = await getAllSale()
     let productJSON = await getAllSoftware()
 
+    if(productJSON){
         productJSON.forEach(elementP => {
-            saleJSON.forEach(elementS => {
-                if (elementP.id === elementS.id){
-                    elementP.nettoPreis = Math.round(((1-elementS.saleProzent/100)*elementP.nettoPreis + Number.EPSILON) * 100) / 100
-                }
-            });
-            createItem(elementP)
+            if (saleJSON){
+                saleJSON.forEach(elementS => {
+                    if (elementP.id === elementS.id){
+                        elementP.nettoPreis = Math.round(((1-elementS.saleProzent/100)*elementP.nettoPreis + Number.EPSILON) * 100) / 100
+                    }
+                });
+                createItem(elementP)
+            }
         });
+    }
 };
 
 //Laden von tabllen
@@ -166,13 +170,13 @@ var button = document.getElementById("filter-button");
 var container = document.getElementById("filter-container");
 
 button.onclick = function (e) {
-  e.stopPropagation();
-  if (container.classList.contains("filters--active")) {
-    container.classList.remove("filters--active");
-  } else {
-    container.classList.add("filters--active");
-  }
-};
+    e.stopPropagation();
+    if (container.classList.contains("filters--active")) {
+      container.classList.remove("filters--active");
+    } else {
+      container.classList.add("filters--active");
+    }
+  };
 
 container.onclick = function (e) {
   e.stopPropagation();
