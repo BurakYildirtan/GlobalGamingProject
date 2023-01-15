@@ -193,6 +193,66 @@
     </section>
 
     <section class="cChangeProduct" id="cChangeProduct">
+
+
+        <form >
+            <h4 class="text">Wählen Sie die Produktkategorie aus:</h4>
+            <div class="optionRadioBtn">
+                <input class="inputBtn" type="radio" id="inpSoftware2" name="inputHardOrSoft2">
+                <label class="labelBtn" for="inpSoftware">Software</label>
+            </div>
+            <div class="optionRadioBtn">
+                <input class="inputBtn" type="radio" id="inpHardware2" name="inputHardOrSoft2">
+                <label class="labelBtn" for="inpHardware">Hardware</label>
+            </div>
+        </form>
+
+        <div class="cProductInput cProductTitle" id="ID" style="visibility: hidden;">
+            <label class="labelInput" for="productTitle">ProduktID : </label>
+            <input id="IdChange" class="inputProduct productData" type="value">
+            <div class="cNotice">
+                <p class="normalText">Bitte gebe die ID ein die du ändern möchtest</p>
+            </div>
+        </div>
+
+        <div id="Attribute" class="cProductInput" style="visibility: hidden;">
+            <label class="labelInput" for="productSelect">Attribute : </label>
+            <select id="attributeChange" class="inputProduct" name="select">
+                <option value="titel">titel</option>
+                <option value="nettoPreis">nettoPreis</option>
+                <option value="bildpfad">bildpfad</option>
+                <option value="erscheinungsDatum">erscheinungsDatum</option>
+                <option value="spielerAnzahl">spielerAnzahl</option>
+                <option value="genre">genre</option>
+                <option value="fsk">fsk</option>
+            </select>
+            <div class="cNotice">
+                <p class="normalText">Bitte wähle eines aus</p>
+            </div>
+        </div>
+        <div id="Attribute2" class="cProductInput" style="visibility: hidden;">
+            <label class="labelInput" for="productSelect">Attribute : </label>
+            <select id="productSelect" class="inputProduct" name="select">
+                <option value="titel">titel</option>
+                <option value="nettoPreis">nettoPreis</option>
+                <option value="bildpfad">bildpfad</option>
+                <option value="erscheinungsDatum">erscheinungsDatum</option>
+                <option value="leistung">leistung</option>
+                <option value="hersteller">hersteller</option>
+                <option value="art">art</option>
+            </select>
+            <div class="cNotice">
+                <p class="normalText">Bitte wähle eines aus</p>
+            </div>
+        </div>
+        <div class="cProductInput cProductTitle" id="Wert" style="visibility: hidden;">
+            <label class="labelInput" for="productTitle">Wert : </label>
+            <input id="WertChange" class="inputProduct productData" type="value">
+            <div class="cNotice">
+                <p class="normalText">Wert eingeben</p>
+            </div>
+        </div>
+        <input  id="btnSubmit2" type="button" value="Submit" style="visibility: hidden;">
     </section>
 
     <section class="cDeleteProduct" id="cDeleteProduct">
