@@ -976,41 +976,6 @@ function checkedCountdownData(){
     }  
 };
 
-<<<<<<< HEAD
-//-----------------------------------CHANGE PRODUCT ITEM------------------------------------------------------------
-
-
-var rBSoftware2 = document.getElementById("inpSoftware2");
-var rBHardware2 = document.getElementById("inpHardware2");
-
-rBSoftware2.addEventListener ("click", () => {
-    if(rBSoftware2.checked) {
-        document.getElementById("btnSubmitID2").style.visibility="Visible"
-        document.getElementById("Wert").style.visibility="Visible"
-        document.getElementById("ID").style.visibility="Visible"
-        document.getElementById("Attribute").style.visibility="Visible"
-        document.getElementById("Attribute2").style.display="none"
-        document.getElementById("Attribute").style.display="flex"
-    }
-
-});
-
-rBHardware2.addEventListener ("click", () => {
-    if(rBHardware2.checked) {
-        document.getElementById("btnSubmitID2").style.visibility="Visible"
-        document.getElementById("Wert").style.visibility="Visible"
-        document.getElementById("ID").style.visibility="Visible"
-        document.getElementById("Attribute2").style.visibility="Visible"
-        document.getElementById("Attribute").style.display="none"
-        document.getElementById("Attribute2").style.display="flex"
-    }
-
-});
-
-$('#btnSubmit2').click(async function(event) {
-
-});
-=======
 //ExistsID ------------------------------------------------------------------
 
 async function existSoftwareId(productId) {
@@ -1206,4 +1171,3 @@ async function saleLoadById(productId) {
     })
     return inTableSoftware
 }
->>>>>>> main
