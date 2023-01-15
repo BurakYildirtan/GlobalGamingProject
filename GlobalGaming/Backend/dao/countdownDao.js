@@ -39,6 +39,8 @@ class CountdownDao {
         return result;
     }
 
+
+
     loadByIdSoftware(id) {
         var sql = 'Select p.*,s.spielerAnzahl,s.genre ,s.fsk,sl2.id,c1.countdownZeit ,c1.extraProzent  from Produkt p INNER JOIN Software s ON p.id = s.id INNER JOIN Sale sl2 ON p.id =sl2.produktId INNER JOIN Countdown c1 on sl2.id = c1.id WHERE sl2.id = ?';
         var statement = this._conn.prepare(sql);
@@ -76,8 +78,16 @@ class CountdownDao {
         return result
     }
 
+    delete(id) {
+        var sql= 'DELETE FROM Countdown WHERE id= ?'
+        var statement = this._conn.prepare(sql)
+        var result= statement.get(id);
+
+        return result
+    }
+
     toString() {
-        console.log('CountdownDao [_conn=' + this._conn + ']');
+        var sql=''
     }
 }
 
