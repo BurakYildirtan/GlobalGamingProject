@@ -57,6 +57,24 @@ serviceRouter.get('/produkt/all', function(request, response) {
 
 });
 
+serviceRouter.get('/countdown/existiert/:id', function(request, response) {
+    console.log('Service Countdown: Check ob ID existiert in Countdown' + request.params.id);
+
+    const countdownDao = new CountdownDao(request.app.locals.dbConnection);
+    try {
+        var exists = countdownDao.loadById(request.params.id);
+        console.log('Service Countdown : Check if record exists by id=' + request.params.id + ', exists=' + exists);
+        if(exists == undefined) {
+            response.status(200).json(false);
+        } else {
+            response.status(200).json(true);
+        }
+    } catch (ex) {
+        console.error('Service Produkt: Error checking if record exists. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
 
 
 

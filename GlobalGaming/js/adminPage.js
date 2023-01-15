@@ -347,6 +347,20 @@ function lookForCountdown( saleId , countdownJSON ) {
 
 //-----------------------------------DLETE PRODUCT------------------------------------------------------------
 
+var deleteBtn = document.getElementById('btn_product_delete')
+
+deleteBtn.addEventListener ("click", () => {
+    let selDelete = document.getElementById("selectToDeleteProduct")
+    //zu löschende ID
+    let deleteProductID = selDelete.value
+
+    
+
+
+
+})
+
+
 async function createDeleteSelect() {
     let productJSON = await getAllProducts()
     let selDelete = document.getElementById("selectToDeleteProduct")
