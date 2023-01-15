@@ -126,4 +126,37 @@ serviceRouter.get('/software/allWithProductDate', function(request, response) {
 
 });
 
+serviceRouter.get('/software/delete/:id', function(request, response) {
+    console.log('Service Software: Client requested deletion of record, id=' + request.params.id);
+
+    const softwareDao = new SoftwareDao(request.app.locals.dbConnection);
+    try {
+        var obj = softwareDao.loadById(request.params.id)
+        softwareDao.delete(request.params.id);
+        console.log('Service Software: Deletion of record successfull, id=' + request.params.id);
+        response.status(200).json({ 'gelöscht': true , 'delItem': obj });
+    } catch (ex) {
+        console.error(ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
+serviceRouter.get('/software/existiert/:id', function(request, response) {
+    console.log('\nService Software: Check ob ID existiert in Software' + request.params.id);
+
+    const softwareDao = new SoftwareDao(request.app.locals.dbConnection);
+    try {
+        var exists = softwareDao.loadById(request.params.id);
+        console.log('Service Software : Check if record exists by id=' + request.params.id + ', exists=' + exists);
+        if(exists == undefined) {
+            response.status(200).json(false);
+        } else {
+            response.status(200).json(true);
+        }
+    } catch (ex) {
+        console.error('Service Software: Error checking if record exists. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
 module.exports = serviceRouter;

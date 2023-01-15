@@ -98,22 +98,22 @@ serviceRouter.get('/countdown/existiert/:id', function(request, response) {
             response.status(200).json(true);
         }
     } catch (ex) {
-        console.error('Service Produkt: Error checking if record exists. Exception occured: ' + ex.message);
+        console.error('Service Countdown: Error checking if record exists. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
 
-serviceRouter.delete('/countdown/delete/:id', function(request, response) {
+serviceRouter.get('/countdown/delete/:id', function(request, response) {
     console.log('Service Countdown: Client requested deletion of record, id=' + request.params.id);
 
     const countdownDao = new CountdownDao(request.app.locals.dbConnection);
     try {
-        var obj = countdownDao.loadById(request.params.id);
+        var obj = countdownDao.loadById(request.params.id)
         countdownDao.delete(request.params.id);
         console.log('Service Countdown: Deletion of record successfull, id=' + request.params.id);
-        response.status(200).json({ 'gelöscht': true, 'eintrag': obj });
+        response.status(200).json({ 'gelöscht': true , 'delItem': obj });
     } catch (ex) {
-        console.error('Service Countdown: Error deleting record. Exception occured: ' + ex.message);
+        console.error(ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });

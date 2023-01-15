@@ -86,20 +86,35 @@ serviceRouter.get('/sale/allHardware', function(request, response) {
 
 });
 
-serviceRouter.get('/countdown/existiert/:id', function(request, response) {
-    console.log('Service Countdown: Check ob ID existiert in Countdown' + request.params.id);
+serviceRouter.get('/sale/delete/:id', function(request, response) {
+    console.log('Service Sale: Client requested deletion of record, id=' + request.params.id);
 
-    const countdownDao = new CountdownDao(request.app.locals.dbConnection);
+    const saleDao = new SaleDao(request.app.locals.dbConnection);
     try {
-        var exists = countdownDao.loadById(request.params.id);
-        console.log('Service Countdown : Check if record exists by id=' + request.params.id + ', exists=' + exists);
+        var obj = saleDao.loadById(request.params.id)
+        saleDao.delete(request.params.id);
+        console.log('Service Sale: Deletion of record successfull, id=' + request.params.id);
+        response.status(200).json({ 'gelöscht': true , 'delItem': obj });
+    } catch (ex) {
+        console.error(ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
+serviceRouter.get('/sale/existiert/:id', function(request, response) {
+    console.log('Service Sale: Check ob ID existiert in Hardware' + request.params.id);
+
+    const saleDao = new SaleDao(request.app.locals.dbConnection);
+    try {
+        var exists = saleDao.loadById(request.params.id);
+        console.log('Service Sale : Check if record exists by id=' + request.params.id + ', exists=' + exists);
         if(exists == undefined) {
             response.status(200).json(false);
         } else {
             response.status(200).json(true);
         }
     } catch (ex) {
-        console.error('Service Produkt: Error checking if record exists. Exception occured: ' + ex.message);
+        console.error('Service Sale: Error checking if record exists. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });

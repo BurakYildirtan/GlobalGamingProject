@@ -86,6 +86,21 @@ class SoftwareDao {
         return result;
     }
 
+    delete(id) {
+        try {
+            var sql = 'DELETE FROM Software WHERE id= ?';
+            var statement = this._conn.prepare(sql);
+            var result = statement.run(id);
+
+            if (result.changes != 1) 
+                throw new Error('Software mit der ID =' + id+ ' konnte nicht gelöscht werden.');
+
+            return true;
+        } catch (ex) {
+            throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
+        }
+    }
+
 
 }
 

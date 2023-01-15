@@ -1,114 +1,15 @@
-//------- FÜR DIE GANZE SEITE WICHTIG ------------------
+//Beim Laden der Seite ------------------------------------------------------
 window.addEventListener("load", function(){
     createProductTable()
     createDeleteSelect()
 })
-    
 
-
-//GetAllProducts---------------------------------------------------------
-async function getAllProducts() {
-
-    let products =  await $.ajax({
-        url: 'http://localhost:8000/api/produkt/all',
-        method: 'get',
-        contentType: 'application/json; charset=utf-8',
-        cache: false
-    }).done(function(response){
-        response
-        console.log('AJAX Call getAllProducts Successfully !')
-    }).fail(function(response){
-        response
-        console.log('AJAX Call get getAllProducts Failed !')
-    })
-
-    return products 
-}
-
-async function getAllSoftware() {
-
-    let software=  await $.ajax({
-        url: 'http://localhost:8000/api/software/all',
-        method: 'get',
-        contentType: 'application/json; charset=utf-8',
-        cache: false
-    }).done(function(response){
-        response
-        console.log('AJAX Call getAllSoftware Successfully !')
-    }).fail(function(response){
-        response
-        console.log('AJAX Call getAllSoftware Failed !')
-    })
-
-    return software
-}
-
-async function getAllHardware() {
-
-    let hardware =  await $.ajax({
-        url: 'http://localhost:8000/api/hardware/all',
-        method: 'get',
-        contentType: 'application/json; charset=utf-8',
-        cache: false
-    }).done(function(response){
-        response
-        console.log('AJAX Call getAllHardware Successfully !')
-    }).fail(function(response){
-        response
-        console.log('AJAX Call getAllHardware Failed !')
-    })
-
-    return hardware
-}
-
-async function getAllSale() {
-
-    let sale =  await $.ajax({
-        url: 'http://localhost:8000/api/sale/all',
-        method: 'get',
-        contentType: 'application/json; charset=utf-8',
-        cache: false
-    }).done(function(response){
-        response
-        console.log('AJAX Call getAllSale Successfully !')
-    }).fail(function(response){
-        response
-        console.log('AJAX Call getAllSale Failed !')
-    })
-
-    return sale
-}
-
-async function getAllCountdown() {
-
-    let countdown =  await $.ajax({
-        url: 'http://localhost:8000/api/countdown/all',
-        method: 'get',
-        contentType: 'application/json; charset=utf-8',
-        cache: false
-    }).done(function(response){
-        response
-        console.log('AJAX Call getAllCountdown Successfully !')
-    }).fail(function(response){
-        response
-        console.log('AJAX Call getAllCountdown Failed !')
-    })
-
-    return countdown 
-}
-
-
-//-------------------------------------------------------------------------
-
-
-//-----------------------------------Admin Page------------------------------------------------------------
-//Optionen
+//Admin Funktion auswählen --------------------------------------------------
 var rBInsertProduct = document.getElementById('inpInsertProduct');
 var rBChangeProduct = document.getElementById('inpChangeProduct');
 var rBDeleteProduct = document.getElementById('inpDeleteProduct');
 var adminOption = document.querySelectorAll('input[type="radio"][name="adminOption"]');
 
-//Admin Option auswählen
 adminOption.forEach( button => {
     button.addEventListener('change', function() {
         switch (this.value) {
@@ -133,6 +34,460 @@ adminOption.forEach( button => {
         }     
     });
 });
+  
+//-----------------------------------DELETE PRODUCT------------------------------------------------------------
+
+var deleteBtn = document.getElementById('btn_product_delete')
+
+$('#btn_product_delete').click(async function(event) {
+    var selDelete = document.getElementById("selectToDeleteProduct")
+    //zu löschende ID
+    var deleteProductId = parseInt(selDelete.value)
+
+    var inSoftware = await existSoftwareId(deleteProductId)
+    var inHardware = await existHardwareId(deleteProductId)
+    var inSale = await existSaleId (deleteProductId)
+
+    if ( inSale ) {
+        var saleId = await  saleLoadById(deleteProductId)
+        var inCountdown = await existCountdownId( saleId )
+
+        if (inCountdown){
+            let sId = parseInt(saleId.id)
+            await countdownDeleteById(sId)
+        }
+    }
+    
+    if(inHardware){
+        await hardwareDeleteById(deleteProductId)
+    }
+
+
+});
+
+
+async function checkIdInTables() {
+
+}
+
+async function createDeleteSelect() {
+    let productJSON = await getAllProducts()
+    let selDelete = document.getElementById("selectToDeleteProduct")
+    selDelete.classList.add("selectPorudct")
+
+    productKeys = Object.keys(productJSON)
+
+    for( var i = 0; i < productKeys.length; i++) {
+        let option =  createOption(productJSON[i].id, productJSON[i].id)
+        selDelete.appendChild(option)
+    }
+}
+
+function createOption( value , innerText ) {
+    let option = document.createElement('option')
+    option.value = value
+    option.innerHTML = innerText
+
+    return option
+
+}
+
+//-------------------------------------INSERT PRODUCT------------------------------------------------------------------
+
+//Buttons
+var rBSoftware = document.getElementById("inpSoftware");
+var rBHardware = document.getElementById("inpHardware");
+var checkBtnSale = document.getElementById("inpSale");
+var checkBtnCountdown = document.getElementById("inpCountdown");
+var btnSubmit = document.getElementById("btnSubmit")
+var checkedBtn = document.getElementsByClassName("checkedCountdown")
+var cCheckBtnSale = document.getElementById("cCheckBtnSale");
+var cCheckBtnCountdown = document.getElementById("cCheckBtnCountdown");
+
+//Divs
+var cProductSpecs = document.getElementById("cProductSpecs");
+var cSoftwareSpecs = document.getElementById("cSoftwareSpecs");
+var cHardwareSpecs = document.getElementById("cHardwareSpecs");
+var textBoxPicture = document.getElementById("productPicturePath");
+
+//input
+var inpPrice = document.getElementById("productPrice");
+var inpTitle = document.getElementById("productTitle");
+var inpPicturePath = document.getElementById("productPicturePath");
+var inpPlayer = document.getElementById("productPlayer");
+var inpGenre = document.getElementById("productGenre");
+var inpPerformance = document.getElementById("productPerformance");
+var inpReleaseDate = document.getElementById("productReleaseDate");
+var inpSalePerCent = document.getElementById("productSaleInPercent");
+var inpCountdownTime = document.getElementById("productCountdownTime");
+var inpCountdownSale = document.getElementById("productCountdownSale");
+
+var inpFsk = document.getElementById("productFsk");
+var inpProducer = document.getElementById("productProducer");
+
+
+//DatenSammlungen
+var productData;
+var softwareData;
+var hardwareData;
+var saleData;
+var countdownData;
+
+//response
+var spanResponse = document.querySelector("#response");
+
+//Software Bereich
+rBSoftware.addEventListener ("click", () => {
+    if(rBSoftware.checked) {
+        cProductSpecs.style.display = "flex";
+        cSoftwareSpecs.style.display = "flex";
+        cHardwareSpecs.style.display = "none";
+        cCheckBtnSale.style.display = "flex";
+        btnSubmit.style.display = "flex";
+        
+        
+        document.getElementById("cSaleSpecs").style.display ="flex";
+        checkBtnSale.checked = false;
+        checkBtnCountdown.checked = false;
+        document.getElementById("cProductSaleInPercent").style.display="none"
+        document.getElementById("cCheckBtnCountdown").style.display="none"
+        document.getElementById("cCountdownTime").style.display="none"
+        document.getElementById("cCountdownSaleInPercent").style.display="none"
+    }
+
+});
+
+//Hardware Bereich 
+rBHardware.addEventListener ("click", () => {
+    if(rBHardware.checked) {
+        cProductSpecs.style.display = "flex";
+        cHardwareSpecs.style.display = "flex";
+        cSoftwareSpecs.style.display = "none";
+        cCheckBtnSale.style.display = "flex";
+        btnSubmit.style.display = "flex";
+
+        document.getElementById("cSaleSpecs").style.display ="flex";
+        checkBtnSale.checked = false;
+        checkBtnCountdown.checked = false;
+        document.getElementById("cProductSaleInPercent").style.display="none"
+        document.getElementById("cCheckBtnCountdown").style.display="none"
+        document.getElementById("cCountdownTime").style.display="none"
+        document.getElementById("cCountdownSaleInPercent").style.display="none"
+    }
+});
+
+//Sale Bereich
+checkBtnSale.addEventListener ("click", () => {
+    if(checkBtnSale.checked) {
+        document.getElementById("cProductSaleInPercent").style.display="flex"
+        document.getElementById("cCheckBtnCountdown").style.display="flex"
+    }
+    else{
+        document.getElementById("cProductSaleInPercent").style.display="none"
+        document.getElementById("cCheckBtnCountdown").style.display="none"
+        document.getElementById("cCountdownTime").style.display="none"
+        document.getElementById("cCountdownSaleInPercent").style.display="none"
+        checkBtnCountdown.checked = false
+    }
+});
+
+//Countedown Bereich 
+checkBtnCountdown.addEventListener ("click", () => {
+    if(checkBtnCountdown.checked) {
+        document.getElementById("cCountdownTime").style.display="flex"
+        document.getElementById("cCountdownSaleInPercent").style.display="flex"
+    }else {
+        document.getElementById("cCountdownTime").style.display="none"
+        document.getElementById("cCountdownSaleInPercent").style.display="none"
+
+    }
+});
+
+
+
+//Submit Produkt----------------------------------------------------------
+$('#btnSubmit').click(async function(event) {
+    //Produkt
+    var valTitle = document.getElementById("productTitle").value;
+    var valPrice = document.getElementById("productPrice").value;
+    var valPath = document.getElementById("productPicturePath").value;
+    var valReleaseDate = document.getElementById("productReleaseDate").value;
+
+    //Extra Ausgwählt Sale und/oder Coundown 
+    var isInpSaleChecked = document.getElementById("inpSale").checked;
+    var isInpCountdownChecked = document.getElementById("inpCountdown").checked;
+
+    if(checkedSoftwareData() || checkedHardwareData()){
+        if(!checkedProductData()){
+            spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
+            return;
+        }
+        try {
+            var productData = { 'title' : valTitle, 'price' : valPrice, 'picturePath' : valPath, 'realeaseDate': valReleaseDate };
+            //request für Produkt und response speichern
+            var productResponse = await requestProduct( productData );
+
+
+        }
+        catch (error) {
+            throw console.error("Produkt wurde nicht hinzugefügt");
+        }
+    }
+
+    //Wenn Software ausgewählt
+    if(rBSoftware.checked){
+
+        if(!checkedSoftwareData()){
+            spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
+            return;
+        }
+        var softwareResponse = await insertSoftware(productResponse)
+    };
+    
+    //Wenn Hardware ausgewählt
+    if(rBHardware.checked){
+        if(!checkedHardwareData()){
+            spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
+            return;
+        }
+
+        var hardwareResponse = await insertHardware(productResponse)
+
+        console.log ("ERG HARDWARE : ",hardwareResponse)
+    };
+    //Sale
+    if(isInpSaleChecked){
+        if(!checkedSaleData()){
+            spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
+            return;
+        }
+        var valSaleInPercent = parseInt(document.getElementById("productSaleInPercent").value);
+        try {
+            saleData = { 'productId': productResponse.id, 'saleInPercent' : valSaleInPercent };
+            var saleResponse = await requestSale( saleData );
+            console.log('Sale erfolgreich hinzugefügt mit der ref. id : '+ saleResponse.produktId + ' und der Sale Id : '+ saleResponse.id);
+        }
+        catch (error) {
+            throw console.error("Sale wurde nicht hinzugefügt");
+        }
+    };
+
+    if(isInpCountdownChecked){
+        if(!checkedCountdownData()){
+            spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
+            return;
+        }
+        var valCountdownTime = parseInt(document.getElementById("productCountdownTime").value);
+        var valCountdownSale = parseFloat(document.getElementById("productCountdownSale").value);
+        try {
+            countdownData = { 'salesId': saleResponse.id, 'countdownTime' : valCountdownTime, 'countdownPerCent' : valCountdownSale };
+            var countdownResponse = await requestCountdown( countdownData );
+
+            console.log('Countdown erfolgreich hinzugefügt mit der ref. id : '+ countdownResponse.id);
+        }
+        catch (error) {
+            throw console.error("Countdown wurde nicht hinzugefügt");
+        }
+    };
+    
+    spanResponse.innerHTML = "Erfolgreich Hinzugefügt !"
+    document.getElementById("response").style.visibility = "visible";
+    setTimeout(function() {
+        document.getElementById("response").style.visibility = "hidden";
+    }, 5000);
+    clearInput()
+});
+
+
+async function insertSoftware(productResponse) {
+    
+    var productId = parseInt(productResponse.id)
+    var valPlayer = parseInt(document.getElementById("productPlayer").value)
+    var valGenre = document.getElementById("productGenre").value
+    var valFsk = parseInt(document.getElementById("productFsk").value)
+    try {
+
+        softwareData = { 'productId': productResponse.id, 'player' : valPlayer, 'genre' : valGenre, 'fsk' : valFsk};
+        var softwareResponse = await requestSoftware( softwareData );
+
+        console.log('Software erfolgreich hinzugefügt mit der ref. id : '+ softwareResponse.id);
+    }
+    catch (error) {
+        throw console.error("Software wurde nicht hinzugefügt");
+    }
+};
+
+
+async function insertHardware(productResponse) {
+
+    var productId = parseInt(productResponse.id)
+    var valPerformance = parseInt(document.getElementById("productPerformance").value)
+    var valProducer = document.getElementById("productProducer").value
+    var valType = document.getElementById("productSelect").value
+
+    try {
+        hardwareData = { 'productId': productId, 'performance' : valPerformance, 'producer' : valProducer, "type": valType };
+        
+        var hardwareResponse = await requestHardware( hardwareData );
+        console.log('Hardware erfolgreich hinzugefügt mit der ref. id : '+ hardwareResponse.id);
+    }
+    catch (error) {
+        throw console.error("Hardware wurde nicht hinzugefügt");
+    }
+    
+}
+
+function clearInput () {
+    //Produkt
+    document.getElementById("productTitle").value = null;
+    document.getElementById("productPrice").value = null;
+    document.getElementById("productReleaseDate").value = null;
+    //Bildpfad
+    document.getElementById("productPicturePath").value = null;
+    //Software
+    document.getElementById("productPlayer").value = null;
+    document.getElementById("productGenre").value = null;
+    document.getElementById("productFsk").value = null;
+    //Hardware
+    document.getElementById("productPerformance").value = null;
+    document.getElementById("productProducer").value = null;
+    //Sale
+    document.getElementById("inpSale").checked = false;
+    document.getElementById("productSaleInPercent").value = null;
+    //Countdown
+    document.getElementById("inpCountdown").checked = false;
+    document.getElementById("productCountdownTime").value = null;
+    document.getElementById("productCountdownSale").value = null;
+
+    inpTitle.style.border = "1px solid #444";
+    inpPrice.style.border = "1px solid #444";
+    inpPicturePath.style.border = "1px solid #444";
+    inpPlayer.style.border = "1px solid #444";
+    inpGenre.style.border = "1px solid #444";
+    inpPerformance.style.border = "1px solid #444";
+    inpReleaseDate.style.border = "1px solid #444";
+    inpSalePerCent.style.border = "1px solid #444";
+    inpCountdownTime.style.border = "1px solid #444";
+    inpFsk.style.border = "1px solid #444";
+    inpProducer.style.border = "1px solid #444";
+};
+
+
+//CHECK INPUT FIELDS --------------------------------------------------------
+
+//Bild Preview
+textBoxPicture.addEventListener ("change", function() {
+    document.getElementById("imgPreview").src = textBoxPicture.value;
+});
+
+//Preis überprüfen
+inpPrice.addEventListener("input", function() {
+    if (isNumeric(inpPrice.value)) {
+        inpPrice.style.border = "5px solid green";
+    }else{
+        inpPrice.style.border = "3px solid red";
+    }
+});
+
+//Titel überprüfen
+inpTitle.addEventListener("input", function() {
+    if (inpTitle.value != "" && inpTitle.value != undefined) {
+        inpTitle.style.border = "5px solid green";
+    }else{
+        inpTitle.style.border = "3px solid red";
+    }
+});
+
+//Bild überprüfen
+inpPicturePath.addEventListener("change", function() {
+    if (inpPicturePath.value != "" && inpPicturePath != undefined) {
+        inpPicturePath.style.border = "5px solid green";
+    }else{
+        inpPicturePath.style.border = "3px solid red";
+    }
+});
+
+//Spieleranzahl überprpüfen
+inpPlayer.addEventListener("input", function() {
+    if (inpPlayer.value <= 8 && inpPlayer.value >= 1) {
+        inpPlayer.style.border = "5px solid green";
+    }else{
+        inpPlayer.style.border = "3px solid red";
+    }
+});
+
+//Genre überprüfen
+inpGenre.addEventListener("input", function() {
+    if ( isAlphabetic(inpGenre.value) ) {
+        inpGenre.style.border = "5px solid green";
+    }else{
+        inpGenre.style.border = "3px solid red";
+    }
+});
+
+//Fsk überprüfen
+inpFsk.addEventListener("input", function() {
+    if (inpFsk.value <= 18 && inpFsk.value >= 0 ) {
+        inpFsk.style.border = "5px solid green";
+    }else{
+        inpFsk.style.border = "3px solid red";
+    }
+});
+
+//Performance überprüfen
+inpPerformance.addEventListener("input", function() {
+    if(inpPerformance.value >= 1 && inpPerformance.value <= 100 ) {
+        inpPerformance.style.border = "5px solid green";
+    }else{
+        inpPerformance.style.border = "3px solid red";
+    }
+});
+
+//Erscheinungsdatum überprüfen
+inpReleaseDate.addEventListener("input", function() {
+    if(inpCountdownSale.value != undefined ) {
+        inpReleaseDate.style.border = "5px solid green";
+    }else{
+        inpReleaseDate.style.border = "3px solid red";
+    }
+});
+
+//Hersteller überprüfen
+inpProducer.addEventListener("input", function() {
+    if (inpProducer.value != "" && inpProducer.value != undefined) {
+        inpProducer.style.border = "5px solid green";
+    }else{
+        inpProducer.style.border = "3px solid red";
+    }
+});
+
+//Sale Prozent überprüfen
+inpSalePerCent.addEventListener("input", function () {
+    if(inpSalePerCent.value < 100 && inpSalePerCent.value >= 1) {
+        inpSalePerCent.style.border = "5px solid green";
+    }else{
+        inpSalePerCent.style.border = "3px solid red";
+    }
+});
+
+//Countdown Zeit überprüfen
+inpCountdownTime.addEventListener("input", function () {
+    if(inpCountdownTime.value <= 100 && inpCountdownTime.value >= 1) {
+        inpCountdownTime.style.border = "5px solid green";
+    }else{
+        inpCountdownTime.style.border = "3px solid red";
+    }
+});
+
+//Countdown Sale Prozent überprüfen
+inpCountdownSale.addEventListener("input", function () {
+    if(inpCountdownSale.value < 100 && inpCountdownSale.value >= 1) {
+        inpCountdownSale.style.border = "5px solid green";
+    }else{
+        inpCountdownSale.style.border = "3px solid red";
+    }
+});
+
 
 //-----------------------------------CREATE PRODUCT TABLE------------------------------------------------------------
 
@@ -345,436 +700,8 @@ function lookForCountdown( saleId , countdownJSON ) {
 
 }
 
-//-----------------------------------DLETE PRODUCT------------------------------------------------------------
+//POST AJAX ------------------------------------------------------
 
-var deleteBtn = document.getElementById('btn_product_delete')
-
-deleteBtn.addEventListener ("click", () => {
-    let selDelete = document.getElementById("selectToDeleteProduct")
-    //zu löschende ID
-    let deleteProductID = selDelete.value
-
-    
-
-
-
-})
-
-
-async function createDeleteSelect() {
-    let productJSON = await getAllProducts()
-    let selDelete = document.getElementById("selectToDeleteProduct")
-    selDelete.classList.add("selectPorudct")
-
-    productKeys = Object.keys(productJSON)
-
-    for( var i = 0; i < productKeys.length; i++) {
-        let option =  createOption(productJSON[i].id, productJSON[i].id)
-        selDelete.appendChild(option)
-    }
-}
-
-function createOption( value , innerText ) {
-    let option = document.createElement('option')
-    option.value = value
-    option.innerHTML = innerText
-
-    return option
-
-}
-
-//-------------------------------------INSERT PRODUCT------------------------------------------------------------------
-
-//Buttons
-var rBSoftware = document.getElementById("inpSoftware");
-var rBHardware = document.getElementById("inpHardware");
-var checkBtnSale = document.getElementById("inpSale");
-var checkBtnCountdown = document.getElementById("inpCountdown");
-var btnSubmit = document.getElementById("btnSubmit")
-var checkedBtn = document.getElementsByClassName("checkedCountdown")
-var cCheckBtnSale = document.getElementById("cCheckBtnSale");
-var cCheckBtnCountdown = document.getElementById("cCheckBtnCountdown");
-
-//Divs
-var cProductSpecs = document.getElementById("cProductSpecs");
-var cSoftwareSpecs = document.getElementById("cSoftwareSpecs");
-var cHardwareSpecs = document.getElementById("cHardwareSpecs");
-var textBoxPicture = document.getElementById("productPicturePath");
-
-//input
-var inpPrice = document.getElementById("productPrice");
-var inpTitle = document.getElementById("productTitle");
-var inpPicturePath = document.getElementById("productPicturePath");
-var inpPlayer = document.getElementById("productPlayer");
-var inpGenre = document.getElementById("productGenre");
-var inpPerformance = document.getElementById("productPerformance");
-var inpReleaseDate = document.getElementById("productReleaseDate");
-var inpSalePerCent = document.getElementById("productSaleInPercent");
-var inpCountdownTime = document.getElementById("productCountdownTime");
-var inpCountdownSale = document.getElementById("productCountdownSale");
-
-var inpFsk = document.getElementById("productFsk");
-var inpProducer = document.getElementById("productProducer");
-
-
-//DatenSammlungen
-var productData;
-var softwareData;
-var hardwareData;
-var saleData;
-var countdownData;
-
-//response
-var spanResponse = document.querySelector("#response");
-
-//Software Bereich
-rBSoftware.addEventListener ("click", () => {
-    if(rBSoftware.checked) {
-        cProductSpecs.style.display = "flex";
-        cSoftwareSpecs.style.display = "flex";
-        cHardwareSpecs.style.display = "none";
-        cCheckBtnSale.style.display = "flex";
-        btnSubmit.style.display = "flex";
-        
-        
-        document.getElementById("cSaleSpecs").style.display ="flex";
-        checkBtnSale.checked = false;
-        checkBtnCountdown.checked = false;
-        document.getElementById("cProductSaleInPercent").style.display="none"
-        document.getElementById("cCheckBtnCountdown").style.display="none"
-        document.getElementById("cCountdownTime").style.display="none"
-        document.getElementById("cCountdownSaleInPercent").style.display="none"
-    }
-
-});
-
-//Hardware Bereich 
-rBHardware.addEventListener ("click", () => {
-    if(rBHardware.checked) {
-        cProductSpecs.style.display = "flex";
-        cHardwareSpecs.style.display = "flex";
-        cSoftwareSpecs.style.display = "none";
-        cCheckBtnSale.style.display = "flex";
-        btnSubmit.style.display = "flex";
-
-        document.getElementById("cSaleSpecs").style.display ="flex";
-        checkBtnSale.checked = false;
-        checkBtnCountdown.checked = false;
-        document.getElementById("cProductSaleInPercent").style.display="none"
-        document.getElementById("cCheckBtnCountdown").style.display="none"
-        document.getElementById("cCountdownTime").style.display="none"
-        document.getElementById("cCountdownSaleInPercent").style.display="none"
-    }
-});
-
-//Sale Bereich
-checkBtnSale.addEventListener ("click", () => {
-    if(checkBtnSale.checked) {
-        document.getElementById("cProductSaleInPercent").style.display="flex"
-        document.getElementById("cCheckBtnCountdown").style.display="flex"
-    }
-    else{
-        document.getElementById("cProductSaleInPercent").style.display="none"
-        document.getElementById("cCheckBtnCountdown").style.display="none"
-        document.getElementById("cCountdownTime").style.display="none"
-        document.getElementById("cCountdownSaleInPercent").style.display="none"
-        checkBtnCountdown.checked = false
-    }
-});
-
-//Countedown Bereich 
-checkBtnCountdown.addEventListener ("click", () => {
-    if(checkBtnCountdown.checked) {
-        document.getElementById("cCountdownTime").style.display="flex"
-        document.getElementById("cCountdownSaleInPercent").style.display="flex"
-    }else {
-        document.getElementById("cCountdownTime").style.display="none"
-        document.getElementById("cCountdownSaleInPercent").style.display="none"
-
-    }
-});
-
-//Bild Preview
-textBoxPicture.addEventListener ("change", function() {
-    document.getElementById("imgPreview").src = textBoxPicture.value;
-});
-
-//Preis überprüfen
-inpPrice.addEventListener("input", function() {
-    if (isNumeric(inpPrice.value)) {
-        inpPrice.style.border = "5px solid green";
-    }else{
-        inpPrice.style.border = "3px solid red";
-    }
-});
-
-//Titel überprüfen
-inpTitle.addEventListener("input", function() {
-    if (inpTitle.value != "" && inpTitle.value != undefined) {
-        inpTitle.style.border = "5px solid green";
-    }else{
-        inpTitle.style.border = "3px solid red";
-    }
-});
-
-//Bild überprüfen
-inpPicturePath.addEventListener("change", function() {
-    if (inpPicturePath.value != "" && inpPicturePath != undefined) {
-        inpPicturePath.style.border = "5px solid green";
-    }else{
-        inpPicturePath.style.border = "3px solid red";
-    }
-});
-
-//Spieleranzahl überprpüfen
-inpPlayer.addEventListener("input", function() {
-    if (inpPlayer.value <= 8 && inpPlayer.value >= 1) {
-        inpPlayer.style.border = "5px solid green";
-    }else{
-        inpPlayer.style.border = "3px solid red";
-    }
-});
-
-//Genre überprüfen
-inpGenre.addEventListener("input", function() {
-    if ( isAlphabetic(inpGenre.value) ) {
-        inpGenre.style.border = "5px solid green";
-    }else{
-        inpGenre.style.border = "3px solid red";
-    }
-});
-
-//Fsk überprüfen
-inpFsk.addEventListener("input", function() {
-    if (inpFsk.value <= 18 && inpFsk.value >= 0 ) {
-        inpFsk.style.border = "5px solid green";
-    }else{
-        inpFsk.style.border = "3px solid red";
-    }
-});
-
-//Performance überprüfen
-inpPerformance.addEventListener("input", function() {
-    if(inpPerformance.value >= 1 && inpPerformance.value <= 100 ) {
-        inpPerformance.style.border = "5px solid green";
-    }else{
-        inpPerformance.style.border = "3px solid red";
-    }
-});
-
-//Erscheinungsdatum überprüfen
-inpReleaseDate.addEventListener("input", function() {
-    if(inpCountdownSale.value != undefined ) {
-        inpReleaseDate.style.border = "5px solid green";
-    }else{
-        inpReleaseDate.style.border = "3px solid red";
-    }
-});
-
-//Hersteller überprüfen
-inpProducer.addEventListener("input", function() {
-    if (inpProducer.value != "" && inpProducer.value != undefined) {
-        inpProducer.style.border = "5px solid green";
-    }else{
-        inpProducer.style.border = "3px solid red";
-    }
-});
-
-//Sale Prozent überprüfen
-inpSalePerCent.addEventListener("input", function () {
-    if(inpSalePerCent.value < 100 && inpSalePerCent.value >= 1) {
-        inpSalePerCent.style.border = "5px solid green";
-    }else{
-        inpSalePerCent.style.border = "3px solid red";
-    }
-});
-
-//Countdown Zeit überprüfen
-inpCountdownTime.addEventListener("input", function () {
-    if(inpCountdownTime.value <= 100 && inpCountdownTime.value >= 1) {
-        inpCountdownTime.style.border = "5px solid green";
-    }else{
-        inpCountdownTime.style.border = "3px solid red";
-    }
-});
-
-//Countdown Sale Prozent überprüfen
-inpCountdownSale.addEventListener("input", function () {
-    if(inpCountdownSale.value < 100 && inpCountdownSale.value >= 1) {
-        inpCountdownSale.style.border = "5px solid green";
-    }else{
-        inpCountdownSale.style.border = "3px solid red";
-    }
-});
-
-//Submit
-$('#btnSubmit').click(async function(event) {
-    //Produkt
-    var valTitle = document.getElementById("productTitle").value;
-    var valPrice = document.getElementById("productPrice").value;
-    var valPath = document.getElementById("productPicturePath").value;
-    var valReleaseDate = document.getElementById("productReleaseDate").value;
-
-    //Extra Ausgwählt Sale und/oder Coundown 
-    var isInpSaleChecked = document.getElementById("inpSale").checked;
-    var isInpCountdownChecked = document.getElementById("inpCountdown").checked;
-
-    if(checkedSoftwareData() || checkedHardwareData()){
-        if(!checkedProductData()){
-            spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
-            return;
-        }
-        try {
-            var productData = { 'title' : valTitle, 'price' : valPrice, 'picturePath' : valPath, 'realeaseDate': valReleaseDate };
-            //request für Produkt und response speichern
-            var productResponse = await requestProduct( productData );
-
-
-        }
-        catch (error) {
-            throw console.error("Produkt wurde nicht hinzugefügt");
-        }
-    }
-
-    //Wenn Software ausgewählt
-    if(rBSoftware.checked){
-
-        if(!checkedSoftwareData()){
-            spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
-            return;
-        }
-        var softwareResponse = await insertSoftware(productResponse)
-    };
-    
-    //Wenn Hardware ausgewählt
-    if(rBHardware.checked){
-        if(!checkedHardwareData()){
-            spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
-            return;
-        }
-
-        var hardwareResponse = await insertHardware(productResponse)
-
-        console.log ("ERG HARDWARE : ",hardwareResponse)
-    };
-    //Sale
-    if(isInpSaleChecked){
-        if(!checkedSaleData()){
-            spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
-            return;
-        }
-        var valSaleInPercent = parseInt(document.getElementById("productSaleInPercent").value);
-        try {
-            saleData = { 'productId': productResponse.id, 'saleInPercent' : valSaleInPercent };
-            var saleResponse = await requestSale( saleData );
-            console.log('Sale erfolgreich hinzugefügt mit der ref. id : '+ saleResponse.produktId + ' und der Sale Id : '+ saleResponse.id);
-        }
-        catch (error) {
-            throw console.error("Sale wurde nicht hinzugefügt");
-        }
-    };
-
-    if(isInpCountdownChecked){
-        if(!checkedCountdownData()){
-            spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
-            return;
-        }
-        var valCountdownTime = parseInt(document.getElementById("productCountdownTime").value);
-        var valCountdownSale = parseFloat(document.getElementById("productCountdownSale").value);
-        try {
-            countdownData = { 'salesId': saleResponse.id, 'countdownTime' : valCountdownTime, 'countdownPerCent' : valCountdownSale };
-            var countdownResponse = await requestCountdown( countdownData );
-
-            console.log('Countdown erfolgreich hinzugefügt mit der ref. id : '+ countdownResponse.id);
-        }
-        catch (error) {
-            throw console.error("Countdown wurde nicht hinzugefügt");
-        }
-    };
-    
-    spanResponse.innerHTML = "Erfolgreich Hinzugefügt !"
-    document.getElementById("response").style.visibility = "visible";
-    setTimeout(function() {
-        document.getElementById("response").style.visibility = "hidden";
-    }, 5000);
-    clearInput()
-});
-
-//Software einfügen
-async function insertSoftware(productResponse) {
-    
-    var productId = parseInt(productResponse.id)
-    var valPlayer = parseInt(document.getElementById("productPlayer").value)
-    var valGenre = document.getElementById("productGenre").value
-    var valFsk = parseInt(document.getElementById("productFsk").value)
-    try {
-
-        softwareData = { 'productId': productResponse.id, 'player' : valPlayer, 'genre' : valGenre, 'fsk' : valFsk};
-        var softwareResponse = await requestSoftware( softwareData );
-
-        console.log('Software erfolgreich hinzugefügt mit der ref. id : '+ softwareResponse.id);
-    }
-    catch (error) {
-        throw console.error("Software wurde nicht hinzugefügt");
-    }
-};
-
-//Hardware einfügen
-async function insertHardware(productResponse) {
-
-    var productId = parseInt(productResponse.id)
-    var valPerformance = parseInt(document.getElementById("productPerformance").value)
-    var valProducer = document.getElementById("productProducer").value
-    var valType = document.getElementById("productSelect").value
-
-    try {
-        hardwareData = { 'productId': productId, 'performance' : valPerformance, 'producer' : valProducer, "type": valType };
-        
-        var hardwareResponse = await requestHardware( hardwareData );
-        console.log('Hardware erfolgreich hinzugefügt mit der ref. id : '+ hardwareResponse.id);
-    }
-    catch (error) {
-        throw console.error("Hardware wurde nicht hinzugefügt");
-    }
-    
-}
-//Entfernen der Werte 
-function clearInput () {
-    //Produkt
-    document.getElementById("productTitle").value = null;
-    document.getElementById("productPrice").value = null;
-    document.getElementById("productReleaseDate").value = null;
-    //Bildpfad
-    document.getElementById("productPicturePath").value = null;
-    //Software
-    document.getElementById("productPlayer").value = null;
-    document.getElementById("productGenre").value = null;
-    document.getElementById("productFsk").value = null;
-    //Hardware
-    document.getElementById("productPerformance").value = null;
-    document.getElementById("productProducer").value = null;
-    //Sale
-    document.getElementById("inpSale").checked = false;
-    document.getElementById("productSaleInPercent").value = null;
-    //Countdown
-    document.getElementById("inpCountdown").checked = false;
-    document.getElementById("productCountdownTime").value = null;
-    document.getElementById("productCountdownSale").value = null;
-
-    inpTitle.style.border = "1px solid #444";
-    inpPrice.style.border = "1px solid #444";
-    inpPicturePath.style.border = "1px solid #444";
-    inpPlayer.style.border = "1px solid #444";
-    inpGenre.style.border = "1px solid #444";
-    inpPerformance.style.border = "1px solid #444";
-    inpReleaseDate.style.border = "1px solid #444";
-    inpSalePerCent.style.border = "1px solid #444";
-    inpCountdownTime.style.border = "1px solid #444";
-    inpFsk.style.border = "1px solid #444";
-    inpProducer.style.border = "1px solid #444";
-};
-
-//AJAX Aufruf Produkt
 async function requestProduct(product) {
     console.log('Produkt AJAX Aufruf gestartet');
     var xhr1 = new XMLHttpRequest();
@@ -799,7 +726,7 @@ async function requestProduct(product) {
 
 };
 
-//AJAX Aufruf Software
+
 async function requestSoftware(software) {
     console.log('Software AJAX Aufruf gestartet');
 
@@ -822,7 +749,7 @@ async function requestSoftware(software) {
     return softwareData;
 };
 
-//AJAX Aufruf Hardware
+
 async function requestHardware(hardware) {
     console.log('Hardware AJAX Aufruf gestartet');
 
@@ -843,7 +770,7 @@ async function requestHardware(hardware) {
     return hardwareData;
 };
 
-//AJAX Aufruf Sale
+
 async function requestSale(sale) {
     console.log('Sale AJAX Aufruf gestartet');
 
@@ -863,7 +790,7 @@ async function requestSale(sale) {
     return saleData;
 };
 
-//AJAX Aufruf Countdown
+
 async function requestCountdown(countdown) {
     console.log('Countdown AJAX Aufruf gestartet');
 
@@ -882,6 +809,108 @@ async function requestCountdown(countdown) {
 
     return countdownData;
 };
+
+
+
+//Deletion  AJAX-------------------------------------------------------------
+
+async function countdownDeleteById(saleId) {
+
+    let id = {'id':saleId}
+    var countdownDelData =  await $.ajax({
+        url: 'http://localhost:8000/api/countdown/delete/'+saleId,
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data : JSON.stringify(id)
+    }).done(function(response){
+        response
+        console.log('AJAX Call Countdown Del ID Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call Countdown Del ID Failed !')
+    })
+
+    return countdownDelData
+}
+
+async function saleDeleteById(productId) {
+
+    let id = {'id':productId}
+    let saleDelData =  await $.ajax({
+        url: 'http://localhost:8000/api/sale/delete/'+productId,
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data : JSON.stringify(id)
+    }).done(function(response){
+        response
+        console.log('AJAX Call Sale Del ID Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call  Sale Del ID failed !')
+    })
+    return saleDelData
+}
+
+async function hardwareDeleteById(productId) {
+
+    let id = {'id':productId}
+    let hardwareDelData =  await $.ajax({
+        url: 'http://localhost:8000/api/hardware/delete/'+productId,
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data : JSON.stringify(id)
+    }).done(function(response){
+        response
+        console.log('AJAX Call Hardware Del ID Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call Hardware Del ID Failed !')
+    })
+    return hardwareDelData
+}
+
+async function softwareDeleteById(productId) {
+
+    let id = {'id':productId}
+    let softwareDelData =  await $.ajax({
+        url: 'http://localhost:8000/api/software/delete/'+productId,
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data : JSON.stringify(id)
+    }).done(function(response){
+        response
+        console.log('AJAX Call Software Del ID Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call Software Del ID Failed !')
+    })
+    return softwareDelData
+}
+
+async function countdownDeleteById(productId) {
+
+    let id = {'id':productId}
+    let produktDelData =  await $.ajax({
+        url: 'http://localhost:8000/api/produkt/delete/'+productId,
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data : JSON.stringify(id)
+    }).done(function(response){
+        response
+        console.log('AJAX Call Product Del ID Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call Product Del ID Failed !')
+    })
+    return produktDelData
+}
+
+// HELPER---------------------------------------------------------
 
 function isNumeric(input) {
     //d steht für digits [0-9]
@@ -947,6 +976,7 @@ function checkedCountdownData(){
     }  
 };
 
+<<<<<<< HEAD
 //-----------------------------------CHANGE PRODUCT ITEM------------------------------------------------------------
 
 
@@ -980,3 +1010,200 @@ rBHardware2.addEventListener ("click", () => {
 $('#btnSubmit2').click(async function(event) {
 
 });
+=======
+//ExistsID ------------------------------------------------------------------
+
+async function existSoftwareId(productId) {
+
+    let id = {'id':productId}
+
+    let inTableSoftware =  await $.ajax({
+        url: 'http://localhost:8000/api/software/existiert/'+productId,
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(id)
+    }).done(function(response){
+        response
+        console.log('AJAX Call exists Software with ID Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call exists Software with ID  Failed !')
+    })
+    return inTableSoftware
+}
+
+async function existHardwareId(productId) {
+
+    let id = {'id':productId}
+
+    let inTableHardware =  await $.ajax({
+        url: 'http://localhost:8000/api/hardware/existiert/'+productId,
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(id)
+    }).done(function(response){
+        response
+        console.log('AJAX Call exists Hardware with ID Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call exists Hardware with ID  Failed !')
+    })
+    return inTableHardware
+}
+
+async function existSaleId(productId) {
+
+    let id = {'id':productId}
+
+    let inTableSale =  await $.ajax({
+        url: 'http://localhost:8000/api/sale/existiert/'+productId,
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(id)
+    }).done(function(response){
+        response
+        console.log('AJAX Call exists Sale with ID Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call exists Sale with ID  Failed !')
+    })
+    return inTableSale
+}
+
+async function existCountdownId(saleId) {
+
+    let id = {'id':saleId}
+
+    let inTableSoftware =  await $.ajax({
+        url: 'http://localhost:8000/api/countdown/existiert/'+saleId,
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(id)
+    }).done(function(response){
+        response
+        console.log('AJAX Call exists Countdown with ID Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call exists Countdown with ID  Failed !')
+    })
+    return inTableSoftware
+}
+
+//GetAllProducts-----------------------------------------------------------
+async function getAllProducts() {
+
+    let products =  await $.ajax({
+        url: 'http://localhost:8000/api/produkt/all',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false
+    }).done(function(response){
+        response
+        console.log('AJAX Call getAllProducts Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call get getAllProducts Failed !')
+    })
+
+    return products 
+}
+
+async function getAllSoftware() {
+
+    let software=  await $.ajax({
+        url: 'http://localhost:8000/api/software/all',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false
+    }).done(function(response){
+        response
+        console.log('AJAX Call getAllSoftware Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call getAllSoftware Failed !')
+    })
+
+    return software
+}
+
+async function getAllHardware() {
+
+    let hardware =  await $.ajax({
+        url: 'http://localhost:8000/api/hardware/all',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false
+    }).done(function(response){
+        response
+        console.log('AJAX Call getAllHardware Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call getAllHardware Failed !')
+    })
+
+    return hardware
+}
+
+async function getAllSale() {
+
+    let sale =  await $.ajax({
+        url: 'http://localhost:8000/api/sale/all',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false
+    }).done(function(response){
+        response
+        console.log('AJAX Call getAllSale Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call getAllSale Failed !')
+    })
+
+    return sale
+}
+
+async function getAllCountdown() {
+
+    let countdown =  await $.ajax({
+        url: 'http://localhost:8000/api/countdown/all',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false
+    }).done(function(response){
+        response
+        console.log('AJAX Call getAllCountdown Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call getAllCountdown Failed !')
+    })
+
+    return countdown 
+}
+
+
+//LoadById -------------------------------------------------------------------------------
+
+async function saleLoadById(productId) {
+
+    let id = {'id':productId}
+
+    let inTableSoftware =  await $.ajax({
+        url: 'http://localhost:8000/api/sale/existiert/'+productId,
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(id)
+    }).done(function(response){
+        response
+        console.log('AJAX Call exists Software with ID Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call exists Software with ID  Failed !')
+    })
+    return inTableSoftware
+}
+>>>>>>> main
