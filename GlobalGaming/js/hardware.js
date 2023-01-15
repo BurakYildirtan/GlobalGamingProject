@@ -58,18 +58,81 @@ async function getAllHardware() {
     return hardware
 };
 
-function changeItem(JSONitem){
+async function getAllHardwareAsc() {
+
+    let hardware =  await $.ajax({
+        url: 'http://localhost:8000/api/hardware/allWithProductSortedPriceAsc',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false
+    }).done(function(response){
+        response
+        console.log('AJAX Call getAllHardware Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call getAllHardware Failed !')
+    })
+
+    return hardware
+};
+
+async function getAllHardwareDesc() {
+
+    let hardware =  await $.ajax({
+        url: 'http://localhost:8000/api/hardware/allWithProductSortedPriceDesc',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false
+    }).done(function(response){
+        response
+        console.log('AJAX Call getAllHardware Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call getAllHardware Failed !')
+    })
+
+    return hardware
+};
+
+async function getAllHardwareDate() {
+
+    let hardware =  await $.ajax({
+        url: 'http://localhost:8000/api/hardware/allWithProductSortedDate',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false
+    }).done(function(response){
+        response
+        console.log('AJAX Call getAllHardware Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call getAllHardware Failed !')
+    })
+
+    return hardware
+};
+
+async function changeItem(JSON){
+    let productJSON = JSON;
+    let saleJSON = await getAllSale()
+    const divs = document.querySelectorAll(".grid-item")
+    let counter = 0
     productJSON.forEach(elementP => {
         saleJSON.forEach(elementS => {
             if (elementP.id === elementS.id){
                 elementP.nettoPreis = Math.round(((1-elementS.saleProzent/100)*elementP.nettoPreis + Number.EPSILON) * 100) / 100
             }
         });
-        let container = document.getElementById("container")
-        gridItem.id = JSONitem.id
-        bild.src = JSONitem.bildpfad
-        titel.innerHTML = JSONitem.titel
-        preis.innerHTML = JSONitem.nettoPreis
+        let gridItem = divs[counter]
+        let childs = gridItem.childNodes
+        gridItem.id = elementP.id
+        let bild = childs[0].firstChild
+        bild.src = elementP.bildpfad
+        let titel = childs[1]
+        titel.innerHTML = elementP.titel
+        let preis = childs[2]
+        preis.innerHTML = elementP.nettoPreis
+        counter++
     });
     
 };
@@ -117,18 +180,23 @@ container.onclick = function (e) {
 
 window.onclick = function () {
   container.classList.remove("filters--active");
+  
 };
 
-console.log(input);
+async function asc(cb) {
+        button.classList.add("button--highlight");
+        await changeItem(await getAllHardwareAsc())
+  }
 
-function handleClick(cb) {
-    if(cb.checked){
-        alert("ich bin jetzt checked")
+  async function desc(cb) {
+        button.classList.add("button--highlight");
+        await changeItem(await getAllHardwareDesc())
+  }
 
-    }
-    else{
-        alert("ich war checked")
-    }
+  async function latest(cb) {
+        button.classList.add("button--highlight");
+        await changeItem(await getAllHardwareDate())
+
   }
 
 

@@ -70,6 +70,19 @@ class HardwareDao {
         var result = statement.all();
         return result;
     }
+    allWithProductSortedPriceDesc(){
+        var sql = 'select p.*,h.leistung ,h.hersteller ,h.art  from Produkt p inner join Hardware h on p.id = h.id ORDER by p.nettoPreis desc'
+        var statement = this._conn.prepare(sql);
+        var result = statement.all();
+        return result;
+    }
+
+    allWithProductSortedDate(){
+        var sql = 'select p.*,h.leistung ,h.hersteller ,h.art  from Produkt p inner join Hardware h on p.id = h.id ORDER  by p.erscheinungsDatum desc'
+        var statement = this._conn.prepare(sql);
+        var result = statement.all();
+        return result;
+    }
 }
 
 module.exports = HardwareDao;

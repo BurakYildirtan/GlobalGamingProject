@@ -64,6 +64,30 @@ class SoftwareDao {
     toString() {
         console.log('SoftwareDao [_conn=' + this._conn + ']');
     }
+
+    loadAllWithProductAsc() {
+        var sql = 'SELECT p.*,s.spielerAnzahl,s.genre ,s.fsk  FROM Produkt p  INNER JOIN Software s ON p.id = s.id ORDER by p.nettoPreis asc'
+        var statement = this._conn.prepare(sql);
+        var result = statement.all()
+        return result;
+    }
+
+    loadAllWithProductDesc() {
+        var sql = 'SELECT p.*,s.spielerAnzahl,s.genre ,s.fsk  FROM Produkt p  INNER JOIN Software s ON p.id = s.id ORDER by p.nettoPreis desc'
+        var statement = this._conn.prepare(sql);
+        var result = statement.all()
+        return result;
+    }
+
+    loadAllWithProductDate() {
+        var sql = 'SELECT p.*,s.spielerAnzahl,s.genre ,s.fsk  FROM Produkt p  INNER JOIN Software s ON p.id = s.id ORDER  by p.erscheinungsDatum desc'
+        var statement = this._conn.prepare(sql);
+        var result = statement.all()
+        return result;
+    }
+
+
 }
+
 
 module.exports = SoftwareDao;

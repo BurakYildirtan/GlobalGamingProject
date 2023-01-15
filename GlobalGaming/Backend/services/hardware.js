@@ -93,4 +93,37 @@ serviceRouter.get('/hardware/allWithProductSortedPriceAsc', function(request, re
 
 });
 
+serviceRouter.get('/hardware/allWithProductSortedPriceDesc', function(request, response) {
+
+    const hardwareDao = new HardwareDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Hardware : Get All with Product DATA Hardware")
+
+        var allHardwareWithProduct = hardwareDao.allWithProductSortedPriceDesc()
+        response.status(200).json(allHardwareWithProduct)
+
+    } catch (ex) {
+        console.log ('Service Hardware : Error Getting All withP Product DATA Hardware. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
+});
+
+serviceRouter.get('/hardware/allWithProductSortedDate', function(request, response) {
+
+    const hardwareDao = new HardwareDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Hardware : Get All with Product DATA Hardware")
+
+        var allHardwareWithProduct = hardwareDao.allWithProductSortedDate()
+        response.status(200).json(allHardwareWithProduct)
+
+    } catch (ex) {
+        console.log ('Service Hardware : Error Getting All withP Product DATA Hardware. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
+});
 module.exports = serviceRouter;

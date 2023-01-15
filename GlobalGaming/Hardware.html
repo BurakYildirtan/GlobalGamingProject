@@ -46,36 +46,27 @@
       
         <div style="width: 100%; height: 800px;">
             <div style="width: 90%; background-color: silver; height: 800px; border-radius: 5px;">
-            <div style="width: 15%; height: 100%;float:left; border-radius:5px ;">
+            <div style="width: 10%; height: 100%;float:left; border-radius:5px ;">
             <div style="width:80%; height:150px;margin-top: 100px;margin-left: 30px;">
                 <button id="filter-button" class="button">Filter</button>
                 <div id="filter-container" class="filters">
                   <ul class="filters__list">
                     <li>
-                  <input id="f1" type="checkbox" onclick='handleClick(this)'/>
-                    <label for="f1">Filter 1</label>
+                  <input id="f1" type="radio" name="filter" onclick='asc(this)'/>
+                    <label for="f1">aufsteigend</label>
                     </li>
                         <li>
-                  <input id="f2" type="checkbox" />
-                    <label for="f2">Filter 2</label>
+                  <input id="f2" type="radio" name="filter" onclick='desc(this)'/>
+                    <label for="f2">absteigend</label>
                     </li>
                         <li>
-                  <input id="f3" type="checkbox" />
-                    <label for="f3">Filter 3</label>
+                  <input id="f3" type="radio" name="filter" onclick='latest(this)'/>
+                    <label for="f3">neuste</label>
                     </li>
-                        <li>
-                  <input id="f4" type="checkbox" />
-                    <label for="f4">Filter 4</label>
-                    </li>
-                        <li>
-                  <input id="f5" type="checkbox" />
-                    <label for="f5">Filter 5</label>
-                    </li>
-                    
                   </ul></div>
             </div>
             </div>
-            <div style="width: 75%; height:700px;
+            <div style="width: 80%; height:700px;
             float:right;margin-top: 50px; border-style: solid;border-color: white; background-color: #4e7793;
             margin-right: 20px; border-radius: 5px;">
             <div class="grid-container" id="container">
