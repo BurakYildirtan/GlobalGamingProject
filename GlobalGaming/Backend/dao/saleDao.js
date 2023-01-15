@@ -38,6 +38,14 @@ class SaleDao {
         return result;
     }
 
+    loadByProductId(id) {
+        var sql = 'SELECT * FROM Sale WHERE produktId=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(id);
+
+        return result;
+    }
+
     loadByIdHardware(id) {
         var sql = 'SELECT p.*,h.leistung,h.hersteller,h.art,sl.id ,sl.saleProzent  FROM Produkt p INNER JOIN Hardware h ON p.id = h.id  INNER JOIN Sale sl  ON p.id =sl.produktId WHERE p.id = ?';
         var statement = this._conn.prepare(sql);

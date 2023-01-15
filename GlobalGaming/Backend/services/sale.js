@@ -119,4 +119,50 @@ serviceRouter.get('/sale/existiert/:id', function(request, response) {
     }
 });
 
+serviceRouter.get('/sale/existiert/produktId/:id', function(request, response) {
+    console.log('\nService Sale: Check ob Produkt ID existiert in Hardware' + request.params.id);
+
+    const saleDao = new SaleDao(request.app.locals.dbConnection);
+    try {
+        var exists = saleDao.loadByProductId(request.params.id);
+        console.log('Service Sale : Check if record exists by productId=' + request.params.id + ', exists=' + exists);
+        if(exists == undefined) {
+            response.status(200).json(false);
+        } else {
+            response.status(200).json(true);
+        }
+    } catch (ex) {
+        console.error('Service Sale: Error checking if record exists. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
+serviceRouter.get('/sale/:id', function(request, response) {
+    console.log('Service Sale: Load Sale with ID: ' + request.params.id);
+
+    const saleDao = new SaleDao(request.app.locals.dbConnection);
+    try {
+        var data = saleDao.loadById(request.params.id);
+        console.log('Service Produkt : Check if record exists by id=' + request.params.id);
+        response.status(200).json(data);
+    } catch (ex) {
+        console.error('Service Sale: Error . Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
+serviceRouter.get('/sale/produktId/:id', function(request, response) {
+    console.log('\nService Sale: Load Sale with product ID: ' + request.params.id);
+
+    const saleDao = new SaleDao(request.app.locals.dbConnection);
+    try {
+        var data = saleDao.loadByProductId(request.params.id);
+        console.log('Service Produkt : Check if record exists by id=' + request.params.id);
+        response.status(200).json(data);
+    } catch (ex) {
+        console.error('Service Sale: Error . Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
 module.exports = serviceRouter;

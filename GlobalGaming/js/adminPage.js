@@ -46,20 +46,74 @@ $('#btn_product_delete').click(async function(event) {
 
     var inSoftware = await existSoftwareId(deleteProductId)
     var inHardware = await existHardwareId(deleteProductId)
-    var inSale = await existSaleId (deleteProductId)
+    var inSale = await existSaleProductId (deleteProductId)
+
+    var success = true
+
+    console.log('exist inSoftware', inSoftware)
+    console.log('exist inHardware', inHardware)
+    console.log('exist inSale', inSale)
 
     if ( inSale ) {
-        var saleId = await  saleLoadById(deleteProductId)
-        var inCountdown = await existCountdownId( saleId )
+        
+        var saleId = await  saleLoadByProductId(deleteProductId)
+
+        console.log('\nsaleId',saleId.id);
+        var inCountdown = await existCountdownId( saleId.id )
+        console.log('exist inCountdown', inCountdown)
 
         if (inCountdown){
             let sId = parseInt(saleId.id)
-            await countdownDeleteById(sId)
+            let resDeleteCountdown = await countdownDeleteById(sId)
+            if(!resDeleteCountdown.gelöscht) {
+                success= false
+                console.log("Geklappt COUNTDOWN DELETE : ",success)
+            }
+
+            let resDeleteSale = await saleDeleteById(sId)
+            if(!resDeleteSale.gelöscht) {
+                success= false
+                console.log("Geklappt SALE DELETE  : ",success)
+            }
         }
     }
     
     if(inHardware){
-        await hardwareDeleteById(deleteProductId)
+        let resDeleteHardware = await hardwareDeleteById(deleteProductId)
+        if(!resDeleteHardware.gelöscht) {
+            success= false
+            console.log("Geklappt HARDWARE DELETE  : ",success)
+        }
+    }
+
+    if(inSoftware){
+        let resDeleteSoftware = await softwareDeleteById(deleteProductId)
+        if(!resDeleteSoftware.gelöscht) {
+            success= false
+            console.log("Geklappt SOFTWARE DELETE  : ",success)
+        }
+    }
+
+    let resDeleteProdukt = await produktDeleteById(deleteProductId)
+    if(!resDeleteProdukt.gelöscht) {
+        success = false
+        console.log("Geklappt PRODUKT DELETE  : ",success)
+    }
+
+    console.log("Geklappt insgesamt : ",success)
+
+    if (success) {
+        alert("Erfolgreich entfernt!")
+        let tbody = document.getElementById("tbody_product");
+        tbody.innerHTML = "";
+        createProductTable()
+        createDeleteSelect()
+
+
+    }else {
+        alert("Irgendwas ist schiefgelafuen !")
+        createProductTable()
+        createDeleteSelect()
     }
 
 
@@ -891,7 +945,7 @@ async function softwareDeleteById(productId) {
     return softwareDelData
 }
 
-async function countdownDeleteById(productId) {
+async function produktDeleteById(productId) {
 
     let id = {'id':productId}
     let produktDelData =  await $.ajax({
@@ -909,6 +963,8 @@ async function countdownDeleteById(productId) {
     })
     return produktDelData
 }
+
+
 
 // HELPER---------------------------------------------------------
 
@@ -1038,6 +1094,26 @@ async function existSaleId(productId) {
     return inTableSale
 }
 
+async function existSaleProductId(productId) {
+
+    let id = {'id':productId}
+
+    let inTableSale =  await $.ajax({
+        url: 'http://localhost:8000/api/sale/existiert/produktId/'+productId,
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(id)
+    }).done(function(response){
+        response
+        console.log('AJAX Call exists Sale with productID Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call exists Sale with productID  Failed !')
+    })
+    return inTableSale
+}
+
 async function existCountdownId(saleId) {
 
     let id = {'id':saleId}
@@ -1157,7 +1233,7 @@ async function saleLoadById(productId) {
     let id = {'id':productId}
 
     let inTableSoftware =  await $.ajax({
-        url: 'http://localhost:8000/api/sale/existiert/'+productId,
+        url: 'http://localhost:8000/api/sale/'+productId,
         method: 'get',
         contentType: 'application/json; charset=utf-8',
         cache: false,
@@ -1168,6 +1244,26 @@ async function saleLoadById(productId) {
     }).fail(function(response){
         response
         console.log('AJAX Call exists Software with ID  Failed !')
+    })
+    return inTableSoftware
+}
+
+async function saleLoadByProductId(productId) {
+
+    let id = {'id':productId}
+
+    let inTableSoftware =  await $.ajax({
+        url: 'http://localhost:8000/api/sale/produktId/'+productId,
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(id)
+    }).done(function(response){
+        response
+        console.log('AJAX Call Sale LoadByProductId Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call Sale LoadByProductId  Failed !')
     })
     return inTableSoftware
 }
