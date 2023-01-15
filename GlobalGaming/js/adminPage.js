@@ -1058,6 +1058,26 @@ async function existCountdownId(saleId) {
     return inTableSoftware
 }
 
+async function existProductId(productId) {
+
+    let id = {'id':productId}
+
+    let inTableSoftware =  await $.ajax({
+        url: 'http://localhost:8000/api/produkt/existiert/'+productId,
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(id)
+    }).done(function(response){
+        response
+        console.log('AJAX Call exists Software with ID Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call exists Software with ID  Failed !')
+    })
+    return inTableSoftware
+}
+
 //GetAllProducts-----------------------------------------------------------
 async function getAllProducts() {
 
@@ -1149,6 +1169,26 @@ async function getAllCountdown() {
     return countdown 
 }
 
+async function updateProdukt(product) {
+    console.log('Hardware AJAX Aufruf gestartet');
+
+
+    var hardwareData = await $.ajax({
+        url: 'http://localhost:8000/api/produkt/update',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(product)
+    }).done(function (response) {
+        response;
+    }).fail(function (jqXHR, statusText, error) {
+        $('#response').html('Ein Fehler ist aufgetreten');
+        response
+    });
+
+    return hardwareData;
+};
+
 
 //LoadById -------------------------------------------------------------------------------
 
@@ -1171,3 +1211,57 @@ async function saleLoadById(productId) {
     })
     return inTableSoftware
 }
+
+
+
+
+//-----------------------------------CHANGE PRODUCT ITEM------------------------------------------------------------
+
+
+var rBSoftware2 = document.getElementById("inpSoftware2");
+var rBHardware2 = document.getElementById("inpHardware2");
+
+rBSoftware2.addEventListener ("click", () => {
+    if(rBSoftware2.checked) {
+        document.getElementById("btnSubmit2").style.visibility="Visible"
+        document.getElementById("Wert").style.visibility="Visible"
+        document.getElementById("ID").style.visibility="Visible"
+        document.getElementById("Attribute").style.visibility="Visible"
+        document.getElementById("Attribute2").style.display="none"
+        document.getElementById("Attribute").style.display="flex"
+    }
+
+});
+
+rBHardware2.addEventListener ("click", () => {
+    if(rBHardware2.checked) {
+        document.getElementById("btnSubmit2").style.visibility="Visible"
+        document.getElementById("Wert").style.visibility="Visible"
+        document.getElementById("ID").style.visibility="Visible"
+        document.getElementById("Attribute2").style.visibility="Visible"
+        document.getElementById("Attribute").style.display="none"
+        document.getElementById("Attribute2").style.display="flex"
+    }
+
+});
+
+
+
+$('#btnSubmit2').click(async function(event) {
+    let id = document.getElementById("IdChange").value
+    if(await existProductId(id)){
+        if(rBSoftware2.checked){
+            let attribute = document.getElementById("attributeChange").value
+            let wert = document.getElementById("WertChange").value
+            var productData = { 'id' : id, 'attribute' : attribute, 'wert' : wert};
+            await updateProdukt(productData)
+        }
+        if(rBHardware2.checked){
+            let attribute = document.getElementById("attributeChange2").value
+            let wert = document.getElementById("WertChange").value
+        }
+        
+
+    }
+    
+});
