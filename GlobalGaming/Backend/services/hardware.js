@@ -3,6 +3,8 @@ const HardwareDao = require('../dao/hardwareDao.js')
 const express = require('express');
 var serviceRouter = express.Router();
 
+
+
 console.log('- Service Hardware');
 
 serviceRouter.post('/hardware', function(request, response) {
@@ -74,4 +76,54 @@ serviceRouter.get('/hardware/allWithProduct', function(request, response) {
 
 });
 
+serviceRouter.get('/hardware/allWithProductSortedPriceAsc', function(request, response) {
+
+    const hardwareDao = new HardwareDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Hardware : Get All with Product DATA Hardware")
+
+        var allHardwareWithProduct = hardwareDao.allWithProductSortedPriceAsc()
+        response.status(200).json(allHardwareWithProduct)
+
+    } catch (ex) {
+        console.log ('Service Hardware : Error Getting All withP Product DATA Hardware. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
+});
+
+serviceRouter.get('/hardware/allWithProductSortedPriceDesc', function(request, response) {
+
+    const hardwareDao = new HardwareDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Hardware : Get All with Product DATA Hardware")
+
+        var allHardwareWithProduct = hardwareDao.allWithProductSortedPriceDesc()
+        response.status(200).json(allHardwareWithProduct)
+
+    } catch (ex) {
+        console.log ('Service Hardware : Error Getting All withP Product DATA Hardware. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
+});
+
+serviceRouter.get('/hardware/allWithProductSortedDate', function(request, response) {
+
+    const hardwareDao = new HardwareDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Hardware : Get All with Product DATA Hardware")
+
+        var allHardwareWithProduct = hardwareDao.allWithProductSortedDate()
+        response.status(200).json(allHardwareWithProduct)
+
+    } catch (ex) {
+        console.log ('Service Hardware : Error Getting All withP Product DATA Hardware. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
+});
 module.exports = serviceRouter;
