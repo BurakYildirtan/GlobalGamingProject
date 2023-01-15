@@ -2,6 +2,8 @@
   display: grid;
   grid-template-columns: auto auto auto;
   border-radius: 5px;
+  overflow: auto;
+  height: 100%;
 }
 .grid-item {
   font-size: 30px;
