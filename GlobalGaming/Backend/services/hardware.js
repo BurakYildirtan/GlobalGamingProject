@@ -3,6 +3,8 @@ const HardwareDao = require('../dao/hardwareDao.js')
 const express = require('express');
 var serviceRouter = express.Router();
 
+
+
 console.log('- Service Hardware');
 
 serviceRouter.post('/hardware', function(request, response) {
@@ -74,22 +76,38 @@ serviceRouter.get('/hardware/allWithProduct', function(request, response) {
 
 });
 
-serviceRouter.get('/countdown/existiert/:id', function(request, response) {
-    console.log('Service Countdown: Check ob ID existiert in Countdown' + request.params.id);
+serviceRouter.get('/hardware/allWithProductSortedPriceAsc', function(request, response) {
 
-    const countdownDao = new CountdownDao(request.app.locals.dbConnection);
+    const hardwareDao = new HardwareDao(request.app.locals.dbConnection);
     try {
-        var exists = countdownDao.loadById(request.params.id);
-        console.log('Service Countdown : Check if record exists by id=' + request.params.id + ', exists=' + exists);
-        if(exists == undefined) {
-            response.status(200).json(false);
-        } else {
-            response.status(200).json(true);
-        }
+        console.log("Service Hardware : Get All with Product DATA Hardware")
+
+        var allHardwareWithProduct = hardwareDao.allWithProductSortedPriceAsc()
+        response.status(200).json(allHardwareWithProduct)
+
     } catch (ex) {
-        console.error('Service Produkt: Error checking if record exists. Exception occured: ' + ex.message);
-        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+        console.log ('Service Hardware : Error Getting All withP Product DATA Hardware. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
     }
+
+});
+
+serviceRouter.get('/hardware/allWithProductSortedPriceDesc', function(request, response) {
+
+    const hardwareDao = new HardwareDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Hardware : Get All with Product DATA Hardware")
+
+        var allHardwareWithProduct = hardwareDao.allWithProductSortedPriceDesc()
+        response.status(200).json(allHardwareWithProduct)
+
+    } catch (ex) {
+        console.log ('Service Hardware : Error Getting All withP Product DATA Hardware. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
 });
 
 module.exports = serviceRouter;
