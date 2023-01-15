@@ -23,16 +23,6 @@
   font-size:20px;
 }
 
-
-.sortieren, .sortierenList{
-  background-color: silver;
-}
-.sortierenList{
-  font-size: 15px;
-  list-style: square;
-}
-
-
 /* Button */
 
 ul {
@@ -83,7 +73,7 @@ input[type="checkbox"] {
   background: #4e7793;
   padding: 1em 2em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.05em;
   border: 0;
   outline: 0;
@@ -93,7 +83,8 @@ input[type="checkbox"] {
   justify-content: space-between;
   color: #f5f5f5;
   cursor: pointer;
-}
+  font-size: 22px;
+  }
 
 .button::after {
   font-family: sans-serif;
