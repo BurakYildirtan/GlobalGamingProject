@@ -30,8 +30,6 @@ class ProduktDao {
         return this.loadById(result.lastInsertRowid);
     }
 
-
-    //Herausnehmen des Objekts mit der ID:
     loadById(id) {
         var sql = 'SELECT * FROM Produkt WHERE id=?';
         var statement = this._conn.prepare(sql);
@@ -48,6 +46,21 @@ class ProduktDao {
         var statement = this._conn.prepare(sql);
         var result = statement.all();
         return result;
+    }
+
+    delete(id) {
+        try {
+            var sql = 'DELETE FROM Produkt WHERE id= ?';
+            var statement = this._conn.prepare(sql);
+            var result = statement.run(id);
+
+            if (result.changes != 1) 
+                throw new Error('Produkt mit der ID =' + id+ ' konnte nicht gelöscht werden.');
+
+            return true;
+        } catch (ex) {
+            throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
+        }
     }
 
 

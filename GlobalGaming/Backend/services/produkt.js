@@ -57,13 +57,28 @@ serviceRouter.get('/produkt/all', function(request, response) {
 
 });
 
-serviceRouter.get('/countdown/existiert/:id', function(request, response) {
-    console.log('Service Countdown: Check ob ID existiert in Countdown' + request.params.id);
+serviceRouter.get('/produkt/delete/:id', function(request, response) {
+    console.log('Service Produkt: Client requested deletion of record, id=' + request.params.id);
 
-    const countdownDao = new CountdownDao(request.app.locals.dbConnection);
+    const produktDao = new ProduktDao(request.app.locals.dbConnection);
     try {
-        var exists = countdownDao.loadById(request.params.id);
-        console.log('Service Countdown : Check if record exists by id=' + request.params.id + ', exists=' + exists);
+        var obj = produktDao.loadById(request.params.id)
+        produktDao.delete(request.params.id);
+        console.log('Service Produkt: Deletion of record successfull, id=' + request.params.id);
+        response.status(200).json({ 'gelöscht': true , 'delItem': obj });
+    } catch (ex) {
+        console.error(ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
+serviceRouter.get('/produkt/existiert/:id', function(request, response) {
+    console.log('Service Produkt: Check ob ID existiert in Hardware' + request.params.id);
+
+    const produktDao = new ProduktDao(request.app.locals.dbConnection);
+    try {
+        var exists = produktDao.loadById(request.params.id);
+        console.log('Service Produkt : Check if record exists by id=' + request.params.id + ', exists=' + exists);
         if(exists == undefined) {
             response.status(200).json(false);
         } else {
@@ -74,6 +89,7 @@ serviceRouter.get('/countdown/existiert/:id', function(request, response) {
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
+
 
 
 

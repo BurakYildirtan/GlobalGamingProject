@@ -54,6 +54,8 @@ body {
 .optionRadioBtn {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    width: 100%;
     justify-content: flex-start;
     align-items: center;
     margin: 10px 0 10px 0;
@@ -61,10 +63,6 @@ body {
 
 .inputBtn {
     margin: 0 15px 0 0;
-}
-
-.labelBtn {
-    font-size: 24px;
 }
 
 .cSpecs {
@@ -145,4 +143,29 @@ body {
 
 #cInsertProduct, #cChangeProduct, #cDeleteProduct  {
     visibility: hidden;
+}
+
+.cAdminOption {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 10px 20px 10px 20px;
+    margin: 3% 0 3% 2%;
+    border-radius: 3px;
+    background-color: #b2bdc3;
+    border: .5px solid #444;
+    box-shadow: 0 2px 3px rgba(68, 68, 68, 0.496);
+}
+
+.labelBtn {
+    font-size: large;
+    font-weight: 800;
+}
+
+#div_product_table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
