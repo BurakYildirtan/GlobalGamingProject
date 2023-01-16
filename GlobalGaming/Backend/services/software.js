@@ -36,7 +36,7 @@ serviceRouter.post('/software', function(request, response) {
 
     const softwareDao = new SoftwareDao(request.app.locals.dbConnection);
     try {
-        console.log('Service Software DAO wird versucht anzubinden')
+        console.log('\nService Software DAO wird versucht anzubinden')
         var obj = softwareDao.create( request.body.productId, request.body.player, request.body.genre, request.body.fsk, request.body.minReq, request.body.recReq );
         console.log('Service Software: Software Hinzugefügt !');
         response.status(200).json(obj);

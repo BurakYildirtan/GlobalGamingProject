@@ -374,9 +374,6 @@ async function insertSoftware(productResponse) {
     var valMinReq = parseInt(document.getElementById("productMinReq").value)
     var valRecReq = parseInt(document.getElementById("productRecReq").value)
 
-    console.log(valMinReq)
-    console.log(valRecReq)
-
 
     try {
 
@@ -504,6 +501,27 @@ inpFsk.addEventListener("input", function() {
         inpFsk.style.border = "5px solid green";
     }else{
         inpFsk.style.border = "3px solid red";
+    }
+});
+
+
+let minReq  =  document.getElementById('productMinReq')
+//minReq überprüfen
+minReq.addEventListener("input",function() {
+    if(minReq.value >= 1 && minReq.value <= 100 ) {
+        minReq.style.border = "5px solid green";
+    }else{
+        minReq.style.border = "3px solid red";
+    }
+});
+
+let recReq  =  document.getElementById('productRecReq')
+//recReq überprüfen
+recReq.addEventListener("input", function() {
+    if(recReq.value >= 1 && recReq.value <= 100 &&  minReq.value < recReq.value) {
+        recReq.style.border = "5px solid green";
+    }else{
+        recReq.style.border = "3px solid red";
     }
 });
 
@@ -802,9 +820,6 @@ async function requestProduct(product) {
 
 async function requestSoftware(software) {
     console.log('Software AJAX Aufruf gestartet');
-
-    console.log("SOFTWARE DATA REQUEST",software)
-
     var softwareData = await $.ajax({
         url: 'http://localhost:8000/api/software',
         method: 'post',
@@ -812,6 +827,7 @@ async function requestSoftware(software) {
         cache: false,
         data: JSON.stringify(software)
     }).done(function (response) {
+        console.log(response)
         response;
 
     }).fail(function (jqXHR, statusText, error) {
