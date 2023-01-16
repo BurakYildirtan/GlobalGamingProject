@@ -90,13 +90,13 @@ serviceRouter.get('/produkt/existiert/:id', function(request, response) {
     }
 });
 
-serviceRouter.get('/produkt/update', function(request, response) {
-    console.log('Service Produkt: Check ob ID existiert in Hardware' + request.params.id);
+serviceRouter.post('/produkt/update', function(request, response) {
+    console.log('Service Produkt: Check ob ID existiert in Hardware' + request.body.id);
 
     const produktDao = new ProduktDao(request.app.locals.dbConnection);
     try {
         var update = produktDao.update(request.body.id,request.body.attribute,request.body.wert);
-        console.log('Service Produkt : Check if record exists by id=' + request.params.id + ', exists=' + update);
+        console.log('Service Produkt : Check if record exists by id=' + request.body.id + ', exists=' + update);
         if(update == undefined) {
             response.status(200).json(false);
         } else {

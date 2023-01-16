@@ -1172,14 +1172,49 @@ async function getAllCountdown() {
 }
 
 async function updateProdukt(product) {
-    console.log('Hardware AJAX Aufruf gestartet');
-
-    console.log("updateFunktion"+ product)
-
+    console.log('Produkt AJAX Aufruf gestartet');
 
     var hardwareData = await $.ajax({
         url: 'http://localhost:8000/api/produkt/update',
-        method: 'get',
+        method: 'post',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(product)
+    }).done(function (response) {
+        response;
+    }).fail(function (jqXHR, statusText, error) {
+        $('#response').html('Ein Fehler ist aufgetreten');
+        response
+    });
+
+    return hardwareData;
+};
+
+async function updateHardware(product) {
+    console.log('Hardware AJAX Aufruf gestartet');
+
+    var hardwareData = await $.ajax({
+        url: 'http://localhost:8000/api/hardware/update',
+        method: 'post',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        data: JSON.stringify(product)
+    }).done(function (response) {
+        response;
+    }).fail(function (jqXHR, statusText, error) {
+        $('#response').html('Ein Fehler ist aufgetreten');
+        response
+    });
+
+    return hardwareData;
+};
+
+async function updateSoftware(product) {
+    console.log('Software AJAX Aufruf gestartet');
+
+    var hardwareData = await $.ajax({
+        url: 'http://localhost:8000/api/software/update',
+        method: 'post',
         contentType: 'application/json; charset=utf-8',
         cache: false,
         data: JSON.stringify(product)
@@ -1255,17 +1290,28 @@ $('#btnSubmit2').click(async function(event) {
     let id = document.getElementById("IdChange").value
     if(await existProductId(id)){
         if(rBSoftware2.checked){
-            console.log(id)
             let attribute = document.getElementById("attributeChange").value
             let wert = String(document.getElementById("WertChange").value)
             var productData = { 'id' : id, 'attribute' : attribute, 'wert' : wert};
-            await updateProdukt(productData)
+            var Option = ["titel","nettoPreis","bildpfad","erscheinungsDatum"]
+            if(Option.includes(attribute)){
+                await updateProdukt(productData)
+            }
+            else{
+                await updateSoftware(productData)
+            }
         }
         if(rBHardware2.checked){
             let attribute = document.getElementById("attributeChange2").value
-            let wert = document.getElementById("WertChange").value
+            let wert = String(document.getElementById("WertChange").value)
+            var productData = { 'id' : id, 'attribute' : attribute, 'wert' : wert};
+            var Option =["titel","nettoPreis","bildpfad","erscheinungsDatum"]
+            if(Option.includes(attribute)){
+                await updateProdukt(productData)
+            }
+            else{
+                await updateHardware(productData)
+            }
         }
-        
-
     }
 });

@@ -159,4 +159,22 @@ serviceRouter.get('/software/existiert/:id', function(request, response) {
     }
 });
 
+serviceRouter.post('/software/update', function(request, response) {
+    console.log('Service Software: Check ob ID existiert in Software' + request.body.id);
+
+    const softwareDao = new SoftwareDao(request.app.locals.dbConnection);
+    try {
+        var update = softwareDao.update(request.body.id,request.body.attribute,request.body.wert);
+        console.log('Service Software : Check if record exists by id=' + request.body.id + ', exists=' + update);
+        if(update == undefined) {
+            response.status(200).json(false);
+        } else {
+            response.status(200).json(true);
+        }
+    } catch (ex) {
+        console.error('Service Software: Error checking if record exists. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
 module.exports = serviceRouter;

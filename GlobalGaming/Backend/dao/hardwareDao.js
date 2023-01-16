@@ -98,6 +98,25 @@ class HardwareDao {
             throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
         }
     }
+
+    update(id,attribute,wert){
+        try {
+            var sql = 'UPDATE hardware SET '+attribute+' = ? WHERE id= ?';
+            var statement = this._conn.prepare(sql);
+            //Parameter der eingegebenen hardwareProdukt Details
+            var params = [wert,id];
+
+            //ausführen von insert statement
+             var result = statement.run(params);
+
+            if (result.changes != 1) 
+                throw new Error('Hardware mit der ID =' + id+ ' konnte nicht geupdatet werden.');
+
+            return true;
+        } catch (ex) {
+            throw new Error('Could not update Record by id=' + id + '. Reason: ' + ex.message);
+        }
+    }
 }
 
 module.exports = HardwareDao;

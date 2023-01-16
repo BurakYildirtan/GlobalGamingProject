@@ -101,6 +101,25 @@ class SoftwareDao {
         }
     }
 
+    update(id,attribute,wert){
+        try {
+            var sql = 'UPDATE software SET '+attribute+' = ? WHERE id= ?';
+            var statement = this._conn.prepare(sql);
+            //Parameter der eingegebenen softwareProdukt Details
+            var params = [wert,id];
+
+            //ausführen von insert statement
+             var result = statement.run(params);
+
+            if (result.changes != 1) 
+                throw new Error('Software mit der ID =' + id+ ' konnte nicht geupdatet werden.');
+
+            return true;
+        } catch (ex) {
+            throw new Error('Could not update Record by id=' + id + '. Reason: ' + ex.message);
+        }
+    }
+
 
 }
 
