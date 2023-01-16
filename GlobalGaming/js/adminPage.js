@@ -12,21 +12,38 @@ var adminOption = document.querySelectorAll('input[type="radio"][name="adminOpti
 
 adminOption.forEach( button => {
     button.addEventListener('change', function() {
+
+        let cInsert = document.getElementById('cInsertProduct').style;
+        let cChange = document.getElementById('cChangeProduct').style;
+        let cDelete = document.getElementById('cDeleteProduct').style;
         switch (this.value) {
             case '0':
-                document.getElementById('cInsertProduct').style.visibility = 'visible';
-                document.getElementById('cChangeProduct').style.visibility = 'hidden';
-                document.getElementById('cDeleteProduct').style.visibility = 'hidden';
+                cInsert.visibility = 'visible';
+                cChange.visibility = 'hidden';
+                cDelete.visibility = 'hidden';
+
+                cInsert.display = 'flex';
+                cChange.display = 'none';
+                cDelete.display = 'none';
+
                 break;
             case '1':
-                document.getElementById('cInsertProduct').style.visibility = 'hidden';
-                document.getElementById('cChangeProduct').style.visibility = 'visible';
-                document.getElementById('cDeleteProduct').style.visibility = 'hidden';
+                cInsert.visibility = 'hidden';
+                cChange.visibility = 'visible';
+                cDelete.visibility = 'hidden';
+
+                cInsert.display = 'none';
+                cChange.display = 'flex';
+                cDelete.display = 'none';
                 break;
             case '2':
-                document.getElementById('cInsertProduct').style.visibility = 'hidden';
-                document.getElementById('cChangeProduct').style.visibility = 'hidden';
-                document.getElementById('cDeleteProduct').style.visibility = 'visible';
+                cInsert.visibility = 'hidden';
+                cChange.visibility = 'hidden';
+                cDelete.visibility = 'visible';
+
+                cInsert.display = 'none';
+                cChange.display = 'none';
+                cDelete.display = 'flex';
                 break;
             default:
                 console.log('Etwas ist schief gelaufen');
@@ -182,6 +199,8 @@ var inpReleaseDate = document.getElementById("productReleaseDate");
 var inpSalePerCent = document.getElementById("productSaleInPercent");
 var inpCountdownTime = document.getElementById("productCountdownTime");
 var inpCountdownSale = document.getElementById("productCountdownSale");
+var recReq  =  document.getElementById('productRecReq');
+var minReq  =  document.getElementById('productMinReq');
 
 var inpFsk = document.getElementById("productFsk");
 var inpProducer = document.getElementById("productProducer");
@@ -278,6 +297,8 @@ $('#btnSubmit').click(async function(event) {
     var isInpSaleChecked = document.getElementById("inpSale").checked;
     var isInpCountdownChecked = document.getElementById("inpCountdown").checked;
 
+    console.log(checkedSoftwareData())
+    console.log(checkedHardwareData())
     if(checkedSoftwareData() || checkedHardwareData()){
         if(!checkedProductData()){
             spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
@@ -504,8 +525,6 @@ inpFsk.addEventListener("input", function() {
     }
 });
 
-
-let minReq  =  document.getElementById('productMinReq')
 //minReq überprüfen
 minReq.addEventListener("input",function() {
     if(minReq.value >= 1 && minReq.value <= 100 ) {
@@ -515,10 +534,9 @@ minReq.addEventListener("input",function() {
     }
 });
 
-let recReq  =  document.getElementById('productRecReq')
 //recReq überprüfen
 recReq.addEventListener("input", function() {
-    if(recReq.value >= 1 && recReq.value <= 100 &&  minReq.value < recReq.value) {
+    if(recReq.value >= 1 && recReq.value <= 100 &&  parseInt(minReq.value) < parseInt(recReq.value) ) {
         recReq.style.border = "5px solid green";
     }else{
         recReq.style.border = "3px solid red";
@@ -1026,10 +1044,13 @@ function checkedProductData() {
 };
 
 function checkedSoftwareData() {
+
     if(checkedProductData() &&
         inpPlayer.style.borderColor == "green" &&
         inpGenre.style.borderColor == "green" &&
-        inpFsk.style.borderColor == "green"){
+        inpFsk.style.borderColor == "green" &&
+        recReq.style.borderColor == "green" &&
+        minReq.style.borderColor == "green"){
             return true
         } else {
             return false
@@ -1424,6 +1445,7 @@ $('#btnSubmit2').click(async function(event) {
     let numberFelder = ["spielerAnzahl","fsk","minRequirements","recRequirements"]
     let attribute = document.getElementById("attributeChange").value
     let attribute2 = document.getElementById("attributeChange2").value
+<<<<<<< HEAD
     var wertO = document.getElementById("WertChange")
 
     console.log(attribute)
@@ -1446,6 +1468,9 @@ $('#btnSubmit2').click(async function(event) {
     let wert = document.getElementById("WertChange").value
     console.log(rBSoftware2.checked)
 
+=======
+    let wert = document.getElementById("WertChange").value
+>>>>>>> 4f8bde3553e72a4f2c7a9baaecdb0c05d22e931b
     if(await existProductId(id)){
         if(rBSoftware2.checked){
             var productData = { 'id' : id, 'attribute' : attribute, 'wert' : wert};
