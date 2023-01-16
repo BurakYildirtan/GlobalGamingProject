@@ -182,6 +182,8 @@ var inpReleaseDate = document.getElementById("productReleaseDate");
 var inpSalePerCent = document.getElementById("productSaleInPercent");
 var inpCountdownTime = document.getElementById("productCountdownTime");
 var inpCountdownSale = document.getElementById("productCountdownSale");
+var recReq  =  document.getElementById('productRecReq');
+var minReq  =  document.getElementById('productMinReq');
 
 var inpFsk = document.getElementById("productFsk");
 var inpProducer = document.getElementById("productProducer");
@@ -278,6 +280,8 @@ $('#btnSubmit').click(async function(event) {
     var isInpSaleChecked = document.getElementById("inpSale").checked;
     var isInpCountdownChecked = document.getElementById("inpCountdown").checked;
 
+    console.log(checkedSoftwareData())
+    console.log(checkedHardwareData())
     if(checkedSoftwareData() || checkedHardwareData()){
         if(!checkedProductData()){
             spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
@@ -504,8 +508,6 @@ inpFsk.addEventListener("input", function() {
     }
 });
 
-
-let minReq  =  document.getElementById('productMinReq')
 //minReq überprüfen
 minReq.addEventListener("input",function() {
     if(minReq.value >= 1 && minReq.value <= 100 ) {
@@ -515,10 +517,9 @@ minReq.addEventListener("input",function() {
     }
 });
 
-let recReq  =  document.getElementById('productRecReq')
 //recReq überprüfen
 recReq.addEventListener("input", function() {
-    if(recReq.value >= 1 && recReq.value <= 100 &&  minReq.value < recReq.value) {
+    if(recReq.value >= 1 && recReq.value <= 100 &&  parseInt(minReq.value) < parseInt(recReq.value) ) {
         recReq.style.border = "5px solid green";
     }else{
         recReq.style.border = "3px solid red";
@@ -1026,10 +1027,13 @@ function checkedProductData() {
 };
 
 function checkedSoftwareData() {
+
     if(checkedProductData() &&
         inpPlayer.style.borderColor == "green" &&
         inpGenre.style.borderColor == "green" &&
-        inpFsk.style.borderColor == "green"){
+        inpFsk.style.borderColor == "green" &&
+        recReq.style.borderColor == "green" &&
+        minReq.style.borderColor == "green"){
             return true
         } else {
             return false
