@@ -45,7 +45,7 @@ serviceRouter.get('/software/all', function(request, response) {
 
     const softwareDao = new SoftwareDao(request.app.locals.dbConnection);
     try {
-        console.log("Service Sale : Get All Software")
+        console.log("Service Software : Get All Software")
 
         var allSoftware = softwareDao.loadAll()
         response.status(200).json(allSoftware)
@@ -158,5 +158,21 @@ serviceRouter.get('/software/existiert/:id', function(request, response) {
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
+serviceRouter.get('/software/get/:id', function(request, response) {
 
+    const softwareDao = new SoftwareDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Software : Get Software")
+        
+        var id = request.params.id;
+        var software = softwareDao.loadById(id)
+        response.status(200).json(software)
+
+    } catch (ex) {
+        console.log ('Service Software : Error Getting Specific Software with id= '+id+'. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
+});
 module.exports = serviceRouter;

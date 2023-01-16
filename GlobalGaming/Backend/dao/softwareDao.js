@@ -40,6 +40,7 @@ class SoftwareDao {
         return result;
     }
 
+
     loadByIdWithProduct(id) {
         var sql = 'SELECT p.*,s.spielerAnzahl,s.genre ,s.fsk  FROM Produkt p INNER JOIN Software s ON p.id = s.id WHERE p.id=?'
         var statement = this._conn.prepare(sql);

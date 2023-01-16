@@ -37,7 +37,7 @@ class ProduktDao {
 
         if (helper.isUndefined(result)) 
             throw new Error('No Record found by id=' + id);
-            console.log('Hierrrr loadbyId return aus der man id nehmen kann: '+result.id);
+            console.log('Hier loadbyId return aus der man id nehmen kann: '+result.id);
         return result;
     }
 

@@ -7,7 +7,6 @@
         <link rel="stylesheet" href="css/singleArticle.css">
         <link rel="icon" type="image/x-icon" href="pics/favicon.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
     </head>
     <body>
         <header>
@@ -50,22 +49,22 @@
             <div class="cArticleLayout">
                 <div class="cArticleAndDescription">
                     <div class="cPictureArticle">
-                        <img class="imgArticle"src="pics/graka.jpeg" alt="articlePicture">
+                        <img class="imgArticle"src="pics/graka.jpeg" alt="articlePicture" id="articleImage">
                     </div>
                     <div class="cDescriptionArticle">
-                        <h4 class="articleText articleTitleText">Geforce 3060Ti</h4>
+                        <h4 class="articleText articleTitleText" id="produktTitle">Geforce 3060Ti</h4>
                         <table class="descTable">
                             <tr class="descTr">
                                 <th class="descTh">Brand :</th>
-                                <td class="descTd">Nvidia</td>
+                                <td class="descTd" id="brand">Nvidia</td>
                             </tr>
                         </table>
                     </div>
                 </div>
                 <div class="cAdd">
-                    <h4 class="priceText">499.99€</h4>
-                    <button class="addButton" type="button">
-                        <span class="buttonText">Hinzufügen</span>
+                    <h4 class="priceText" id="price">499.99€</h4>
+                    <button class="addButton" type="button" >
+                        <span class="buttonText" id="buyBtn">Hinzufügen</span>
                         <span class="buttonIcon" >
                             <img src="pics/icPlus.svg"/>
                         </span>
@@ -79,58 +78,8 @@
                     <p class="similarArticleListTitle">Ähnliche Artikel</p>
                 </span>
 
-                <div class="cSimilarArticleList">
-                    <button class="noBorderButton">
-                        <img class="imgArrow" src="pics/icLeftArrow.svg" alt="leftArrow">
-                    </button>
-                    <!-- Ein Artikel -->
-                    <div class="cSimilarArticle">
-                        <div class="cSimilarArticlePic">
-                            <img  class="similarArticlePic"src="pics/graka.jpeg">
-                        </div>
-                        <span class="spanSimilarTitleText">Geforce 3060Ti</span>
-                        <span class="spanSimilarPriceBefore"></span>
-                        <span class="spanSimilarPriceAfter">449.99 €</span>            
-                    </div>
-                    <!-- Ein Artikel -->
-                    <div class="cSimilarArticle">
-                        <div class="cSimilarArticlePic">
-                            <img  class="similarArticlePic"src="pics/graka.jpeg">
-                        </div>
-                        <span class="spanSimilarTitleText">Geforce 3060Ti</span>
-                        <span class="spanSimilarPriceBefore"></span>
-                        <span class="spanSimilarPriceAfter">449.99 €</span>            
-                    </div>
-                    <!-- Ein Artikel -->
-                    <div class="cSimilarArticle">
-                        <div class="cSimilarArticlePic">
-                            <img  class="similarArticlePic"src="pics/graka.jpeg">
-                        </div>
-                        <span class="spanSimilarTitleText">Geforce 3060Ti</span>
-                        <span class="spanSimilarPriceBefore"></span>
-                        <span class="spanSimilarPriceAfter">449.99 €</span>            
-                    </div>
-                    <!-- Ein Artikel -->
-                    <div class="cSimilarArticle">
-                        <div class="cSimilarArticlePic">
-                            <img  class="similarArticlePic"src="pics/graka.jpeg">
-                        </div>
-                        <span class="spanSimilarTitleText">Geforce 3060Ti</span>
-                        <span class="spanSimilarPriceBefore"></span>
-                        <span class="spanSimilarPriceAfter">449.99 €</span>            
-                    </div>
-                    <!-- Ein Artikel -->
-                    <div class="cSimilarArticle">
-                        <div class="cSimilarArticlePic">
-                            <img  class="similarArticlePic"src="pics/graka.jpeg">
-                        </div>
-                        <span class="spanSimilarTitleText">Geforce 3060Ti</span>
-                        <span class="spanSimilarPriceBefore"></span>
-                        <span class="spanSimilarPriceAfter">449.99 €</span>            
-                    </div>
-                    <button class="noBorderButton">
-                        <img class="imgArrow" src="pics/icRightArrow.svg" alt="rightArrow">
-                    </button>
+                <div class="cSimilarArticleList" id="simArt">
+
                 </div>
             </section>
         </section>
@@ -162,5 +111,6 @@
                 </div>
             </div>
         </footer>
+        <script src="js/singleArticleHardware.js"></script>
     </body>
 </html>

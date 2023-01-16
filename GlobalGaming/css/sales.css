@@ -86,3 +86,8 @@
     border: none;
     box-shadow: none;
   }
+
+  .itemContainer img{
+    width: 180px;
+    height: 220px;
+  }
