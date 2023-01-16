@@ -52,4 +52,22 @@ serviceRouter.get('/sale/all', function(request, response) {
 
 });
 
+serviceRouter.get('/sale/get/:id', function(request, response) {
+
+    const saleDao = new SaleDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Sale : Get Sale")
+        
+        var id = request.params.id;
+        var sale = saleDao.loadById(id)
+        response.status(200).json(sale)
+
+    } catch (ex) {
+        console.log ('Service Sale : Error Getting All Sale. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
+});
+
 module.exports = serviceRouter;

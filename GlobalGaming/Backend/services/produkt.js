@@ -56,6 +56,23 @@ serviceRouter.get('/produkt/all', function(request, response) {
     }
 
 });
+serviceRouter.get('/produkt/get/:id', function(request, response) {
+
+    const produktDao = new ProduktDao(request.app.locals.dbConnection);
+    try {
+        console.log("Service Produkt : Get Produkt")
+        
+        var id = request.params.id;
+        var produkt = produktDao.loadById(id)
+        response.status(200).json(produkt)
+
+    } catch (ex) {
+        console.log ('Service Produkt : Error Getting All Produkt. Exception occured : '+ex.message)
+        
+        response.status(400).json({'fehler' : true, 'nachricht' : ex.message})
+    }
+
+});
 
 
 

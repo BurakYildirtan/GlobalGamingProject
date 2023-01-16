@@ -1,6 +1,6 @@
 const helper = require('../helper.js');
 
-class SoftwareDao {
+class WarenkorbDao {
 
     constructor(dbConnection) {
         this._conn = dbConnection;
@@ -10,16 +10,16 @@ class SoftwareDao {
         return this._conn;
     }
 
-    create(id, player, genre, fsk) {
+    create(id) {
         //Definieren von SQL Statement mit Values
-        var sql = 'INSERT INTO Software ( id, spielerAnzahl, genre, fsk) VALUES  (?,?,?,?)';
+        var sql = 'INSERT INTO Warenkorb (produktId) VALUES  (?)';
 
         //definieren von Statement zum ausführen als sql statement
         var statement = this._conn.prepare(sql);
 
 
         //Parameter der eingegebenen Produkt Details
-        var params = [ id, player, genre, fsk ];
+        var params = [ id ];
 
         //ausführen von insert statement
         var result = statement.run(params);
@@ -34,23 +34,28 @@ class SoftwareDao {
 
     loadById(id) {
 
-        var sql = 'SELECT * FROM Software WHERE id=?';
+        var sql = 'SELECT * FROM Warenkorb WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
         return result;
     }
 
-
     loadAll() {
-        var sql = 'SELECT * FROM Software';
+        var sql = 'SELECT * FROM Warenkorb';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
         return result;
     }
+    add(id) {
+        var sql = 'INSERT INTO Warenkorb (produktId) Values('+id+')';
+        var statement = this._conn.prepare(sql);
+        var result = statement.run();
+        return result;
+    }
 
     toString() {
-        console.log('SoftwareDao [_conn=' + this._conn + ']');
+        console.log('WarenkorbDao [_conn=' + this._conn + ']');
     }
 }
 
-module.exports = SoftwareDao;
+module.exports = WarenkorbDao;
