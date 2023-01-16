@@ -24,7 +24,6 @@ class SoftwareDao {
         //ausführen von insert statement
         var result = statement.run(params);
 
-
         //wenn nicht eingeführt werden konnte
         if (result.changes != 1) 
             throw new Error('Dateien konnten nicht Eingefügt werden ' + params);
