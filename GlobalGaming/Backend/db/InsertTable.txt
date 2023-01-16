@@ -65,7 +65,33 @@ INSERT INTO Produkt ( titel, nettoPreis, bildpfad ) VALUES ( TheWitcher3,12.27,'
 
 
 --SOFTWARE
-INSERT INTO Software ( id, spielerAnzahl, genre ) VALUES ( 1, 8, 1);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 33, 4,'RTS',18,92,95);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 34, 2,'Shooter',17,13,30);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 35, 1,'Shooter',2,94,100);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 36, 1,'Shooter',11,30,50);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 37, 3,'AG',10,80,90);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 38, 4,'AG',10,88,95);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 39, 2,'Sport',14,67,80);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 40, 1,'AG',4,33,40);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 41, 2,'Sport',6,15,25);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 42, 3,'Sport',7,76,90);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 43, 1,'Sport',0,32,55);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 44, 3,'Sport',10,93,96);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 45, 2,'Shooter',4,55,65);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 46, 4,'AG',3,54,70);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 47, 4,'AG',4,33,44);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 48, 4,'Shooter',15,93,95);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 49, 2,'Shooter',7,34,41);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 50, 1,'AG',10,60,70);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 51, 4,'AG',6,26,30);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 52, 1,'Shooter',5,57,70);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 53, 1,'AG',14,62,90);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 54, 4,'Shooter',15,40,50);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 55, 4,'AG',4,76,80);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 56, 2,'AG',4,99,100);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 57, 1,'AG',3,74,80);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 58, 4,'Shooter',13,26,30);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 59, 3,'AG',4,87,90);
 
 --HARDWARE
 INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 1, 25, 'Nvidia', 'Grafikkarte');
@@ -102,12 +128,17 @@ INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 31, 5, 'Microsof
 INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 32, 8, 'AMD', 'Prozessor');
 
 --SALE
-INSERT INTO Sale ( produktId, saleProzent) VALUES ( 1, 50.00);
-INSERT INTO Sale ( produktId, saleProzent) VALUES ( 2, 50.00);
+INSERT INTO Sale ( id, produktId, saleProzent) VALUES (1, 43, 31);
+INSERT INTO Sale ( id, produktId, saleProzent) VALUES (2, 28, 45);
+INSERT INTO Sale ( id, produktId, saleProzent) VALUES (3, 48, 38);
+INSERT INTO Sale ( id, produktId, saleProzent) VALUES (4, 28, 78);
+INSERT INTO Sale ( id, produktId, saleProzent) VALUES (5, 24, 75);
+INSERT INTO Sale ( id, produktId, saleProzent) VALUES (6, 3, 84);
 
 --COUNTDOWNARTIKEL
-INSERT INTO CountdownArtikel ( id, countdownZeit, extraProzent ) VALUES ( 2, 10000, 20.00);
-
---WARENKORB
-INSERT INTO Warenkorb ( produktId) VALUES ( 1);
-INSERT INTO Warenkorb ( produktId) VALUES ( 2);
+INSERT INTO Countdown ( id, countdownZeit, extraProzent ) VALUES ( 1, 62, 31);
+INSERT INTO Countdown ( id, countdownZeit, extraProzent ) VALUES ( 2, 99, 90);
+INSERT INTO Countdown ( id, countdownZeit, extraProzent ) VALUES ( 3, 98, 15);
+INSERT INTO Countdown ( id, countdownZeit, extraProzent ) VALUES ( 4, 80, 42);
+INSERT INTO Countdown ( id, countdownZeit, extraProzent ) VALUES ( 5, 70, 23);
+INSERT INTO Countdown ( id, countdownZeit, extraProzent ) VALUES ( 6, 80, 53);
