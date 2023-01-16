@@ -1060,6 +1060,8 @@ async function existCountdownId(saleId) {
 
 async function existProductId(productId) {
 
+    console.log(productId)
+
     let id = {'id':productId}
 
     let inTableSoftware =  await $.ajax({
@@ -1172,6 +1174,8 @@ async function getAllCountdown() {
 async function updateProdukt(product) {
     console.log('Hardware AJAX Aufruf gestartet');
 
+    console.log("updateFunktion"+ product)
+
 
     var hardwareData = await $.ajax({
         url: 'http://localhost:8000/api/produkt/update',
@@ -1251,8 +1255,9 @@ $('#btnSubmit2').click(async function(event) {
     let id = document.getElementById("IdChange").value
     if(await existProductId(id)){
         if(rBSoftware2.checked){
+            console.log(id)
             let attribute = document.getElementById("attributeChange").value
-            let wert = document.getElementById("WertChange").value
+            let wert = String(document.getElementById("WertChange").value)
             var productData = { 'id' : id, 'attribute' : attribute, 'wert' : wert};
             await updateProdukt(productData)
         }
@@ -1263,5 +1268,4 @@ $('#btnSubmit2').click(async function(event) {
         
 
     }
-    
 });

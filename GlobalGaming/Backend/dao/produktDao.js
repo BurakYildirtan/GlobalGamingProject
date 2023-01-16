@@ -65,11 +65,9 @@ class ProduktDao {
 
     update(id,attribute,wert){
         try {
+            console.log(id)
             var sql = 'UPDATE produkt SET ? = ? WHERE id= ?';
             var statement = this._conn.prepare(sql);
-
-            var result = statement.run(id);
-
             //Parameter der eingegebenen Produkt Details
             var params = [attribute, wert, id];
 
