@@ -1424,13 +1424,30 @@ $('#btnSubmit2').click(async function(event) {
     let numberFelder = ["spielerAnzahl","fsk","minRequirements","recRequirements"]
     let attribute = document.getElementById("attributeChange").value
     let attribute2 = document.getElementById("attributeChange2").value
-    let wert = document.getElementById("WertChange").value
-    if (textFelder.includes(attribute) or textFelder.includes(attribute2)){
-        
+    var wertO = document.getElementById("WertChange")
+
+    console.log(attribute)
+    console.log(attribute2)
+
+    if (textFelder.includes(attribute) || textFelder.includes(attribute2)){
+        wertO.type = "value"
     }
+    if (numberFelder.includes(attribute) || numberFelder.includes(attribute2)){
+        wertO.type = "number"
+    }
+    if (attribute === "erscheinungsDatum" || attribute === "erscheinungsDatum"){
+        wertO.type = "date"
+    }
+    if (attribute === "nettoPreis" || attribute === "nettoPreis"){
+        wertO.type = "number"
+        wertO.setAttribute("step",0.01)
+    }
+
+    let wert = document.getElementById("WertChange").value
+    console.log(rBSoftware2.checked)
+
     if(await existProductId(id)){
         if(rBSoftware2.checked){
-            
             var productData = { 'id' : id, 'attribute' : attribute, 'wert' : wert};
             var Option = ["titel","nettoPreis","bildpfad","erscheinungsDatum"]
             if(Option.includes(attribute)){
@@ -1441,7 +1458,7 @@ $('#btnSubmit2').click(async function(event) {
             }
         }
         if(rBHardware2.checked){
-            var productData = { 'id' : id, 'attribute' : attribute, 'wert' : wert};
+            var productData = { 'id' : id, 'attribute' : attribute2, 'wert' : wert};
             var Option =["titel","nettoPreis","bildpfad","erscheinungsDatum"]
             if(Option.includes(attribute2)){
                 await updateProdukt(productData)
@@ -1451,4 +1468,6 @@ $('#btnSubmit2').click(async function(event) {
             }
         }
     }
+    clearValues()
+    createProductTable()
 });
