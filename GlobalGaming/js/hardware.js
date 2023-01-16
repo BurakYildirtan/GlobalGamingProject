@@ -3,24 +3,63 @@ window.addEventListener("load", function(){
     loadElements() 
 });
 
+const arrayLinks = []
+
 
 async function loadElements() {
 
     //JSON Responses from AJAX call
     let saleJSON = await getAllSale()
     let productJSON = await getAllHardware()
-
+    let countDownJSON = await getAllCountdown()
+    if(productJSON){
         productJSON.forEach(elementP => {
+            if (saleJSON){
             saleJSON.forEach(elementS => {
-                if (elementP.id === elementS.id){
+                if (elementP.id === elementS.produktId){
                     elementP.nettoPreis = Math.round(((1-elementS.saleProzent/100)*elementP.nettoPreis + Number.EPSILON) * 100) / 100
+                    if (countDownJSON){
+                        countDownJSON.forEach(elementC => {
+                            if (elementS.id === elementC.id){
+                                elementP.nettoPreis = Math.round(((1-elementC.extraProzent/100)*elementP.nettoPreis + Number.EPSILON) * 100) / 100
+                            }
+                        });
+                    }
                 }
+                
             });
             createItem(elementP)
+        }
         });
+        arrayLinks.forEach(el => {
+            let elI = document.getElementById(el)
+            elI.addEventListener('click', event => {
+                let pid = elI.id.slice(4)
+                sessionStorage.setItem("PID",pid)
+            });
+        })
+    }    
 };
 
 //Laden von tabllen
+
+async function getAllCountdown() {
+
+    let countdown =  await $.ajax({
+        url: 'http://localhost:8000/api/countdown/all',
+        method: 'get',
+        contentType: 'application/json; charset=utf-8',
+        cache: false
+    }).done(function(response){
+        response
+        console.log('AJAX Call getAllCountdown Successfully !')
+    }).fail(function(response){
+        response
+        console.log('AJAX Call getAllCountdown Failed !')
+    })
+
+    return countdown 
+}
 
 async function getAllSale() {
 
@@ -145,7 +184,6 @@ function createItem(JSONitem){
     container.appendChild(gridItem)
     let link = document.createElement("a")
     link.href = "SingleArticlePageHardware.html"
-    link.classList.add("einzelLink")
     link.id = "link"+JSONitem.id
     let bild = document.createElement("img")
     bild.src = JSONitem.bildpfad
@@ -160,6 +198,7 @@ function createItem(JSONitem){
     preis.innerHTML = JSONitem.nettoPreis
     preis.classList.add("grid-item-p")
     gridItem.appendChild(preis)
+    arrayLinks.push(link.id)
 };
 
 // Filter-button
@@ -201,16 +240,7 @@ async function asc(cb) {
 
   }
 
-const imageLinks = document.querySelector(".einzelLink");
-console.log(imageLinks)
-console.log(imageLinks.item(0))
-for (el in imageLinks) {
-    console.log(elI)
-    elI.addEventListener('click', event => {
-        let id = el.id.match(/\d+/g)[0]
-        sessionStorage.setItem("PID",elI.id)
-    });
-}
+
 
 
 
