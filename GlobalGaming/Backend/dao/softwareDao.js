@@ -10,16 +10,16 @@ class SoftwareDao {
         return this._conn;
     }
 
-    create(id, player, genre, fsk) {
+    create(id, player, genre, fsk, minReq, recReq) {
         //Definieren von SQL Statement mit Values
-        var sql = 'INSERT INTO Software ( id, spielerAnzahl, genre, fsk) VALUES  (?,?,?,?)';
+        var sql = 'INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES  (?,?,?,?,?,?)';
 
         //definieren von Statement zum ausführen als sql statement
         var statement = this._conn.prepare(sql);
 
 
         //Parameter der eingegebenen Produkt Details
-        var params = [ id, player, genre, fsk ];
+        var params = [ id, player, genre, fsk, minReq, recReq ];
 
         //ausführen von insert statement
         var result = statement.run(params);
@@ -42,7 +42,7 @@ class SoftwareDao {
 
 
     loadByIdWithProduct(id) {
-        var sql = 'SELECT p.*,s.spielerAnzahl,s.genre ,s.fsk  FROM Produkt p INNER JOIN Software s ON p.id = s.id WHERE p.id=?'
+        var sql = 'SELECT p.*,s.spielerAnzahl,s.genre ,s.fsk, s.minRequirements, s.recRequirements  FROM Produkt p INNER JOIN Software s ON p.id = s.id WHERE p.id=?'
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
         return result;

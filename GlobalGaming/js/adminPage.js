@@ -303,6 +303,8 @@ $('#btnSubmit').click(async function(event) {
             return;
         }
         var softwareResponse = await insertSoftware(productResponse)
+
+        console.log ("ERG HARDWARE : ",softwareResponse)
     };
     
     //Wenn Hardware ausgewählt
@@ -369,9 +371,16 @@ async function insertSoftware(productResponse) {
     var valPlayer = parseInt(document.getElementById("productPlayer").value)
     var valGenre = document.getElementById("productGenre").value
     var valFsk = parseInt(document.getElementById("productFsk").value)
+    var valMinReq = parseInt(document.getElementById("productMinReq").value)
+    var valRecReq = parseInt(document.getElementById("productRecReq").value)
+
+    console.log(valMinReq)
+    console.log(valRecReq)
+
+
     try {
 
-        softwareData = { 'productId': productResponse.id, 'player' : valPlayer, 'genre' : valGenre, 'fsk' : valFsk};
+        softwareData = { 'productId': productId, 'player' : valPlayer, 'genre' : valGenre, 'fsk' : valFsk, 'minReq':valMinReq, 'recReq' : valRecReq };
         var softwareResponse = await requestSoftware( softwareData );
 
         console.log('Software erfolgreich hinzugefügt mit der ref. id : '+ softwareResponse.id);
@@ -626,7 +635,7 @@ function createRow( productData, softwareData , hardwareData, saleData, countdow
             }
         })
     } else {
-        let softwareCellNr = 3
+        let softwareCellNr = 5
         let tableNameSoftware = "Software"
         for( let i = 0 ; i < softwareCellNr ; i++) {
             let blancC = createBlancCell( tableNameSoftware,counter)
