@@ -160,7 +160,6 @@ serviceRouter.get('/software/existiert/:id', function(request, response) {
 });
 serviceRouter.get('/software/get/:id', function(request, response) {
 
-<<<<<<< HEAD
     const softwareDao = new SoftwareDao(request.app.locals.dbConnection);
     try {
         console.log("Service Software : Get Software")
@@ -176,7 +175,6 @@ serviceRouter.get('/software/get/:id', function(request, response) {
     }
 
 });
-=======
 serviceRouter.post('/software/update', function(request, response) {
     console.log('Service Software: Check ob ID existiert in Software' + request.body.id);
 
@@ -195,5 +193,4 @@ serviceRouter.post('/software/update', function(request, response) {
     }
 });
 
->>>>>>> armin
 module.exports = serviceRouter;
