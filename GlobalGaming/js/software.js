@@ -149,6 +149,7 @@ function createItem(JSONitem){
     container.appendChild(gridItem)
     let link = document.createElement("a")
     link.href = "SingleArticlePage.html"
+    link.classList.add("einzelLink")
     let bild = document.createElement("img")
     bild.src = JSONitem.bildpfad
     bild.classList.add("grid-item-img")

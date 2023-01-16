@@ -1489,7 +1489,6 @@ $('#btnSubmit2').click(async function(event) {
             }
         }
     }
-
     wertO.type = "value"
     wertO.value = null
     document.getElementById("IdChange").value = null

@@ -144,7 +144,9 @@ function createItem(JSONitem){
     gridItem.id = JSONitem.id
     container.appendChild(gridItem)
     let link = document.createElement("a")
-    link.href = "SingleArticlePage.html"
+    link.href = "SingleArticlePageHardware.html"
+    link.classList.add("einzelLink")
+    link.id = "link"+JSONitem.id
     let bild = document.createElement("img")
     bild.src = JSONitem.bildpfad
     bild.classList.add("grid-item-img")
@@ -199,6 +201,16 @@ async function asc(cb) {
 
   }
 
+const imageLinks = document.querySelector(".einzelLink");
+console.log(imageLinks)
+console.log(imageLinks.item(0))
+for (el in imageLinks) {
+    console.log(elI)
+    elI.addEventListener('click', event => {
+        let id = el.id.match(/\d+/g)[0]
+        sessionStorage.setItem("PID",elI.id)
+    });
+}
 
 
 
