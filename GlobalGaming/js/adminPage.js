@@ -17,7 +17,6 @@ adminOption.forEach( button => {
                 document.getElementById('cInsertProduct').style.visibility = 'visible';
                 document.getElementById('cChangeProduct').style.visibility = 'hidden';
                 document.getElementById('cDeleteProduct').style.visibility = 'hidden';
-
                 break;
             case '1':
                 document.getElementById('cInsertProduct').style.visibility = 'hidden';
@@ -104,20 +103,28 @@ $('#btn_product_delete').click(async function(event) {
 
     if (success) {
         alert("Erfolgreich entfernt!")
-        let tbody = document.getElementById("tbody_product");
-        tbody.innerHTML = "";
+
+        clearValues()
         createProductTable()
         createDeleteSelect()
 
 
     }else {
         alert("Irgendwas ist schiefgelafuen !")
+        clearValues()
         createProductTable()
         createDeleteSelect()
     }
 
 
 });
+
+function clearValues(){
+    let tbody = document.getElementById("tbody_product");
+    let selDelete = document.getElementById("selectToDeleteProduct")
+    tbody.innerHTML = "";
+    selDelete.innerHTML ="";
+}
 
 
 async function checkIdInTables() {
@@ -350,6 +357,9 @@ $('#btnSubmit').click(async function(event) {
         document.getElementById("response").style.visibility = "hidden";
     }, 5000);
     clearInput()
+    clearValues()
+    createProductTable()
+    createDeleteSelect()
 });
 
 
