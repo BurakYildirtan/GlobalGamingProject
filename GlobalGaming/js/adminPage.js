@@ -1445,7 +1445,6 @@ $('#btnSubmit2').click(async function(event) {
     let numberFelder = ["spielerAnzahl","fsk","minRequirements","recRequirements"]
     let attribute = document.getElementById("attributeChange").value
     let attribute2 = document.getElementById("attributeChange2").value
-<<<<<<< HEAD
     var wertO = document.getElementById("WertChange")
 
     console.log(attribute)
@@ -1468,9 +1467,6 @@ $('#btnSubmit2').click(async function(event) {
     let wert = document.getElementById("WertChange").value
     console.log(rBSoftware2.checked)
 
-=======
-    let wert = document.getElementById("WertChange").value
->>>>>>> 4f8bde3553e72a4f2c7a9baaecdb0c05d22e931b
     if(await existProductId(id)){
         if(rBSoftware2.checked){
             var productData = { 'id' : id, 'attribute' : attribute, 'wert' : wert};
