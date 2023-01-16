@@ -1424,10 +1424,17 @@ rBHardware2.addEventListener ("click", () => {
 
 $('#btnSubmit2').click(async function(event) {
     let id = document.getElementById("IdChange").value
+    let textFelder = ["titel","bildpfad","genre","hersteller","art"]
+    let numberFelder = ["spielerAnzahl","fsk","minRequirements","recRequirements"]
+    let attribute = document.getElementById("attributeChange").value
+    let attribute2 = document.getElementById("attributeChange2").value
+    let wert = document.getElementById("WertChange").value
+    if (textFelder.includes(attribute) or textFelder.includes(attribute2)){
+        
+    }
     if(await existProductId(id)){
         if(rBSoftware2.checked){
-            let attribute = document.getElementById("attributeChange").value
-            let wert = String(document.getElementById("WertChange").value)
+            
             var productData = { 'id' : id, 'attribute' : attribute, 'wert' : wert};
             var Option = ["titel","nettoPreis","bildpfad","erscheinungsDatum"]
             if(Option.includes(attribute)){
@@ -1438,11 +1445,9 @@ $('#btnSubmit2').click(async function(event) {
             }
         }
         if(rBHardware2.checked){
-            let attribute = document.getElementById("attributeChange2").value
-            let wert = String(document.getElementById("WertChange").value)
             var productData = { 'id' : id, 'attribute' : attribute, 'wert' : wert};
             var Option =["titel","nettoPreis","bildpfad","erscheinungsDatum"]
-            if(Option.includes(attribute)){
+            if(Option.includes(attribute2)){
                 await updateProdukt(productData)
             }
             else{
