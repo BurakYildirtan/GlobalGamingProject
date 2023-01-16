@@ -115,17 +115,11 @@ fetch('http://localhost:8000/api/sale/all')
                       window.location.assign("SingleArticlePageHardware.html")
                     }
                   }
-                  
-                })
-                
-                
+                })   
               }
-  
             });
-            
           }
         })
       }
     }
   })
-   
