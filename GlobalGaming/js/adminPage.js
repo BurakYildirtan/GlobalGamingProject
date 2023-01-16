@@ -12,21 +12,38 @@ var adminOption = document.querySelectorAll('input[type="radio"][name="adminOpti
 
 adminOption.forEach( button => {
     button.addEventListener('change', function() {
+
+        let cInsert = document.getElementById('cInsertProduct').style;
+        let cChange = document.getElementById('cChangeProduct').style;
+        let cDelete = document.getElementById('cDeleteProduct').style;
         switch (this.value) {
             case '0':
-                document.getElementById('cInsertProduct').style.visibility = 'visible';
-                document.getElementById('cChangeProduct').style.visibility = 'hidden';
-                document.getElementById('cDeleteProduct').style.visibility = 'hidden';
+                cInsert.visibility = 'visible';
+                cChange.visibility = 'hidden';
+                cDelete.visibility = 'hidden';
+
+                cInsert.display = 'flex';
+                cChange.display = 'none';
+                cDelete.display = 'none';
+
                 break;
             case '1':
-                document.getElementById('cInsertProduct').style.visibility = 'hidden';
-                document.getElementById('cChangeProduct').style.visibility = 'visible';
-                document.getElementById('cDeleteProduct').style.visibility = 'hidden';
+                cInsert.visibility = 'hidden';
+                cChange.visibility = 'visible';
+                cDelete.visibility = 'hidden';
+
+                cInsert.display = 'none';
+                cChange.display = 'flex';
+                cDelete.display = 'none';
                 break;
             case '2':
-                document.getElementById('cInsertProduct').style.visibility = 'hidden';
-                document.getElementById('cChangeProduct').style.visibility = 'hidden';
-                document.getElementById('cDeleteProduct').style.visibility = 'visible';
+                cInsert.visibility = 'hidden';
+                cChange.visibility = 'hidden';
+                cDelete.visibility = 'visible';
+
+                cInsert.display = 'none';
+                cChange.display = 'none';
+                cDelete.display = 'flex';
                 break;
             default:
                 console.log('Etwas ist schief gelaufen');
@@ -1429,9 +1446,6 @@ $('#btnSubmit2').click(async function(event) {
     let attribute = document.getElementById("attributeChange").value
     let attribute2 = document.getElementById("attributeChange2").value
     let wert = document.getElementById("WertChange").value
-    if (textFelder.includes(attribute) or textFelder.includes(attribute2)){
-        
-    }
     if(await existProductId(id)){
         if(rBSoftware2.checked){
             
