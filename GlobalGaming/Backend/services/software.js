@@ -45,7 +45,7 @@ serviceRouter.get('/software/all', function(request, response) {
 
     const softwareDao = new SoftwareDao(request.app.locals.dbConnection);
     try {
-        console.log("Service Sale : Get All Software")
+        console.log("Service Software : Get All Software")
 
         var allSoftware = softwareDao.loadAll()
         response.status(200).json(allSoftware)

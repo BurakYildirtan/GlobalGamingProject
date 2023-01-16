@@ -7,7 +7,6 @@
         <link rel="stylesheet" href="css/global.css">
         <link rel="icon" type="image/x-icon" href="pics/favicon.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="js/sales.js"></script>
     </head>
     <body>
         <header>
@@ -56,26 +55,25 @@
                             <img src="./SlideshowBilder/Fortnite.jpg" alt="" width="512" height="auto">
                             </a>
                     </button>
-                    <del><p id="salesOldPrice">19.99€</p></del>
-                    <p id="salesNewPrice">9.99€</p>
+                    <del><p id="salesOldPrice">9.99€</p></del>
+                    <p id="salesNewPrice">8.99€</p>
                 </div>
                 
                 <div class="Buy">
-                    <button class="salesBuyButton">BUY <img src="./pics/wk.png" alt="" height="24px" style="background: none;"></button>
+                    <button class="salesBuyButton" id="buyBtn">BUY <img src="./pics/wk.png" alt="" height="24px" style="background: none; border: none; box-shadow: none;"></button>
                 </div>
                 
             </div>
 
             <div class="gameTitleContainer">
                 <div style="height:5px;"></div>
-                <div class="gameTitle">
+                <div class="gameTitle" id="dealsTitle">
                     <h1>Fortnite</h1>
                 </div>
                 
                 <div id="countdown">
                     <h1>Countdown</h1>
                     <ul>
-                      <li><span id="days"></span>days</li>
                       <li><span id="hours"></span>Hours</li>
                       <li><span id="minutes"></span>Minutes</li>
                       <li><span id="seconds"></span>Seconds</li>
@@ -88,82 +86,17 @@
         </div>
 
         <div class="salesContainer">
-            <h2 style="text-align: left; padding-left:25px; padding-bottom:12px;">Sales % </h2>
-            <div style="display: flex; flex-direction: row;">
-                
-                <button class="noBorderButton">
-                    <img src="SlideshowBilder/ArrowLeft.png" alt="" width="50px">
-                </button>
-                <div class="itemContainer" >
-                    <a href="SingleArticlePage.html">
-                    <img src="pics/fortnite.jpeg" alt=""  class="shadow">
-                    </a>
-                    <del><p>19.99€</p></del>
-                    <p>9.99€</p>
-                </div>
-                <div class="itemContainer">
-                    <img src="pics/halo.jpeg" alt="" class="shadow">
-                    <del><p>19.99€</p></del>
-                    <p>9.99€</p>
-                </div>
-                <div class="itemContainer"> 
-                    <img src="pics/LoL.jpeg" alt="" class="shadow">
-                    <del><p>19.99€</p></del>
-                    <p>9.99€</p>
-                </div>
-                <div class="itemContainer">
-                    <img src="pics/pubg.jpeg" alt="" class="shadow">
-                    <del><p>19.99€</p></del>
-                    <p>9.99€</p>
-                </div>
-                <div class="itemContainer">
-                    <img src="pics/mw2.jpeg" alt="" class="shadow">
-                    <del><p>19.99€</p></del>
-                    <p>9.99€</p>
-                </div>
-                <button class="noBorderButton">
-                    <img src="SlideshowBilder/ArrowRight.png" alt="" width="50px">
-                </button>
+            <h2 style="text-align: left; padding-left:25px; padding-bottom:12px;">Software Sales </h2>
+            <div style="display: flex; flex-direction: row;" id="salesCont">
+
             </div>
         </div>
+        <script src="js/sales.js"></script>
 
         <div class="salesContainer">
-            <h2 style="text-align: left; padding-left:25px; padding-bottom:12px;"> Bestseller </h2>
-            <div style="display: flex; flex-direction: row;">
-                
-                <button class="noBorderButton">
-                    <img src="SlideshowBilder/ArrowLeft.png" alt="" width="50px">
-                </button>
-                <div class="itemContainer">
-                    <a href="SingleArticlePage.html">
-                    <img src="pics/fortnite.jpeg" alt="" class="shadow">
-                    </a>
-                    <del><p>19.99€</p></del>
-                    <p>9.99€</p>
-                </div>
-                <div class="itemContainer">
-                    <img src="pics/halo.jpeg" alt="" class="shadow">
-                    <del><p>19.99€</p></del>
-                    <p>9.99€</p>
-                </div>
-                <div class="itemContainer">
-                    <img src="pics/LoL.jpeg" alt="" class="shadow">
-                    <del><p>19.99€</p></del>
-                    <p>9.99€</p>
-                </div>
-                <div class="itemContainer">
-                    <img src="pics/pubg.jpeg" alt="" class="shadow">
-                    <del><p>19.99€</p></del>
-                    <p>9.99€</p>
-                </div>
-                <div class="itemContainer">
-                    <img src="pics/mw2.jpeg" alt="" class="shadow">
-                    <del><p>19.99€</p></del>
-                    <p>9.99€</p>
-                </div>
-                <button class="noBorderButton">
-                    <img src="SlideshowBilder/ArrowRight.png" alt="" width="50px">
-                </button>
+            <h2 style="text-align: left; padding-left:25px; padding-bottom:12px;"> Hardware Sales </h2>
+            <div style="display: flex; flex-direction: row;" id="HardwareSalesContent">
+
             </div>
         </div>
 
@@ -197,5 +130,6 @@
                 </div>
             </div>
         </footer>
+        
     </body>
 </html>
