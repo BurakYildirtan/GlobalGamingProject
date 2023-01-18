@@ -1,22 +1,31 @@
 const sales = document.getElementById("homepageSales")
 const highlight = document.getElementById("homepageHighlights")
 var salesArr = [];
-fetch("http://localhost:8000/api/sale/all")
+
+async function getAllSales(){
+  countdown = await fetch("http://localhost:8000/api/countdown/all")
+    .then(response => response.json())
+    countdown = countdown[0]
+
+  await fetch("http://localhost:8000/api/sale/all")
 .then(response => response.json())
 .then(salesData => {
+    
     salesArr = salesData;
     limit = 6;
     if (salesData.length < limit){
         limit = salesData.length
     }
-    for(let i=0; i<limit; i++) {
-    element = salesData[i]
-
-       fetch("http://localhost:8000/api/produkt/get/"+element.produktId)
+    for(let i=0; i<limit; i++) { 
+       fetch("http://localhost:8000/api/produkt/get/"+salesData[i].produktId)
        .then(response => response.json())
        .then(produktData => {
+            element = salesData[i]
             percentage = element.saleProzent / 100;
             newPrice = produktData.nettoPreis - (produktData.nettoPreis * percentage)
+            if(element.id == countdown.id){
+              newPrice = (newPrice / 100) * countdown.extraProzent
+            }
             newPrice = newPrice.toFixed(2)
             
             sales.innerHTML += '<div class="itemContainer"><button class="articleButton" id="'+produktData.id+'"> <img src="'+produktData.bildpfad+'" alt="" width="180" height="220"> </button> <del><p>'+produktData.nettoPreis+'€</p></del> <p>'+newPrice+'€</p> </div>'
@@ -57,8 +66,8 @@ fetch("http://localhost:8000/api/sale/all")
        })
     };
 })
-
-
+}
+async function getAllHighlights(){
 fetch("http://localhost:8000/api/produkt/all")
 .then(response => response.json())
 .then(produktData => {
@@ -128,4 +137,7 @@ for(let i=0; i<buttons.length; i++){
 }
     
 })
+}
 
+getAllHighlights();
+getAllSales();
