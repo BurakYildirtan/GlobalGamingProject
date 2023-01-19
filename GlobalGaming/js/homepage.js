@@ -24,7 +24,7 @@ async function getAllSales(){
             percentage = element.saleProzent / 100;
             newPrice = produktData.nettoPreis - (produktData.nettoPreis * percentage)
             if(element.id == countdown.id){
-              newPrice = (newPrice / 100) * countdown.extraProzent
+              newPrice -= (newPrice / 100) * countdown.extraProzent
             }
             newPrice = newPrice.toFixed(2)
             
