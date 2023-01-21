@@ -23,6 +23,10 @@ var articleGenre;
 var salesArr;
 
 async function loadValuesWithID(id){
+   var countdown =  await fetch("http://localhost:8000/api/countdown/all")
+   .then(response => response.json())
+   countdown = countdown[0]
+
    document.getElementById("buyBtn").addEventListener("click", function(){
       fetch("http://localhost:8000/api/warenkorb/add/"+id)
    })
@@ -68,6 +72,9 @@ async function loadValuesWithID(id){
                oldPrice = responseData.nettoPreis;
                percentage = (sale.saleProzent /100)
                price = oldPrice - (oldPrice * percentage)
+               if(sale.id == countdown.id){
+                  price -=  (price / 100) * countdown.extraProzent
+               }
                pPrice.innerHTML = '<h4 class="priceText" id="price">'+price.toFixed(2)+'</h4>'
                console.log("Price with discount="+price.toFixed(2))
             }
@@ -193,13 +200,13 @@ async function loadValuesWithID(id){
                    percentage = element.saleProzent / 100;
                    newPrice = pData.nettoPreis - (pData.nettoPreis * percentage)
                    newPrice = newPrice.toFixed(2)
-                   simArt.innerHTML += '<div class="cSimilarArticle"> <div class="cSimilarArticlePic"> <button class="articleBtn" id="'+responseData[i].id+'" ><img  class="similarArticlePic"src="'+aImage+'"> </div> <span class="spanSimilarTitleText">'+aName+'</span> <span class="spanSimilarPriceBefore"></span> <span class="spanSimilarPriceAfter">'+newPrice+' €</span> </div>'
+                   simArt.innerHTML += '<div class="cSimilarArticle"> <div class="cSimilarArticlePic"> <button class="articleBtn" id="'+responseData[i].id+'" style ="border:none; background:none;" ><img  class="similarArticlePic"src="'+aImage+'"> </div> <span class="spanSimilarTitleText">'+aName+'</span> <span class="spanSimilarPriceBefore"></span> <span class="spanSimilarPriceAfter">'+newPrice+' €</span> </div>'
                }
               
                });
        
                if(isSale == false){
-                   simArt.innerHTML += '<div class="cSimilarArticle"> <div class="cSimilarArticlePic"> <button class="articleBtn" id="'+responseData[i].id+'" ><img  class="similarArticlePic"src="'+aImage+'"> </div> <span class="spanSimilarTitleText">'+aName+'</span> <span class="spanSimilarPriceBefore"></span> <span class="spanSimilarPriceAfter">'+aPrice+' €</span> </div>'
+                   simArt.innerHTML += '<div class="cSimilarArticle"> <div class="cSimilarArticlePic"> <button class="articleBtn" id="'+responseData[i].id+'"style ="border:none; background:none;"><img  class="similarArticlePic" src="'+aImage+'"> </div> <span class="spanSimilarTitleText">'+aName+'</span> <span class="spanSimilarPriceBefore"></span> <span class="spanSimilarPriceAfter">'+aPrice+' €</span> </div>'
                }
            buttons = document.getElementsByClassName("articleBtn")
           

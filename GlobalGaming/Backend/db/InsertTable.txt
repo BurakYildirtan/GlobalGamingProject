@@ -1,20 +1,144 @@
---PRODUKTE
-INSERT INTO Produkt ( titel, nettoPreis, bildpfad ) VALUES ( 'TestSoftware' , 20.0, 'Produktbilder/Software/Fifa13.jpg' );
-INSERT INTO Produkt ( titel, nettoPreis ) VALUES ( 'TestHardware' , 450.99, 'Produktbilder/Hardware/1660_Geforce.jpeg' );
+--PRODUKTE Hardware
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad,erscheinungsDatum) VALUES ( 'Geforce 1660' ,219.00 , '.\Produktbilder\Hardware\1660_Geforce.jpeg', '2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad,erscheinungsDatum ) VALUES ( 'Geforce 3060' ,328.99 , '.\Produktbilder\Hardware\3060_Geforce.jpeg', '2015-10-1');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad,erscheinungsDatum ) VALUES ( 'Geforce 3070' ,502.50, '.\Produktbilder\Hardware\3070_Geforce.jpeg', '2017-7-9');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad,erscheinungsDatum ) VALUES ( 'Geforce 4080' ,1200.20 , '.\Produktbilder\Hardware\4080_Geforce.jpeg', '2019-3-26');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad,erscheinungsDatum ) VALUES ( 'AMD 5600' , 201.99, '.\Produktbilder\Hardware\5600_AMD.jpeg', '2012-11-11');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad,erscheinungsDatum) VALUES ( 'AMD 5800' ,302.80 , '.\Produktbilder\Hardware\5800_AMD.jpeg', '2013-5-24');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'AMD 5900' , 480.20, '.\Produktbilder\Hardware\5900_AMD.jpeg', '2014-4-11');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'Radeon 6500' ,550.30 , '.\Produktbilder\Hardware\6500_Radeon.jpeg', '2015-6-19');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'Radeon 6600' , 680.99, '.\Produktbilder\Hardware\6600_Radeon.jpeg', '2017-5-6');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'Radeon 6700' , 700.00, '.\Produktbilder\Hardware\6700_Radeon.jpeg', '2018-3-28');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'Radeon 6800' , 720.22, '.\Produktbilder\Hardware\6800_Radeon.jpeg', '2019-4-20');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'CeleronIntel' ,90.00 , '.\Produktbilder\Hardware\CeleronIntel.jpeg', '2001-10-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'DDR3 Vengeance' ,200.00, '.\Produktbilder\Hardware\DDR3_Vengeance.jpeg', '2002-10-9');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad,erscheinungsDatum ) VALUES ( 'DDR4 Aegis' , 300.00, '.\Produktbilder\Hardware\DDR4_Aegis.jpeg', '2003-5-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'DDR4 Dominator' ,400.00 , '.\Produktbilder\Hardware\DDR4_Dominator.jpeg', '2003-3-10');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'DDR4 GSkill' ,500.00 , '.\Produktbilder\Hardware\DDR4_GSkill.jpeg', '2004-2-11');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'DDR4 RipJaws' ,600.00 , '.\Produktbilder\Hardware\DDR4_RipJaws.jpeg', '2005-1-22');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'DDR4 TForce' , 700.00, '.\Produktbilder\Hardware\DDR4_TForce.jpeg', '2006-1-4');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'DDR4 Trident' ,800.00 , '.\Produktbilder\Hardware\DDR4_Trident.jpeg', '2007-3-14');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'DDR4 Vengance' ,850.00 , '.\Produktbilder\Hardware\DDR4_Vengeance.jpeg', '2008-3-7');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'DDR5 corsair' ,900.00 , '.\Produktbilder\Hardware\DDR5_corsair.jpeg', '2009-4-5');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'DDR5 Trident' ,950.00 , '.\Produktbilder\Hardware\DDR5_Trident.jpeg', '2010-3-11');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'DDR5 ValueRam' ,970.00 , '.\Produktbilder\Hardware\DDR5_ValueRam.jpeg', '2011-5-28');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'DDR5 Vengenance',1000.00 , '.\Produktbilder\Hardware\DDR5_Vengenance.jpeg', '2012-1-30');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'I3 10320' ,68.79 , '.\Produktbilder\Hardware\I3_10320.jpeg', '2012-7-19');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'I3 12100' ,80.00 , '.\Produktbilder\Hardware\I3_12100.jpeg', '2013-2-16');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'I5 10400' , 95.00, '.\Produktbilder\Hardware\I5_10400.jpeg', '2014-10-12');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'I5 13600' , 120.00, '.\Produktbilder\Hardware\I5_13600.jpeg', '2015-1-22');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'I7 13700' ,145.24 , '.\Produktbilder\Hardware\I7_13700.jpeg', '2018-4-20');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'I9 13900' ,320.00 , '.\Produktbilder\Hardware\I9_13900.jpeg', '2019-8-12');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'IPentiumGold' ,12.00 , '.\Produktbilder\Hardware\IPentiumGold.jpeg', '1999-5-18');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'ThreadripperPro AMD' ,17.00 , '.\Produktbilder\Hardware\ThreadripperPro_Amd.jpeg', '1990-2-24');
+
+--PRODUKTE Software
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'AgeOfEmpires4',61.64,'.\Produktbilder\Software\AgeOfEmpires4.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'APlagueTaleInnocence-1',15.25,'.\Produktbilder\Software\APlagueTaleInnocence-1.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'Battlefield1',8.6,'.\Produktbilder\Software\Battlefield1.jpeg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'CallofDutyModernWarfare2',18.48,'.\Produktbilder\Software\CallofDutyModernWarfare2.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'Cyberpunk2077',36.07,'.\Produktbilder\Software\Cyberpunk2077.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'EldenRing',13.04,'.\Produktbilder\Software\EldenRing.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'F122',11.05,'.\Produktbilder\Software\F122.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'FarCry6',37.11,'.\Produktbilder\Software\FarCry6.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'Fifa13',31.2,'.\Produktbilder\Software\Fifa13.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'FIFA19',5.97,'.\Produktbilder\Software\FIFA19.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'Fifa22',13.49,'.\Produktbilder\Software\Fifa22.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'FootballManager2023',44.65,'.\Produktbilder\Software\FootballManager2023.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'Fortnite',18.3,'.\Produktbilder\Software\Fortnite.jpeg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'GoatSimulator3',39.39,'.\Produktbilder\Software\GoatSimulator3.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'GothamKnights',50.43,'.\Produktbilder\Software\GothamKnights.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'GTA5',69.72,'.\Produktbilder\Software\GTA5.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'Halo',41.04,'.\Produktbilder\Software\Halo.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'Hitman3',12.84,'.\Produktbilder\Software\Hitman3.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'LifeisStrangeTrueColors',30.65,'.\Produktbilder\Software\LifeisStrangeTrueColors.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'MarvelsSpiderManMilesMorales',42.47,'.\Produktbilder\Software\MarvelsSpiderManMilesMorales.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'MonsterHunterRise',37.38,'.\Produktbilder\Software\MonsterHunterRise.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'RainbowSixSiege',63.55,'.\Produktbilder\Software\RainbowSixSiege.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'RedDeadRedemption2',34,'.\Produktbilder\Software\RedDeadRedemption2.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'SaintsRow',27.92,'.\Produktbilder\Software\SaintsRow.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'SekiroShadowsDieTwice',36.6,'.\Produktbilder\Software\SekiroShadowsDieTwice.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'SniperElite5',50.85,'.\Produktbilder\Software\SniperElite5.jpg','2012-8-13');
+INSERT INTO Produkt ( titel, nettoPreis, bildpfad ,erscheinungsDatum) VALUES ( 'TheWitcher3',12.27,'.\Produktbilder\Software\TheWitcher3.jpg','2012-8-13');
+
+
+
 
 --SOFTWARE
-INSERT INTO Software ( id, spielerAnzahl, genre ) VALUES ( 1, 8, 1);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 33, 4,'RTS',18,92,95);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 34, 2,'Shooter',17,13,30);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 35, 1,'Shooter',2,94,100);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 36, 1,'Shooter',11,30,50);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 37, 3,'AG',10,80,90);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 38, 4,'AG',10,88,95);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 39, 2,'Sport',14,67,80);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 40, 1,'AG',4,33,40);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 41, 2,'Sport',6,15,25);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 42, 3,'Sport',7,76,90);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 43, 1,'Sport',0,32,55);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 44, 3,'Sport',10,93,96);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 45, 2,'Shooter',4,55,65);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 46, 4,'AG',3,54,70);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 47, 4,'AG',4,33,44);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 48, 4,'Shooter',15,93,95);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 49, 2,'Shooter',7,34,41);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 50, 1,'AG',10,60,70);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 51, 4,'AG',6,26,30);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 52, 1,'Shooter',5,57,70);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 53, 1,'AG',14,62,90);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 54, 4,'Shooter',15,40,50);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 55, 4,'AG',4,76,80);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 56, 2,'AG',4,99,100);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 57, 1,'AG',3,74,80);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 58, 4,'Shooter',13,26,30);
+INSERT INTO Software ( id, spielerAnzahl, genre, fsk, minRequirements, recRequirements) VALUES ( 59, 3,'AG',4,87,90);
 
 --HARDWARE
-INSERT INTO Hardware ( id, leistung, erscheinungsDatum ) VALUES ( 2, 88, '2022-10-10');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 1, 25, 'Nvidia', 'grafikkarte');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 2, 50, 'Nvidia', 'grafikkarte');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 3, 75, 'Nvidia', 'grafikkarte');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 4, 100, 'Nvidia', 'grafikkarte');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 5, 33, 'AMD', 'prozessor');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 6, 66, 'AMD', 'prozessor');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 7, 99, 'AMD', 'prozessor');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 8, 20, 'AMD', 'grafikkarte');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 9, 40, 'AMD', 'grafikkarte');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 10, 60, 'AMD', 'grafikkarte');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 11, 80, 'AMD', 'grafikkarte');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 12, 8, 'Microsoft', 'arbeitsspeicher');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 13, 16, 'hama', 'arbeitsspeicher');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 14, 24, 'hama', 'arbeitsspeicher');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 15, 32, 'hama', 'arbeitsspeicher');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 16, 40, 'hama', 'arbeitsspeicher');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 17, 48, 'hama', 'arbeitsspeicher');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 18, 56, 'hama', 'arbeitsspeicher');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 19, 64, 'hama', 'arbeitsspeicher');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 20, 72, 'hama', 'arbeitsspeicher');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 21, 80, 'hama', 'arbeitsspeicher');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 22, 88, 'hama', 'arbeitsspeicher');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 23, 92, 'hama', 'arbeitsspeicher');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 24, 100, 'hama', 'arbeitsspeicher');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 25, 16, 'Microsoft', 'prozessor');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 26, 32, 'Microsoft', 'prozessor');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 27, 48, 'Microsoft', 'prozessor');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 28, 62, 'Microsoft', 'prozessor');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 29, 78, 'Microsoft', 'prozessor');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 30, 90, 'Microsoft', 'prozessor');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 31, 5, 'Microsoft', 'prozessor');
+INSERT INTO Hardware ( id, leistung, hersteller, art ) VALUES ( 32, 8, 'AMD', 'prozessor');
 
 --SALE
-INSERT INTO Sale ( produktId, saleProzent) VALUES ( 1, 50.00);
-INSERT INTO Sale ( produktId, saleProzent) VALUES ( 2, 50.00);
+INSERT INTO Sale (produktId, saleProzent) VALUES (43, 31);
+INSERT INTO Sale (produktId, saleProzent) VALUES (28, 45);
+INSERT INTO Sale (produktId, saleProzent) VALUES (48, 38);
+INSERT INTO Sale (produktId, saleProzent) VALUES (25, 78);
+INSERT INTO Sale (produktId, saleProzent) VALUES (24, 75);
+INSERT INTO Sale (produktId, saleProzent) VALUES (3, 84);
 
 --COUNTDOWNARTIKEL
-INSERT INTO CountdownArtikel ( id, countdownZeit, extraProzent ) VALUES ( 2, 10000, 20.00);
-
---WARENKORB
-INSERT INTO Warenkorb ( produktId) VALUES ( 1);
-INSERT INTO Warenkorb ( produktId) VALUES ( 2);
+INSERT INTO Countdown ( id, countdownZeit, extraProzent ) VALUES ( 1, 62, 31);
+INSERT INTO Countdown ( id, countdownZeit, extraProzent ) VALUES ( 2, 99, 90);
+INSERT INTO Countdown ( id, countdownZeit, extraProzent ) VALUES ( 3, 98, 15);
+INSERT INTO Countdown ( id, countdownZeit, extraProzent ) VALUES ( 4, 80, 42);
+INSERT INTO Countdown ( id, countdownZeit, extraProzent ) VALUES ( 5, 70, 23);
+INSERT INTO Countdown ( id, countdownZeit, extraProzent ) VALUES ( 6, 80, 53);

@@ -21,6 +21,8 @@ CREATE TABLE Software (
 	spielerAnzahl NOT NULL,
 	genre TEXT NOT NULL,
 	fsk INTEGER NOT NULL,
+	minRequirements INTEGER NOT NULL,
+	recRequirements INTEGER NOT NULL,
 	CONSTRAINT fk_Software1 FOREIGN KEY (id) REFERENCES Produkt(id)
 	CONSTRAINT check_spieler_anzahl CHECK ( spielerAnzahl > 0 AND spielerAnzahl < 9 )
 );

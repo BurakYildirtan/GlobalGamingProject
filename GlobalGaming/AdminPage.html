@@ -8,13 +8,12 @@
         <link rel="icon" type="image/x-icon" href="pics/favicon.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="css/slideshow.css">
     </head>
 
 <body>
     <header class="headerTitle">
         <h1 class="textTitle textGlobal">GLOBAL</h1>
-        <img src="pics/GlobalGamingLogo.png" alt="Logo" width="315px" height="250px">
+        <a class="NavBottons" href="Home.html"><img src="pics/GlobalGamingLogo.png" alt="Logo" width="315px" height="250px" onMouseover="this.src='pics/GlobalGamingLogoWeiss.png';" onMouseout="this.src='pics/GlobalGamingLogo.png';"></a>
         <h1 class="textTitle textGaming">GAMING</h1>
     </header>
     <h2 class="textTitle textAdmin">Admin - Bereich</h2>
@@ -33,6 +32,8 @@
                     <th id="headline_product_player" class="thead_product">Spieler</th>
                     <th id="headline_product_genre" class="thead_product">Genre</th>
                     <th id="headline_product_fsk" class="thead_product">Fsk</th>
+                    <th id="headline_product_genre" class="thead_product">minR</th>
+                    <th id="headline_product_fsk" class="thead_product">recR</th>
                     <th id="headline_product_performance" class="thead_product">Leistung</th>
                     <th id="headline_product_producer" class="thead_product">Hersteller</th>
                     <th id="headline_product_type" class="thead_product">Art</th>
@@ -148,6 +149,22 @@
                     </div>
                 </div>
 
+                <div class="cProductInput">
+                    <label class="labelInput" for="productMinReq">Min Requirement : </label>
+                    <input id="productMinReq" class="inputProduct softwareData" type="value">
+                    <div class="cNotice">
+                        <p class="normalText">0 <= deine Zahl <= 100</p>
+                    </div>
+                </div>
+
+                <div class="cProductInput">
+                    <label class="labelInput" for="productRecReq">Rec Requirememt : </label>
+                    <input id="productRecReq" class="inputProduct softwareData" type="value">
+                    <div class="cNotice">
+                        <p class="normalText">Min Req. < deine Zahl <= 100</p>
+                    </div>
+                </div>
+
             </div>
 
             <div id="cHardwareSpecs" class="cSpecs cHardwareSpecs">
@@ -254,6 +271,8 @@
                 <option value="spielerAnzahl">spielerAnzahl</option>
                 <option value="genre">genre</option>
                 <option value="fsk">fsk</option>
+                <option value="minRequirements">minRequirements</option>
+                <option value="recRequirements">recRequirements</option>
             </select>
             <div class="cNotice">
                 <p class="normalText">Bitte wähle eines aus</p>

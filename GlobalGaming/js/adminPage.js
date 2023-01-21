@@ -12,21 +12,38 @@ var adminOption = document.querySelectorAll('input[type="radio"][name="adminOpti
 
 adminOption.forEach( button => {
     button.addEventListener('change', function() {
+
+        let cInsert = document.getElementById('cInsertProduct').style;
+        let cChange = document.getElementById('cChangeProduct').style;
+        let cDelete = document.getElementById('cDeleteProduct').style;
         switch (this.value) {
             case '0':
-                document.getElementById('cInsertProduct').style.visibility = 'visible';
-                document.getElementById('cChangeProduct').style.visibility = 'hidden';
-                document.getElementById('cDeleteProduct').style.visibility = 'hidden';
+                cInsert.visibility = 'visible';
+                cChange.visibility = 'hidden';
+                cDelete.visibility = 'hidden';
+
+                cInsert.display = 'flex';
+                cChange.display = 'none';
+                cDelete.display = 'none';
+
                 break;
             case '1':
-                document.getElementById('cInsertProduct').style.visibility = 'hidden';
-                document.getElementById('cChangeProduct').style.visibility = 'visible';
-                document.getElementById('cDeleteProduct').style.visibility = 'hidden';
+                cInsert.visibility = 'hidden';
+                cChange.visibility = 'visible';
+                cDelete.visibility = 'hidden';
+
+                cInsert.display = 'none';
+                cChange.display = 'flex';
+                cDelete.display = 'none';
                 break;
             case '2':
-                document.getElementById('cInsertProduct').style.visibility = 'hidden';
-                document.getElementById('cChangeProduct').style.visibility = 'hidden';
-                document.getElementById('cDeleteProduct').style.visibility = 'visible';
+                cInsert.visibility = 'hidden';
+                cChange.visibility = 'hidden';
+                cDelete.visibility = 'visible';
+
+                cInsert.display = 'none';
+                cChange.display = 'none';
+                cDelete.display = 'flex';
                 break;
             default:
                 console.log('Etwas ist schief gelaufen');
@@ -182,6 +199,8 @@ var inpReleaseDate = document.getElementById("productReleaseDate");
 var inpSalePerCent = document.getElementById("productSaleInPercent");
 var inpCountdownTime = document.getElementById("productCountdownTime");
 var inpCountdownSale = document.getElementById("productCountdownSale");
+var recReq  =  document.getElementById('productRecReq');
+var minReq  =  document.getElementById('productMinReq');
 
 var inpFsk = document.getElementById("productFsk");
 var inpProducer = document.getElementById("productProducer");
@@ -278,6 +297,8 @@ $('#btnSubmit').click(async function(event) {
     var isInpSaleChecked = document.getElementById("inpSale").checked;
     var isInpCountdownChecked = document.getElementById("inpCountdown").checked;
 
+    console.log(checkedSoftwareData())
+    console.log(checkedHardwareData())
     if(checkedSoftwareData() || checkedHardwareData()){
         if(!checkedProductData()){
             spanResponse.innerHTML = "Produkt - Werte sind nicht vollständig !"
@@ -303,6 +324,8 @@ $('#btnSubmit').click(async function(event) {
             return;
         }
         var softwareResponse = await insertSoftware(productResponse)
+
+        console.log ("ERG HARDWARE : ",softwareResponse)
     };
     
     //Wenn Hardware ausgewählt
@@ -369,9 +392,13 @@ async function insertSoftware(productResponse) {
     var valPlayer = parseInt(document.getElementById("productPlayer").value)
     var valGenre = document.getElementById("productGenre").value
     var valFsk = parseInt(document.getElementById("productFsk").value)
+    var valMinReq = parseInt(document.getElementById("productMinReq").value)
+    var valRecReq = parseInt(document.getElementById("productRecReq").value)
+
+
     try {
 
-        softwareData = { 'productId': productResponse.id, 'player' : valPlayer, 'genre' : valGenre, 'fsk' : valFsk};
+        softwareData = { 'productId': productId, 'player' : valPlayer, 'genre' : valGenre, 'fsk' : valFsk, 'minReq':valMinReq, 'recReq' : valRecReq };
         var softwareResponse = await requestSoftware( softwareData );
 
         console.log('Software erfolgreich hinzugefügt mit der ref. id : '+ softwareResponse.id);
@@ -495,6 +522,24 @@ inpFsk.addEventListener("input", function() {
         inpFsk.style.border = "5px solid green";
     }else{
         inpFsk.style.border = "3px solid red";
+    }
+});
+
+//minReq überprüfen
+minReq.addEventListener("input",function() {
+    if(minReq.value >= 1 && minReq.value <= 100 ) {
+        minReq.style.border = "5px solid green";
+    }else{
+        minReq.style.border = "3px solid red";
+    }
+});
+
+//recReq überprüfen
+recReq.addEventListener("input", function() {
+    if(recReq.value >= 1 && recReq.value <= 100 &&  parseInt(minReq.value) < parseInt(recReq.value) ) {
+        recReq.style.border = "5px solid green";
+    }else{
+        recReq.style.border = "3px solid red";
     }
 });
 
@@ -626,7 +671,7 @@ function createRow( productData, softwareData , hardwareData, saleData, countdow
             }
         })
     } else {
-        let softwareCellNr = 3
+        let softwareCellNr = 5
         let tableNameSoftware = "Software"
         for( let i = 0 ; i < softwareCellNr ; i++) {
             let blancC = createBlancCell( tableNameSoftware,counter)
@@ -793,9 +838,6 @@ async function requestProduct(product) {
 
 async function requestSoftware(software) {
     console.log('Software AJAX Aufruf gestartet');
-
-    console.log("SOFTWARE DATA REQUEST",software)
-
     var softwareData = await $.ajax({
         url: 'http://localhost:8000/api/software',
         method: 'post',
@@ -803,6 +845,7 @@ async function requestSoftware(software) {
         cache: false,
         data: JSON.stringify(software)
     }).done(function (response) {
+        console.log(response)
         response;
 
     }).fail(function (jqXHR, statusText, error) {
@@ -1001,10 +1044,13 @@ function checkedProductData() {
 };
 
 function checkedSoftwareData() {
+
     if(checkedProductData() &&
         inpPlayer.style.borderColor == "green" &&
         inpGenre.style.borderColor == "green" &&
-        inpFsk.style.borderColor == "green"){
+        inpFsk.style.borderColor == "green" &&
+        recReq.style.borderColor == "green" &&
+        minReq.style.borderColor == "green"){
             return true
         } else {
             return false
@@ -1395,10 +1441,34 @@ rBHardware2.addEventListener ("click", () => {
 
 $('#btnSubmit2').click(async function(event) {
     let id = document.getElementById("IdChange").value
+    let textFelder = ["titel","bildpfad","genre","hersteller","art"]
+    let numberFelder = ["spielerAnzahl","fsk","minRequirements","recRequirements"]
+    let attribute = document.getElementById("attributeChange").value
+    let attribute2 = document.getElementById("attributeChange2").value
+    var wertO = document.getElementById("WertChange")
+
+    console.log(attribute)
+    console.log(attribute2)
+
+    if (textFelder.includes(attribute) || textFelder.includes(attribute2)){
+        wertO.type = "value"
+    }
+    if (numberFelder.includes(attribute) || numberFelder.includes(attribute2)){
+        wertO.type = "number"
+    }
+    if (attribute === "erscheinungsDatum" || attribute === "erscheinungsDatum"){
+        wertO.type = "date"
+    }
+    if (attribute === "nettoPreis" || attribute === "nettoPreis"){
+        wertO.type = "number"
+        wertO.setAttribute("step",0.01)
+    }
+
+    let wert = document.getElementById("WertChange").value
+    console.log(rBSoftware2.checked)
+
     if(await existProductId(id)){
         if(rBSoftware2.checked){
-            let attribute = document.getElementById("attributeChange").value
-            let wert = String(document.getElementById("WertChange").value)
             var productData = { 'id' : id, 'attribute' : attribute, 'wert' : wert};
             var Option = ["titel","nettoPreis","bildpfad","erscheinungsDatum"]
             if(Option.includes(attribute)){
@@ -1409,11 +1479,9 @@ $('#btnSubmit2').click(async function(event) {
             }
         }
         if(rBHardware2.checked){
-            let attribute = document.getElementById("attributeChange2").value
-            let wert = String(document.getElementById("WertChange").value)
-            var productData = { 'id' : id, 'attribute' : attribute, 'wert' : wert};
+            var productData = { 'id' : id, 'attribute' : attribute2, 'wert' : wert};
             var Option =["titel","nettoPreis","bildpfad","erscheinungsDatum"]
-            if(Option.includes(attribute)){
+            if(Option.includes(attribute2)){
                 await updateProdukt(productData)
             }
             else{
@@ -1421,4 +1489,9 @@ $('#btnSubmit2').click(async function(event) {
             }
         }
     }
+    wertO.type = "value"
+    wertO.value = null
+    document.getElementById("IdChange").value = null
+    clearValues()
+    createProductTable()
 });

@@ -21,6 +21,12 @@ serviceRouter.post('/software', function(request, response) {
     
     if(helper.isUndefined(request.body.fsk))
         errorMsgs.push('FSK fehlt');
+    
+    if(helper.isUndefined(request.body.minReq))
+        errorMsgs.push('minReq fehlt');
+
+    if(helper.isUndefined(request.body.recReq))
+        errorMsgs.push('recReq fehlt');
 
     if (errorMsgs.length > 0) {
         console.log('Service Software: Creation not possible, data missing');
@@ -30,8 +36,8 @@ serviceRouter.post('/software', function(request, response) {
 
     const softwareDao = new SoftwareDao(request.app.locals.dbConnection);
     try {
-        console.log('Service Software DAO wird versucht anzubinden')
-        var obj = softwareDao.create( request.body.productId, request.body.player, request.body.genre, request.body.fsk );
+        console.log('\nService Software DAO wird versucht anzubinden')
+        var obj = softwareDao.create( request.body.productId, request.body.player, request.body.genre, request.body.fsk, request.body.minReq, request.body.recReq );
         console.log('Service Software: Software Hinzugefügt !');
         response.status(200).json(obj);
 
@@ -158,6 +164,7 @@ serviceRouter.get('/software/existiert/:id', function(request, response) {
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
+
 serviceRouter.get('/software/get/:id', function(request, response) {
 
     const softwareDao = new SoftwareDao(request.app.locals.dbConnection);
@@ -175,6 +182,7 @@ serviceRouter.get('/software/get/:id', function(request, response) {
     }
 
 });
+
 serviceRouter.post('/software/update', function(request, response) {
     console.log('Service Software: Check ob ID existiert in Software' + request.body.id);
 
