@@ -51,96 +51,9 @@
                 <img class="iconImage" src="pics/icShoppingCart.svg" alt="Lupe" width="30px" height="30px">
             </div>
 
-            <!-- ein Artikel -->
-            <div class="cArticle">
-                <div class="cCancel">
-                    <button class=" articleButton cancelButton">X</button>
-                </div>
-                <div class="cPicture">
-                    <img class="imgArticle" src="pics/fortnite.jpeg" alt="articlePicture" width="220px" height="200px"/>
-                </div>
-                <!-- Beschreibung -->
-                <div class="cDescription">
-                    <div class="cDescriptionTitle">
-                        <h4 class="productTitle articleText">Fortnite </h4>
-                    </div>
-                    <p class="articleText articlePriceText">0.25€</p>
-                    <!-- Anzahl -->
-                    <div class="cQuantity">
-                        <div class="cQuantityText">
-                            <p class="articleText quantityText">Anzahl : </p>
-                            <p class="articleText quantityText">1</p>
-                        </div>
-                        <button class="articleButton moreButton">+</button>
-                        <button class="articleButton lessButton">-</button>
-                    </div>
-                </div>
-            </div>
-            <!-- ein Artikel -->
-            <div class="cArticle">
-                <div class="cCancel">
-                    <button class=" articleButton cancelButton">X</button>
-                </div>
-                <div class="cPicture">
-                    <img  class="imgArticle" src="pics/pubg.jpeg" alt="articlePicture" width="220px" height="200px"/>
-                </div>
-                <!-- Beschreibung -->
-                <div class="cDescription">
-                    <div class="cDescriptionTitle">
-                        <h4 class="productTitle articleText">Pubg - Playerunkowns Battlegrounds</h4>    
-                    </div>
-                    <p class="articleText articlePriceText">25.99€</p>
-                    <!-- Anzahl -->
-                    <div class="cQuantity">
-                        <div class="cQuantityText">
-                            <p class="articleText quantityText">Anzahl : </p>
-                            <p class="articleText quantityText">1</p>
-                        </div>
-                        <button class="articleButton moreButton">+</button>
-                        <button class="articleButton lessButton">-</button>
-                    </div>
-                </div>
-            </div>
-            <!-- ein Artikel -->
-            <div class="cArticle">
-                <div class="cCancel">
-                    <button class=" articleButton cancelButton">X</button>
-                </div>
-                <div class="cPicture">
-                    <img class="imgArticle" src="pics/halo.jpeg" alt="articlePicture" width="220px" height="200px"/>
-                </div>
-                <!-- Beschreibung -->
-                <div class="cDescription">
-                    <div class="cDescriptionTitle">
-                        <h4 class="productTitle articleText">Halo Combat Ecolved</h4>
-                    </div>
-                    <p class="articleText articlePriceText">17.99€</p>
-                    <!-- Anzahl -->
-                    <div class="cQuantity">
-                        <div class="cQuantityText">
-                            <p class="articleText quantityText">Anzahl : </p>
-                            <p class="articleText quantityText">1</p>
-                        </div>
-                        <button class="articleButton moreButton">+</button>
-                        <button class="articleButton lessButton">-</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Zahlungsprozess -->
-            <div class="cPaymentProcess">
-                <div class="cSum">
-                    <p class="articleText sumText">Summe : </p>
-                    <p class="articleText sumText sumValue">1234 €</p>
-                </div>
-                <div class="cPay">
-                    <button class=" buyNowButton articleButton">Jetzt Kaufen</button>
-                </div>
-            </div>
-        </section>
-        
-      
-
+<div id="warenkorbcontent"></div>   
+   <div class="cPaymentProcess"> <div class="cSum"> <p class="articleText sumText" id="Summe">Summe: </p> <p class="articleText sumText sumValue" id="SumValue">0 €</p> </div> <div class="cPay"> <button class=" buyNowButton articleButton">Jetzt Kaufen</button> </div> </div>
+	<button class=" cPayments paymentsButton">Zahlungsart</button>
 <!-- Footer -->
         <footer>
             <div style="width: 100%">
@@ -169,6 +82,7 @@
                 </div>
             </div>
         </footer>
+		<script src="js/shoppingCartPage.js"></script>
     </body>
 </html>
 

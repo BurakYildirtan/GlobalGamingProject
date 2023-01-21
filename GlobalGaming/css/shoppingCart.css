@@ -141,6 +141,8 @@
     align-items: center;
 }
 
+
+
 .cQuantityText {
     display: flex;
     height: auto;
@@ -206,6 +208,17 @@
     font-size: 25px;
     border-radius: 8px;
 }
+
+.cPayments {
+    background-color: rgb(204, 204, 204);
+    color: #1f1f1f;  
+    padding: 5px 10px 5px 10px;
+    font-size: 25px;
+    border-radius: 8px;
+	margin: 10px;
+}
+
+
 
 .moreButton {
     margin-right: 10px;

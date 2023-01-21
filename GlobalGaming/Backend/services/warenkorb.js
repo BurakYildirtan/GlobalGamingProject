@@ -85,6 +85,37 @@ serviceRouter.get('/warenkorb/add/:id', function(request, response) {
     }
 
 });
+serviceRouter.get('/warenkorb/delete/:id', function(request, response) {
+    console.log('Service Warenkorb: Client requested deletion of record, id=' + request.params.id);
+
+    const warenkorbDao = new WarenkorbDao(request.app.locals.dbConnection);
+    try {
+        var obj = warenkorbDao.loadById(request.params.id)
+        warenkorbDao.delete(request.params.id);
+        console.log('Service Warenkorb: Deletion of record successfull, id=' + request.params.id);
+        response.status(200).json({ 'gelöscht': true , 'delItem': obj });
+    } catch (ex) {
+        console.error(ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+serviceRouter.get('/warenkorb/reduce/:id', function(request, response) {
+    let id= request.params.id
+    console.log('Service Warenkorb: Client requested deletion of record, id=' + request.params.id);
+    
+    const warenkorbDao = new WarenkorbDao(request.app.locals.dbConnection);
+    try {
+        
+        var obj = warenkorbDao.loadById(id)
+        warenkorbDao.reduce(id);
+        console.log('Service Warenkorb: Deletion of record successfull, id=' + request.params.id);
+        response.status(200).json({ 'gelöscht': true , 'delItem': obj });
+    } catch (ex) {
+        console.error(ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
 
 
 
