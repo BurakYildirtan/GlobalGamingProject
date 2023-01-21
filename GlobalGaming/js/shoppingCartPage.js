@@ -13,6 +13,7 @@ var totalAmount = 0;
 
 var allProducts = [];
 var allWarenkorb = [];
+var allSales = [];
 
 var count = document.getElementById("count");
 var price = document.getElementById("SumValue");
@@ -104,6 +105,11 @@ cPayments.addEventListener("click", function() {
         .then(data => {
             allProducts = data;
         })      
+        await fetch("http://localhost:8000/api/sale/all")
+        .then(response => response.json())
+        .then(responseData => {
+            allSales = responseData;
+        })
         
         allWarenkorb.forEach(el =>{
             
@@ -113,6 +119,7 @@ cPayments.addEventListener("click", function() {
             }
             
         })
+
         
         warenkorbUnique.forEach(el => {
             produkt = allProducts.filter(item => item.id == el.produktId)[0]
@@ -120,8 +127,13 @@ cPayments.addEventListener("click", function() {
             image = produkt.bildpfad
             articlename = produkt.titel
             priceValues = produkt.nettoPreis
+            allSales.forEach(saleItem =>{
+                if(el.produktId == saleItem.produktId){
+                    priceValues -= priceValues * saleItem.saleProzent /100  
+                }
+            })
             totalAmount += priceValues * amount
-            pcontent.innerHTML += '<div class="cArticle"> <div class="cCancel"> <button class=" articleButton cancelButton">X</button> </div>  <div class="cPicture"> <img  class="imgArticle" src="'+image+'" alt="articlePicture" width="220px" height="200px"/>  </div>  <!-- Beschreibung --> <div class="cDescription"> <div class="cDescriptionTitle"> <h4 class="productTitle articleText">'+articlename+'</h4> </div> <p class="articleText articlePriceText" id="priceOf'+produkt.id+'">'+priceValues+'€</p> <!-- Anzahl --> <div class="cQuantity">  <div class="cQuantityText"> <p class="articleText quantityText">Anzahl : </p>  <p class="articleText quantityText"  data-count="count" id="'+produkt.id+'">'+amount+'</p> </div> <button class="articleButton moreButton"  id="add'+produkt.id+'">+</button> <button class="articleButton lessButton" id="subtract'+produkt.id+'">-</button> </div> </div> </div>'
+            pcontent.innerHTML += '<div class="cArticle"> <div class="cCancel"> <button class=" articleButton cancelButton">X</button> </div>  <div class="cPicture"> <img  class="imgArticle" src="'+image+'" alt="articlePicture" width="220px" height="200px"/>  </div>  <!-- Beschreibung --> <div class="cDescription"> <div class="cDescriptionTitle"> <h4 class="productTitle articleText">'+articlename+'</h4> </div> <p class="articleText articlePriceText" id="priceOf'+produkt.id+'">'+priceValues.toFixed(2)+'€</p> <!-- Anzahl --> <div class="cQuantity">  <div class="cQuantityText"> <p class="articleText quantityText">Anzahl : </p>  <p class="articleText quantityText"  data-count="count" id="'+produkt.id+'">'+amount+'</p> </div> <button class="articleButton moreButton"  id="add'+produkt.id+'">+</button> <button class="articleButton lessButton" id="subtract'+produkt.id+'">-</button> </div> </div> </div>'
             price.innerText = totalAmount.toFixed(2)
         })
         addButton = document.querySelectorAll(".moreButton");
