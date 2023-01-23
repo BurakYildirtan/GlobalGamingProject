@@ -14,6 +14,7 @@ var totalAmount = 0;
 var allProducts = [];
 var allWarenkorb = [];
 var allSales = [];
+var allCountdown = [];
 
 var count = document.getElementById("count");
 var price = document.getElementById("SumValue");
@@ -110,6 +111,11 @@ cPayments.addEventListener("click", function() {
         .then(responseData => {
             allSales = responseData;
         })
+        await fetch("http://localhost:8000/api/countdown/all")
+        .then(response => response.json() )
+        .then(responseData => {
+            allCountdown = responseData;
+        })
         
         allWarenkorb.forEach(el =>{
             
@@ -127,9 +133,15 @@ cPayments.addEventListener("click", function() {
             image = produkt.bildpfad
             articlename = produkt.titel
             priceValues = produkt.nettoPreis
+            let countdownActuel = allCountdown[0]
+            console.log("allSales",allSales)
             allSales.forEach(saleItem =>{
                 if(el.produktId == saleItem.produktId){
                     priceValues -= priceValues * saleItem.saleProzent /100  
+                    
+                    if (countdownActuel != null && countdownActuel.id == saleItem.id) {
+                        priceValues -= priceValues * countdownActuel.extraProzent /100
+                    } 
                 }
             })
             totalAmount += priceValues * amount
